@@ -6,13 +6,19 @@
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:35:50 by aducobu           #+#    #+#             */
-/*   Updated: 2023/05/26 22:25:45 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/02 15:30:31 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	nb_mots(const char *str, char c)
+static char	in_charset(char c)
+{
+	return (c == 32 || (c >= 9 && c <= 13));
+}
+
+
+static int	nb_mots(const char *str)
 {
 	int	mots;
 	int	sep;
@@ -21,7 +27,7 @@ static int	nb_mots(const char *str, char c)
 	sep = 1;
 	while (*str)
 	{
-		if (*str == c)
+		if (in_charset(*str))
 			sep = 1;
 		else if (sep == 1)
 		{
@@ -33,12 +39,12 @@ static int	nb_mots(const char *str, char c)
 	return (mots);
 }
 
-static int	nb_lettre(const char *s, char c)
+static int	nb_lettre(const char *s)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != c)
+	while (s[i] && !in_charset(s[i]))
 		i++;
 	return (i);
 }
@@ -54,7 +60,7 @@ static char	**error(char **res, int i)
 	return (NULL);
 }
 
-char	**ft_split(const char *str, char c)
+char	**ft_split(const char *str)
 {
 	char	**tab;
 	int		i;
@@ -62,19 +68,19 @@ char	**ft_split(const char *str, char c)
 
 	if (str == NULL)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (nb_mots(str, c) + 1));
+	tab = malloc(sizeof(char *) * (nb_mots(str) + 1));
 	if (tab == NULL)
 		return (NULL);
 	i = 0;
-	while (nb_mots(str, c))
+	while (nb_mots(str))
 	{
-		while (*str && *str == c)
+		while (*str && in_charset(*str))
 			str++;
-		tab[i] = malloc(sizeof(char) * nb_lettre(str, c) + 1);
+		tab[i] = malloc(sizeof(char) * nb_lettre(str) + 1);
 		if (!tab[i])
 			return (error(tab, i));
 		j = 0;
-		while (*str && *str != c)
+		while (*str && !in_charset(*str))
 			tab[i][j++] = *str++;
 		tab[i++][j] = '\0';
 	}
