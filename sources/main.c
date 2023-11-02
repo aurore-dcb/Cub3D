@@ -19,6 +19,14 @@ int	main(int argc, char **argv, char **env)
 	init_map(&data);
 	if (!read_file(&data, "./maps/cub.map"))
 		return (1);
-	printf("line = %d col = %d", data.nb_line, data.nb_col);
+	printf("line = %d col = %d\n", data.nb_line, data.nb_col);
+	if (!get_map(&data, "./maps/cub.map"))
+		return (1);
+	int i = 0;
+	while (data.map[i])
+	{
+		printf("%s", data.map[i]);
+		i++;
+	}
 	return (0);
 }

@@ -20,5 +20,6 @@ typedef struct s_map
 // parsing
 // int	ft_parsing(int argc, char **argv, char **env);
 int	read_file(t_map *data, char *file);
+int	get_map(t_map *data, char *file);
 
 #endif

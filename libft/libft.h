@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:46:29 by aducobu           #+#    #+#             */
-/*   Updated: 2023/05/27 02:04:58 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/02 17:10:11 by rmeriau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ int					convert_hexa(unsigned int nb, char c);
 #  define BUFFER_SIZE 42
 # endif
 
-char				*get_next_line(int fd);
-char				*clean_stash(char *stash);
-void				modif_stash(char *stash);
-int					is_new_line(char *line);
-char				*just_the_line(char str[]);
+char				*get_next_line(int fd, int to_free);
+char				*ft_strcpy(char *dest, char *src);
+char				*ft_strjoin_gnl(char *s1, char *s2);
+char				*save_line(char *line);
+char				*get_read(int fd, char *buf, char *res);
 
 typedef struct s_list
 {
