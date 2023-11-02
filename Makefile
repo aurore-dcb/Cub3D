@@ -1,7 +1,9 @@
 NAME = cub3D
 
 SRCS =	sources/main.c \
-		sources/parsing.c
+		sources/parsing.c \
+		sources/parsing_utils.c \
+		sources/free.c
 OBJS = ${SRCS:sources/%.c=objects/%.o}
 HEADER = headers/
 

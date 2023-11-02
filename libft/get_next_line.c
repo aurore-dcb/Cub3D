@@ -6,18 +6,18 @@
 /*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:15:10 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/02 17:10:07 by rmeriau          ###   ########.fr       */
+/*   Updated: 2023/11/02 17:33:53 by rmeriau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strjoin_gnl(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
-	int	j;
-	int len_1;
-	int len_2;
-	char *tmp;
+	int		j;
+	int		len_1;
+	int		len_2;
+	char	*tmp;
 
 	if (!s1 && !s2)
 		return (NULL);
@@ -37,12 +37,12 @@ char *ft_strjoin_gnl(char *s1, char *s2)
 	return (tmp);
 }
 
-
-char *save_line(char *line)
+char	*save_line(char *line)
 {
-	int i = 0;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
+	i = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
 	if (!line[i])
@@ -56,10 +56,10 @@ char *save_line(char *line)
 	return (tmp);
 }
 
-char *get_read(int fd, char *buf, char *res)
+char	*get_read(int fd, char *buf, char *res)
 {
-	int size;
-	char *tmp;
+	int		size;
+	char	*tmp;
 
 	tmp = NULL;
 	size = read(fd, buf, BUFFER_SIZE);
@@ -83,12 +83,12 @@ char *get_read(int fd, char *buf, char *res)
 	return (res);
 }
 
-char *get_next_line(int fd, int to_free)
+char	*get_next_line(int fd, int to_free)
 {
-	static char *res;
-	char *line;
-	char *tmp;
-	char *buf;
+	static char	*res;
+	char		*line;
+	char		*tmp;
+	char		*buf;
 
 	if (to_free)
 		return (free(res), NULL);

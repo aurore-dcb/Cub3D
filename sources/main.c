@@ -28,5 +28,6 @@ int	main(int argc, char **argv, char **env)
 		printf("%s", data.map[i]);
 		i++;
 	}
+	free_char(data.map);
 	return (0);
 }
