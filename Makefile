@@ -1,8 +1,9 @@
 NAME = cub3D
 
-SRCS =	sources/main.c
-
+SRCS =	sources/main.c \
+		sources/parsing.c
 OBJS = ${SRCS:sources/%.c=objects/%.o}
+HEADER = headers/
 
 CC = cc
 CFLAGS = -Lminilibx-linux #-Wall -Wextra -Werror 
@@ -23,11 +24,11 @@ minilibx-linux/libmlx_Linux.a:
 			make -C minilibx-linux
 
 ${NAME}:	${OBJS} libft/libft.a minilibx-linux/libmlx_Linux.a
-			${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBFT_LIB} ${MLX_LIB} ${MLX_FLAGS}
+			${CC} -I $(HEADER) ${CFLAGS} -o ${NAME} ${OBJS} ${LIBFT_LIB} ${MLX_LIB} ${MLX_FLAGS}
 
 objects/%.o: sources/%.c
 			mkdir -p $(dir $@)
-			${CC} ${CFLAGS} -c -o $@ $^
+			${CC} -I $(HEADER) ${CFLAGS} -c -o $@ $^
 
 clean:
 			${RM} objects
