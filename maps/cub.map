@@ -1,11 +1,11 @@
-NO ./img/p_right.xpm
-SO ./img/p_right.xpm
-WE ./img/p_right.xpm
+NO ./img/bluestone.png
+SO ./img/colorstone.png
+WE ./img/eagle.png
 
 
 C 200,30,38
 
-EA              ./img/p_right.xpm
+EA              ./img/greystone.png
 
                 F 255,100,0
         1111111111111111111111111

@@ -45,7 +45,7 @@ int main(int argc, char **argv, char **env)
 
     init_map(&data);
     if (!ft_parsing(argc, argv, env, &data))
-        return (1);
+        return (free_data(&data), 1);
     printf("path N = %s\n", data.path_N);
     printf("path S = %s\n", data.path_S);
     printf("path E = %s\n", data.path_E);

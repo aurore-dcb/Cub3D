@@ -12,11 +12,11 @@ int	color_format(char *tab)
 	while (color[i])
 		i++;
 	if (i != 3)
-		return (0);
+		return (free_tab(color), 1);
 	if (ft_atoi(color[0]) < 0 || ft_atoi(color[0]) > 255
 		|| ft_atoi(color[1]) < 0 || ft_atoi(color[1]) > 255
 		|| ft_atoi(color[2]) < 0 || ft_atoi(color[2]) > 255)
-		return (0);
+		return (free_tab(color), 0);
 	free_tab(color);
 	return (1);
 }
@@ -25,7 +25,6 @@ int	check_color(t_map *data, char **tab)
 {
 	if (ft_strcmp(tab[0], "F") == 0 && !data->F_color)
 	{
-		//verifier format couleur
 		if (!color_format(tab[1]))
 			return (0);
 		data->F_color = ft_strcpy(data->F_color, tab[1]);
@@ -33,7 +32,6 @@ int	check_color(t_map *data, char **tab)
 	}
 	else if (ft_strcmp(tab[0], "C") == 0 && !data->C_color)
 	{
-		//verifier format couleur
 		if (!color_format(tab[1]))
 			return (0);
 		data->C_color = ft_strcpy(data->C_color, tab[1]);
@@ -125,7 +123,7 @@ int	check_config(char **argv, t_map *data)
 		return (printf("Error\nCan't open file map\n"), 0);
 	line = get_next_line(fd, 0);
 	if (!line)
-		return (printf("Error\n"), 0);
+		return (printf("Error\n"), close(fd), 0);
 	while (line && begin_line(line))
 	{
 		i = 0;
@@ -135,7 +133,7 @@ int	check_config(char **argv, t_map *data)
 				&& line[i++] != '\n')
 			{
 				if (!check_texture(line, data))
-					return (0);
+					return (free(line), get_next_line(fd, 1), close(fd), 0);
 				break ;
 			}
 			i++;

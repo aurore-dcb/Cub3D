@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split2.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:35:50 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/03 10:35:15 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/03 11:43:02 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static char	in_charset(char c, char charset)
 {
 	return (c == charset);
 }
-
 
 static int	nb_mots(const char *str, char charset)
 {
