@@ -15,16 +15,6 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void free_data(t_map *data)
-{   
-    free(data->path_N);
-    free(data->path_S);
-    free(data->path_E);    
-    free(data->path_W);
-    free(data->C_color);
-    free(data->F_color);
-}
-
 void	free_char_spe(char **tableau, int len)
 {
 	int	i;
@@ -38,4 +28,22 @@ void	free_char_spe(char **tableau, int len)
 		i++;
 	}
 	free(tableau);
+}
+
+void	free_data(t_map *data)
+{
+	if (data->map)
+		free_tab(data->map);
+	if (data->path_N)
+		free(data->path_N);
+	if (data->path_S)
+		free(data->path_S);
+	if (data->path_E)
+		free(data->path_E);
+	if (data->path_W)
+		free(data->path_W);
+	if (data->C_color)
+		free(data->C_color);
+	if (data->F_color)
+		free(data->F_color);
 }

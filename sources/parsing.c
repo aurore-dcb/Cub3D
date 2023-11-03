@@ -1,141 +1,34 @@
 #include "cub3d.h"
 
-int	begin_map(char *lign)
+int	begin_line(char *line)
 {
 	int	i;
 
 	i = 0;
-	if (!lign)
-		return (0);
-	while (is_sp(lign[i]))
+	while (((line[i] >= 9 && line[i] <= 13) && line[i] != '\n')
+		|| line[i] == 32)
 		i++;
-	if (lign[i] == '\0')
+	if (line[i] == '\n')
 		return (1);
-	if (lign[i] != '1')
-		return (0);
-	else
-		return (2);
-	return (1);
+	if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W'
+		|| line[i] == 'C' || line[i] == 'F')
+		return (1);
+	return (0);
 }
 
-int	get_map_size(t_map *data, char *lign)
+int	read_file(t_map *data, char *line, int fd)
 {
-	int	i;
-
-	i = 0;
-	if (!lign)
+	if (!line)
 		return (0);
-	while (lign[i])
-		i++;
-	if (data->nb_col < i)
-		data->nb_col = i;
-	return (1);
-}
-
-// while (lign[i])
-// {
-// 	if (is_carac_map(lign[i]))
-// 		data->nb_player += 1;
-// 	if (data->nb_player > 1)
-// 		return (0);
-// 	if (!test_valid_carac(lign[i]))
-// 		return (0);
-// 	i++;
-// }
-
-char	*get_first_row(int fd)
-{
-	char	*lign;
-
-	lign = get_next_line(fd, 0);
-	if (!lign)
-		return (0);
-	while (lign)
+	while (line)
 	{
-		if (!begin_map(lign))
-			return (0);
-		else if (begin_map(lign) == 2)
-			break ;
-		free(lign);
-		lign = get_next_line(fd, 0);
-	}
-	return (lign);
-}
-
-int	read_file(t_map *data, char *file)
-{
-	int		fd;
-	char	*lign;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (printf("Error\nCan't open file\n"), 0);
-	lign = get_first_row(fd);
-	if (!lign)
-		return (0);
-	while (lign)
-	{
-		if (!get_map_size(data, lign))
+		if (!get_map_size(data, line))
 			return (printf("Error\n"), 0);
-		free(lign);
+		free(line);
 		data->nb_line += 1;
-		lign = get_next_line(fd, 0);
+		line = get_next_line(fd, 0);
 	}
-	close(fd);
-	free(lign);
-	return (1);
-}
-
-int	fill_map(t_map *data, char *lign, int fd)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < data->nb_line)
-	{
-		data->map[i] = (char *)malloc((ft_strlen(lign) + 1) * sizeof(char));
-		if (!data->map[i])
-			return (free_char_spe(data->map, i), 0);
-		j = 0;
-		while (lign[j])
-		{
-			data->map[i][j] = lign[j];
-			if (is_carac_map(data->map[i][j]))
-			{
-				data->x_player = i;
-				data->y_player = j;
-				data->nb_player += 1;
-			}
-			j++;
-		}
-		data->map[i][j] = '\0';
-		free(lign);
-		lign = get_next_line(fd, 0);
-		i++;
-	}
-	data->map[i] = 0;
-	return (1);
-}
-
-int	get_map(t_map *data, char *file)
-{
-	int		fd;
-	char	*lign;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (printf("Error\nCan't open file\n"), 0);
-	data->map = (char **)malloc((data->nb_line + 1) * sizeof(char *));
-	if (!data->map)
-		return (printf("Error\n"), 0);
-	lign = get_first_row(fd);
-	if (!lign)
-		return (0);
-	if (!fill_map(data, lign, fd))
-		return (0);
-	close(fd);
+	free(line);
 	return (1);
 }
 
@@ -155,7 +48,7 @@ int	ft_parsing(int argc, char **argv, char **env, t_map *data)
 		return (printf("Error\nWrong number of arguments\n"), 0);
 	if (!ft_extantion(argv[1]))
 		return (0);
-    if (!check_config(argv, data))
+	if (!check_config(argv, data))
 		return (0);
 	return (1);
 }

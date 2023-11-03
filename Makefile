@@ -4,7 +4,10 @@ SRCS =	sources/main.c \
 		sources/parsing.c \
 		sources/parsing_utils.c \
 		sources/parsing_test.c \
+		sources/parsing_player.c \
 		sources/check_config.c \
+		sources/check_config_utils.c \
+		sources/get_map.c \
 		sources/frees.c \
 		sources/utils.c
 OBJS = ${SRCS:sources/%.c=objects/%.o}
