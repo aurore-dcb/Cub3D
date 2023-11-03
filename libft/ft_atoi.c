@@ -6,7 +6,7 @@
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:19:02 by aducobu           #+#    #+#             */
-/*   Updated: 2023/05/26 19:20:48 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/03 11:38:50 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ int	ft_atoi(const char *str)
 			neg *= -1;
 		i++;
 	}
+	if (!(str[i] >= '0' && str[i] <= '9'))
+		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
-	{
-		n = n * 10 + (str[i] - 48);
-		i++;
-	}
+		n = n * 10 + (str[i++] - 48);
+	if (str[i] && !(str[i] >= '0' && str[i] <= '9'))
+		return (-1);
 	return (n * neg);
 }
 

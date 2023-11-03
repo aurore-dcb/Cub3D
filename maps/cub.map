@@ -3,7 +3,7 @@ SO ./img/p_right.xpm
 WE ./img/p_right.xpm
 
 
-C 225,30,0
+C 200,30,38
 
 EA              ./img/p_right.xpm
 
