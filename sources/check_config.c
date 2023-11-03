@@ -1,14 +1,41 @@
 #include "cub3d.h"
 
+int	color_format(char *tab)
+{
+	int		i;
+	char	**color;
+
+	i = 0;
+	color = ft_split_char(tab, ',');
+	if (!color)
+		return (0);
+	while (color[i])
+		i++;
+	if (i != 3)
+		return (0);
+	if (ft_atoi(color[0]) < 0 || ft_atoi(color[0]) > 255
+		|| ft_atoi(color[1]) < 0 || ft_atoi(color[1]) > 255
+		|| ft_atoi(color[2]) < 0 || ft_atoi(color[2]) > 255)
+		return (0);
+	free_tab(color);
+	return (1);
+}
+
 int	check_color(t_map *data, char **tab)
 {
 	if (ft_strcmp(tab[0], "F") == 0 && !data->F_color)
 	{
+		//verifier format couleur
+		if (!color_format(tab[1]))
+			return (0);
 		data->F_color = ft_strcpy(data->F_color, tab[1]);
 		return (1);
 	}
 	else if (ft_strcmp(tab[0], "C") == 0 && !data->C_color)
 	{
+		//verifier format couleur
+		if (!color_format(tab[1]))
+			return (0);
 		data->C_color = ft_strcpy(data->C_color, tab[1]);
 		return (1);
 	}
@@ -21,16 +48,17 @@ int	check_texture_paths(t_map *data, char **tab)
 
 	fd = open(tab[1], O_RDONLY);
 	if (fd == -1)
-		printf("Error Bad path for texture\n");
-	// return (0);
+		return (0);
 	if (strcmp(tab[0], "NO") == 0 && !data->path_N)
 		data->path_N = ft_strcpy(data->path_N, tab[1]);
-	if (strcmp(tab[0], "SO") == 0 && !data->path_S)
+	else if (strcmp(tab[0], "SO") == 0 && !data->path_S)
 		data->path_S = ft_strcpy(data->path_S, tab[1]);
-	if (strcmp(tab[0], "EA") == 0 && !data->path_E)
+	else if (strcmp(tab[0], "EA") == 0 && !data->path_E)
 		data->path_E = ft_strcpy(data->path_E, tab[1]);
-	if (strcmp(tab[0], "WE") == 0 && !data->path_W)
+	else if (strcmp(tab[0], "WE") == 0 && !data->path_W)
 		data->path_W = ft_strcpy(data->path_W, tab[1]);
+	else
+		return (0);
 	return (1);
 	close(fd);
 }
@@ -47,40 +75,18 @@ int	check_texture(char *line, t_map *data)
 	i = 0;
 	while (tab[i])
 		i++;
-	if (i > 2) // que 2 element dans la ligne de texture
-		return (free_tab(tab), printf("Error > 2\n"), 0);
+	if (i > 2)
+		return (free_tab(tab), printf("Error\n"), 0);
 	if (ft_strcmp(tab[0], "F") == 0 || ft_strcmp(tab[0], "C") == 0)
 	{
 		if (!check_color(data, tab))
 			return (free_tab(tab), printf("Error\nColor\n"), 0);
-		// check couleur sol et ciel
-		// if (ft_strcmp(tab[0], "F") == 0 && !data->F_color)
-		// {
-		// 	data->F_color = ft_strcpy(data->F_color, tab[1]);
-		// }
-		// else if (ft_strcmp(tab[0], "C") == 0 && !data->C_color)
-		// {
-		// 	data->C_color = ft_strcpy(data->C_color, tab[1]);
-		// }
 	}
 	else if (strcmp(tab[0], "NO") == 0 || strcmp(tab[0], "SO") == 0
 			|| strcmp(tab[0], "EA") == 0 || strcmp(tab[0], "WE") == 0)
 	{
-		//check direction
 		if (!check_texture_paths(data, tab))
-			return (free_tab(tab), printf("Error\nTextures\n"), 0);
-		// fd = open(tab[1], O_RDONLY);
-		// if (fd == -1)
-		// 	printf("Error\nBad path for texture\n");
-		// if (strcmp(tab[0], "NO") == 0 && !data->path_N)
-		// 	data->path_N = ft_strcpy(data->path_N, tab[1]);
-		// if (strcmp(tab[0], "SO") == 0 && !data->path_S)
-		// 	data->path_S = ft_strcpy(data->path_S, tab[1]);
-		// if (strcmp(tab[0], "EA") == 0 && !data->path_E)
-		// 	data->path_E = ft_strcpy(data->path_E, tab[1]);
-		// if (strcmp(tab[0], "WE") == 0 && !data->path_W)
-		// 	data->path_W = ft_strcpy(data->path_W, tab[1]);
-		// close(fd);
+			return (free_tab(tab), printf("Error\nTexture\n"), 0);
 	}
 	free_tab(tab);
 	return (1);
@@ -91,8 +97,11 @@ int	begin_line(char *line)
 	int	i;
 
 	i = 0;
-	while ((line[i] >= 9 && line[i] <= 13) || line[i] == 32)
+	while (((line[i] >= 9 && line[i] <= 13) && line[i] != '\n')
+		|| line[i] == 32)
 		i++;
+	if (line[i] == '\n')
+		return (1);
 	if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W'
 		|| line[i] == 'C' || line[i] == 'F')
 		return (1);
@@ -113,25 +122,28 @@ int	check_config(char **argv, t_map *data)
 	line = get_next_line(fd);
 	if (!line)
 		return (printf("Error\n"), 0);
-	while (line) // et que la ligne ne commence pas par N S E W F C
+	while (line && begin_line(line))
 	{
-		// printf("\nn%d : ", index++);
 		i = 0;
-		while (line[i]  && begin_line(line))
+		while (line[i])
 		{
 			if (!((line[i] >= 9 && line[i] <= 13) || line[i] == 32)
 				&& line[i++] != '\n')
 			{
-				// il y a des caracteres autres que des espaces => check des donnees
-				check_texture(line, data);
+				if (!check_texture(line, data))
+					return (0);
 				break ;
 			}
 			i++;
 		}
 		free(line);
 		line = get_next_line(fd);
+		index++;
 	}
 	close(fd);
 	free(line);
+	if (!data->C_color || !data->F_color || !data->path_E || !data->path_N
+		|| !data->path_S || !data->path_W)
+		return (printf("Error\nNo enough informations\n"), 0);
 	return (1);
 }

@@ -20,6 +20,8 @@ typedef struct s_map
 	char	*C_color;
 }			t_map;
 
+// ft_split2
+char	**ft_split_char(const char *str, char charset);
 // parsing
 int			ft_extantion(char *map);
 int			ft_parsing(int argc, char **argv, char **env, t_map *data);

@@ -18,7 +18,7 @@ int	ft_parsing(int argc, char **argv, char **env, t_map *data)
 		return (printf("Error\nWrong number of arguments\n"), 0);
 	if (!ft_extantion(argv[1]))
 		return (0);
-    // check_texture(argv[1], data);
-    check_config(argv, data);
+    if (!check_config(argv, data))
+		return (0);
 	return (1);
 }
