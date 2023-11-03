@@ -58,7 +58,11 @@ int	check_texture_paths(t_map *data, char **tab)
 	else if (strcmp(tab[0], "WE") == 0 && !data->path_W)
 		data->path_W = ft_strcpy(data->path_W, tab[1]);
 	else
+	{
+		close(fd);
 		return (0);
+	}
+	close(fd);
 	return (1);
 	close(fd);
 }
