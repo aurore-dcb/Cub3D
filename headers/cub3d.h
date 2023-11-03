@@ -6,8 +6,8 @@
 # include "libft.h"
 # include <math.h>
 # include <stdio.h>
-# include <unistd.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_map
 {
@@ -25,7 +25,7 @@ typedef struct s_map
 }			t_map;
 
 // ft_split2
-char	**ft_split_char(const char *str, char charset);
+char		**ft_split_char(const char *str, char charset);
 // parsing
 // int	ft_parsing(int argc, char **argv, char **env);
 int			read_file(t_map *data, char *file);
@@ -35,6 +35,9 @@ int			is_spaces(char c);
 int			is_digit_map(char c);
 int			is_carac_map(char c);
 int			test_valid_carac(char c);
+
+int			test_rows(t_map *data);
+int			test_cols(t_map *data);
 
 int			ft_extantion(char *map);
 int			ft_parsing(int argc, char **argv, char **env, t_map *data);

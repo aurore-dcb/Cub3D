@@ -3,6 +3,7 @@ NAME = cub3D
 SRCS =	sources/main.c \
 		sources/parsing.c \
 		sources/parsing_utils.c \
+		sources/parsing_test.c \
 		sources/check_config.c \
 		sources/frees.c \
 		sources/utils.c
