@@ -14,6 +14,8 @@ typedef struct s_map
 	char	**map;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		width;
+	int		height;
 	int		nb_player;
 	int		nb_col;
 	int		nb_line;
@@ -55,4 +57,5 @@ int			check_config(char **argv, t_map *data);
 void		free_char_spe(char **tableau, int len);
 void		free_tab(char **tab);
 void		free_data(t_map *data);
+void		free_mlx(t_map *data);
 #endif
