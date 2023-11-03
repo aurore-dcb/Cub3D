@@ -7,7 +7,7 @@ int	begin_map(char *lign)
 	i = 0;
 	if (!lign)
 		return (0);
-	while (is_spaces(lign[i]))
+	while (is_sp(lign[i]))
 		i++;
 	if (lign[i] == '\0')
 		return (1);
@@ -95,13 +95,19 @@ int	fill_map(t_map *data, char *lign, int fd)
 	j = 0;
 	while (i < data->nb_line)
 	{
-		data->map[i] = (char *)malloc((data->nb_col + 1) * sizeof(char));
+		data->map[i] = (char *)malloc((ft_strlen(lign) + 1) * sizeof(char));
 		if (!data->map[i])
 			return (free_char_spe(data->map, i), 0);
 		j = 0;
 		while (lign[j])
 		{
 			data->map[i][j] = lign[j];
+			if (is_carac_map(data->map[i][j]))
+			{
+				data->x_player = i;
+				data->y_player = j;
+				data->nb_player += 1;
+			}
 			j++;
 		}
 		data->map[i][j] = '\0';
