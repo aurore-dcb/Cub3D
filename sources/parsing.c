@@ -44,6 +44,8 @@ int	ft_extantion(char *map)
 
 int	ft_parsing(int argc, char **argv, char **env, t_map *data)
 {
+	if (!env)
+		return (printf("Error\n"), 1);
 	if (argc != 2)
 		return (printf("Error\nWrong number of arguments\n"), 0);
 	if (!ft_extantion(argv[1]))

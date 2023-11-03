@@ -68,7 +68,6 @@ int	check_texture_paths(t_map *data, char **tab)
 int	check_texture(char *line, t_map *data)
 {
 	int		i;
-	int		fd;
 	char	**tab;
 
 	if (!line)

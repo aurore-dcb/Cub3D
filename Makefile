@@ -11,11 +11,11 @@ SRCS =	sources/main.c \
 		sources/frees.c \
 		sources/utils.c
 OBJS = ${SRCS:sources/%.c=objects/%.o}
-HEADER = headers/
+HEADER = -I headers/ -I libft/ -I mlx
 
 CC = cc
-CFLAGS = -Lminilibx-linux -g3#-Wall -Wextra -Werror 
-MLX_FLAGS = -lmlx -lXext -lX11
+CFLAGS = -Wall -Wextra -Werror  #-g3#-Wall -Wextra -Werror 
+MLX_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11
 RM = rm -rf
 
 LIBFT_DIR	= libft
@@ -32,11 +32,11 @@ minilibx-linux/libmlx_Linux.a:
 			make -C minilibx-linux
 
 ${NAME}:	${OBJS} libft/libft.a minilibx-linux/libmlx_Linux.a
-			${CC} -I $(HEADER) -I libft/ ${CFLAGS} -o ${NAME} ${OBJS} ${LIBFT_LIB} ${MLX_LIB} ${MLX_FLAGS}
+			${CC} ${CFLAGS} $(HEADER) -o ${NAME} ${OBJS} ${MLX_FLAGS} ${LIBFT_LIB} -lm
 
 objects/%.o: sources/%.c
 			mkdir -p $(dir $@)
-			${CC} -I $(HEADER) -I libft/ ${CFLAGS} -c -o $@ $^
+			${CC} ${CFLAGS} $(HEADER) -c -o $@ $^
 
 clean:
 			${RM} objects

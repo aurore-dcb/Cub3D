@@ -47,3 +47,10 @@ void	free_data(t_map *data)
 	if (data->F_color)
 		free(data->F_color);
 }
+
+void free_mlx(t_map *data)
+{
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+    mlx_destroy_display(data->mlx_ptr);
+    free(data->mlx_ptr);
+}
