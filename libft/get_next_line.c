@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:15:10 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/02 17:33:53 by rmeriau          ###   ########.fr       */
+/*   Updated: 2023/11/03 10:59:35 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	tmp = (char *)malloc(sizeof(char) * (len_1 + len_2 + 1));
 	if (!tmp)
 		return (NULL);
-	ft_strcpy(tmp, s1);
+	ft_strcpy_gnl(tmp, s1);
 	while (j < len_2)
 	{
 		tmp[len_1 + j] = s2[j];

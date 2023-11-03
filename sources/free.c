@@ -15,17 +15,3 @@ void	free_char(char **tableau)
 	free(tableau);
 }
 
-void	free_char_spe(char **tableau, int len)
-{
-	int	i;
-
-	i = 0;
-	if (tableau == NULL)
-		return ;
-	while (i < len)
-	{
-		free(tableau[i]);
-		i++;
-	}
-	free(tableau);
-}

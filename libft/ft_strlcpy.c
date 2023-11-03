@@ -6,7 +6,7 @@
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:37:52 by aducobu           #+#    #+#             */
-/*   Updated: 2023/05/26 22:25:45 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/02 16:57:52 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,21 @@ int	ft_strlcpy(char *dst, const char *src, int dstsize)
 	if (i < dstsize)
 		dst[i] = '\0';
 	return (ft_strlen(src));
+}
+
+char *ft_strcpy(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	dst = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (!dst)
+		return (0);
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return(dst);
 }

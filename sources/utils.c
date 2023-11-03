@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:35:50 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/02 15:30:31 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/03 10:35:15 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-static char	in_charset(char c)
+static char	in_charset(char c, char charset)
 {
-	return (c == 32 || (c >= 9 && c <= 13));
+	return (c == charset);
 }
 
 
-static int	nb_mots(const char *str)
+static int	nb_mots(const char *str, char charset)
 {
 	int	mots;
 	int	sep;
@@ -27,7 +27,7 @@ static int	nb_mots(const char *str)
 	sep = 1;
 	while (*str)
 	{
-		if (in_charset(*str))
+		if (in_charset(*str, charset))
 			sep = 1;
 		else if (sep == 1)
 		{
@@ -39,12 +39,12 @@ static int	nb_mots(const char *str)
 	return (mots);
 }
 
-static int	nb_lettre(const char *s)
+static int	nb_lettre(const char *s, char charset)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && !in_charset(s[i]))
+	while (s[i] && !in_charset(s[i], charset))
 		i++;
 	return (i);
 }
@@ -60,7 +60,7 @@ static char	**error(char **res, int i)
 	return (NULL);
 }
 
-char	**ft_split(const char *str)
+char	**ft_split_char(const char *str, char charset)
 {
 	char	**tab;
 	int		i;
@@ -68,19 +68,19 @@ char	**ft_split(const char *str)
 
 	if (str == NULL)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (nb_mots(str) + 1));
+	tab = malloc(sizeof(char *) * (nb_mots(str, charset) + 1));
 	if (tab == NULL)
 		return (NULL);
 	i = 0;
-	while (nb_mots(str))
+	while (nb_mots(str, charset))
 	{
-		while (*str && in_charset(*str))
+		while (*str && in_charset(*str, charset))
 			str++;
-		tab[i] = malloc(sizeof(char) * nb_lettre(str) + 1);
+		tab[i] = malloc(sizeof(char) * nb_lettre(str, charset) + 1);
 		if (!tab[i])
 			return (error(tab, i));
 		j = 0;
-		while (*str && !in_charset(*str))
+		while (*str && !in_charset(*str, charset))
 			tab[i][j++] = *str++;
 		tab[i++][j] = '\0';
 	}

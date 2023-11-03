@@ -3,12 +3,14 @@ NAME = cub3D
 SRCS =	sources/main.c \
 		sources/parsing.c \
 		sources/parsing_utils.c \
-		sources/free.c
+		sources/check_config.c \
+		sources/frees.c \
+		sources/utils.c
 OBJS = ${SRCS:sources/%.c=objects/%.o}
 HEADER = headers/
 
 CC = cc
-CFLAGS = -Lminilibx-linux #-Wall -Wextra -Werror 
+CFLAGS = -Lminilibx-linux -g3#-Wall -Wextra -Werror 
 MLX_FLAGS = -lmlx -lXext -lX11
 RM = rm -rf
 
@@ -30,7 +32,7 @@ ${NAME}:	${OBJS} libft/libft.a minilibx-linux/libmlx_Linux.a
 
 objects/%.o: sources/%.c
 			mkdir -p $(dir $@)
-			${CC} -I $(HEADER) -I libft/  ${CFLAGS} -c -o $@ $^
+			${CC} -I $(HEADER) -I libft/ ${CFLAGS} -c -o $@ $^
 
 clean:
 			${RM} objects

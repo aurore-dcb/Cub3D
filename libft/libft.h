@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:46:29 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/02 17:10:11 by rmeriau          ###   ########.fr       */
+/*   Updated: 2023/11/03 11:01:40 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ void				ft_bzero(void *s, int n);
 void				*ft_memcpy(void *dst, const void *src, int n);
 void				*ft_memmove(void *dst, const void *src, int len);
 int					ft_strlcpy(char *dst, const char *src, int dstsize);
+char				*ft_strcpy(char *dst, const char *src);
 int					ft_strlcat(char *dst, const char *src, int dstsize);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 int					ft_strncmp(const char *s1, const char *s2, int n);
+int					ft_strcmp(const char *s1, const char *s2);
 void				*ft_memchr(const void *s, int c, int n);
 int					ft_memcmp(const void *s1, const void *s2, int n);
 char				*ft_strnstr(const char *haystack, const char *needle,
@@ -51,7 +53,7 @@ char				*ft_strdup(const char *s1);
 char				*ft_substr(char const *s, unsigned int start, int len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
-char				**ft_split(char const *s, char c);
+char				**ft_split(const char *str);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -82,7 +84,7 @@ int					convert_hexa(unsigned int nb, char c);
 # endif
 
 char				*get_next_line(int fd, int to_free);
-char				*ft_strcpy(char *dest, char *src);
+char				*ft_strcpy_gnl(char *dest, char *src);
 char				*ft_strjoin_gnl(char *s1, char *s2);
 char				*save_line(char *line);
 char				*get_read(int fd, char *buf, char *res);
