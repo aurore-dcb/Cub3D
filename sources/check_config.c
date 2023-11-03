@@ -38,10 +38,14 @@ int	check_config(char **argv, t_map *data)
 		return (printf("Error\n"), close(fd), 0);
 	line = do_check_config(data, line, fd);
 	if (!line)
-		return (printf("Error\n"), close(fd), 0);
+		return (close(fd), 0);
 	if (!data->C_color || !data->F_color || !data->path_E || !data->path_N
 		|| !data->path_S || !data->path_W)
-		return (printf("Error\nNo enough informations\n"), close(fd), 0);
+	{
+		get_next_line(fd, 1);
+		return (printf("Error\nNo enough informations\n"), free(line),
+			close(fd), 0);
+	}
 	if (!read_file(data, line, fd))
 		return (close(fd), 0);
 	close(fd);

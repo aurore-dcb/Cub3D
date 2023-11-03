@@ -6,7 +6,7 @@
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:35:50 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/03 11:43:02 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:41:33 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ char	**ft_split_char(const char *str, char charset)
 	if (str == NULL)
 		return (NULL);
 	tab = malloc(sizeof(char *) * (nb_mots(str, charset) + 1));
-	if (tab == NULL)
+	if (tab == NULL || nb_mots(str, charset) == 0)
 		return (NULL);
 	i = 0;
 	while (nb_mots(str, charset))
 	{
-		while (*str && in_charset(*str, charset))
+		if (*str && in_charset(*str, charset))
 			str++;
 		tab[i] = malloc(sizeof(char) * nb_lettre(str, charset) + 1);
 		if (!tab[i])

@@ -26,7 +26,7 @@ OBJS_GNL		= ${SRCS_GNL:.c=.o}
 OBJS_PRINTF		= ${SRCS_PRINTF:.c=.o}
 OBJSbonus 		= ${bonus:.c=.o}
 
-CC 				= gcc
+CC 				= cc
 RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror
 

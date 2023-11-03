@@ -64,7 +64,7 @@ int main(int argc, char **argv, char **env)
 
 	init_map(&data);
 	if (!ft_parsing(argc, argv, env, &data))
-		return (1);
+		return (free_data(&data), 1);
 	if (!get_map(&data, argv[1]))
 		return (free_data(&data), 1);
 	if (!check_map(&data))

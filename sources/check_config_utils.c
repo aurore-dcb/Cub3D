@@ -12,7 +12,7 @@ int	color_format(char *tab)
 	while (color[i])
 		i++;
 	if (i != 3)
-		return (free_tab(color), 1);
+		return (free_tab(color), 0);
 	if (ft_atoi(color[0]) < 0 || ft_atoi(color[0]) > 255
 		|| ft_atoi(color[1]) < 0 || ft_atoi(color[1]) > 255
 		|| ft_atoi(color[2]) < 0 || ft_atoi(color[2]) > 255)
@@ -81,13 +81,13 @@ int	check_texture(char *line, t_map *data)
 	if (ft_strcmp(tab[0], "F") == 0 || ft_strcmp(tab[0], "C") == 0)
 	{
 		if (!check_color(data, tab))
-			return (free_tab(tab), printf("Error\nColor\n"), 0);
+			return (free_tab(tab), printf("Error Color\n"), 0);
 	}
 	else if (strcmp(tab[0], "NO") == 0 || strcmp(tab[0], "SO") == 0
 		|| strcmp(tab[0], "EA") == 0 || strcmp(tab[0], "WE") == 0)
 	{
 		if (!check_texture_paths(data, tab))
-			return (free_tab(tab), printf("Error\nTexture\n"), 0);
+			return (free_tab(tab), printf("Error Texture\n"), 0);
 	}
 	free_tab(tab);
 	return (1);

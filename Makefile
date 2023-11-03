@@ -14,7 +14,7 @@ OBJS = ${SRCS:sources/%.c=objects/%.o}
 HEADER = -I headers/ -I libft/ -I mlx
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  #-g3#-Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g3#-Wall -Wextra -Werror 
 MLX_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11
 RM = rm -rf
 
