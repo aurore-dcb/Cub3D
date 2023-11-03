@@ -13,9 +13,10 @@ typedef struct s_map
 {
 	char	**map;
 	int		nb_player;
-	int		first_row;
 	int		nb_col;
 	int		nb_line;
+	int		x_player;
+	int		y_player;
 	char	*path_N;
 	char	*path_S;
 	char	*path_E;
@@ -31,13 +32,17 @@ char		**ft_split_char(const char *str, char charset);
 int			read_file(t_map *data, char *file);
 int			get_map(t_map *data, char *file);
 // parsing_utils
-int			is_spaces(char c);
+int			is_sp(char c);
 int			is_digit_map(char c);
 int			is_carac_map(char c);
 int			test_valid_carac(char c);
 
 int			test_rows(t_map *data);
-int			test_cols(t_map *data);
+int			test_cols_beg(t_map *data);
+int			test_cols_end(t_map *data);
+int			test_empty(t_map *data);
+int			test_invalid_char(t_map *data);
+int			test_player(t_map *data);
 
 int			ft_extantion(char *map);
 int			ft_parsing(int argc, char **argv, char **env, t_map *data);

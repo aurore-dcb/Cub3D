@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	is_spaces(char c)
+int	is_sp(char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
@@ -23,7 +23,7 @@ int	is_carac_map(char c)
 
 int	test_valid_carac(char c)
 {
-	if (!is_carac_map(c) || !is_digit_map(c) || !is_spaces(c))
+	if (!is_carac_map(c) && !is_digit_map(c) && !is_sp(c))
 		return (0);
 	return (1);
 }
