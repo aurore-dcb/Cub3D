@@ -14,6 +14,8 @@ void	init_map(t_map *data)
     data->path_W = NULL;
     data->C_color = NULL;
     data->F_color = NULL;
+    data->mlx_ptr = NULL;
+    data->win_ptr = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -42,7 +44,11 @@ int	main(int argc, char **argv, char **env)
     printf("test_invalid_char = %d\n", test_invalid_char(&data));
     printf("x_player = %d y_player = %d\n", data.x_player, data.y_player);
     printf("test_player = %d\n", test_player(&data));
+    // AFFICHER LA FENETRE
 	free_tab(data.map);
+    free_data(&data);
 	return (0);
 }
+
+
 

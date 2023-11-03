@@ -12,6 +12,8 @@
 typedef struct s_map
 {
 	char	**map;
+	void	*mlx_ptr;
+	void	*win_ptr;
 	int		nb_player;
 	int		nb_col;
 	int		nb_line;
