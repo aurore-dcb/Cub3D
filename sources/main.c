@@ -57,6 +57,8 @@ void	init_map(t_map *data)
 	data->y_player = -1;
     data->width = 800;
     data->height = 600;
+	data->planeX = 0;
+	data->planeY = 0.66;
 }
 
 void loop(t_map *data)
@@ -72,6 +74,9 @@ void loop(t_map *data)
     if (!data->win_ptr)
 		return (ft_printf("Error\nCannot display window\n"), free(data->win_ptr));
     //charger les images
+	
+	//affichage
+
 	//gerer les touches
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);
@@ -82,16 +87,17 @@ int main(int argc, char **argv, char **env)
 {
 	t_map	data;
 
-	// return (1);
 	init_map(&data);
 	if (!ft_parsing(argc, argv, env, &data))
-		return (printf("laaasdfsd\n"), free_data(&data), -1);
+		return (free_data(&data), 1);
 	if (!get_map(&data, argv[1]))
 		return (free_data(&data), 1);
 	if (!check_map(&data))
 		return (printf("Error map\n"), free_data(&data), 1);
 	//afficher la map
 	display_map(data.map);
+	//determiner les coordonnees du vecteur direction au debut
+	coor_direction_begin(&data);
 	// boucle d'affiche de la fenetre
 	loop(&data);
     free_mlx(&data);

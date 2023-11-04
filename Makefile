@@ -1,16 +1,12 @@
 NAME = cub3D
 
-SRCS =	sources/main.c \
-		sources/parsing.c \
-		sources/parsing_utils.c \
-		sources/parsing_test.c \
-		sources/parsing_player.c \
-		sources/check_config.c \
-		sources/check_config_utils.c \
-		sources/get_map.c \
-		sources/frees.c \
-		sources/utils.c \
-		sources/key_press.c
+SRCS =	${addprefix sources/, \
+			${addprefix parsing/, parsing.c parsing_utils.c \
+				parsing_test.c parsing_player.c	check_config.c \
+				check_config_utils.c get_map.c ft_split_char.c } \
+			main.c frees.c key_press.c display.c display_utils.c \
+		}
+
 OBJS = ${SRCS:sources/%.c=objects/%.o}
 HEADER = -I headers/ -I libft/ -I mlx
 
@@ -22,17 +18,12 @@ RM = rm -rf
 LIBFT_DIR	= libft
 LIBFT_LIB	= libft/libft.a
 MLX_DIR		= minilibx-linux
-MLX_LIB		= minilibx-linux/libmlx_Linux.a
 
 all:		libft ${NAME}
 
-libft/libft.a:
-			make -C libft
-
-minilibx-linux/libmlx_Linux.a:
-			make -C minilibx-linux
-
-${NAME}:	${OBJS} libft/libft.a minilibx-linux/libmlx_Linux.a
+${NAME}:	${OBJS}
+			make -C ${LIBFT_DIR}
+			make -C ${MLX_DIR}
 			${CC} ${CFLAGS} $(HEADER) -o ${NAME} ${OBJS} ${MLX_FLAGS} ${LIBFT_LIB} -lm
 
 objects/%.o: sources/%.c
