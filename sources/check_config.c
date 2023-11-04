@@ -43,8 +43,7 @@ int	check_config(char **argv, t_map *data)
 		|| !data->path_S || !data->path_W)
 	{
 		get_next_line(fd, 1);
-		return (printf("Error\nNo enough informations\n"), free(line),
-			close(fd), 0);
+		return (printf("Error\nConfig"), free(line), close(fd), 0);
 	}
 	if (!read_file(data, line, fd))
 		return (close(fd), 0);

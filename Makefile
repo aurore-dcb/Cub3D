@@ -9,12 +9,13 @@ SRCS =	sources/main.c \
 		sources/check_config_utils.c \
 		sources/get_map.c \
 		sources/frees.c \
-		sources/utils.c
+		sources/utils.c \
+		sources/key_press.c
 OBJS = ${SRCS:sources/%.c=objects/%.o}
 HEADER = -I headers/ -I libft/ -I mlx
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3#-Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g3 
 MLX_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11
 RM = rm -rf
 

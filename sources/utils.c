@@ -6,7 +6,7 @@
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:35:50 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/03 17:41:33 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/04 10:47:25 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,26 @@ static int	nb_mots(const char *str, char charset)
 {
 	int	mots;
 	int	sep;
+	int	i;
 
 	mots = 0;
 	sep = 1;
-	while (*str)
+	i = 0;
+	while (str[i])
 	{
-		if (in_charset(*str, charset))
+		if (in_charset(str[0], charset) || in_charset(str[ft_strlen(str) - 1],
+				charset))
+			return (0);
+		if (in_charset(str[i], charset))
 			sep = 1;
 		else if (sep == 1)
 		{
 			mots++;
 			sep = 0;
 		}
-		str++;
+		i++;
+		if (in_charset(str[i], charset) && in_charset(str[i - 1], charset))
+			return (0);
 	}
 	return (mots);
 }
@@ -61,17 +68,19 @@ static char	**error(char **res, int i)
 
 char	**ft_split_char(const char *str, char charset)
 {
-	char	**tab;
 	int		i;
 	int		j;
+	int		words;
+	char	**tab;
 
-	if (str == NULL)
+	if (!str)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (nb_mots(str, charset) + 1));
-	if (tab == NULL || nb_mots(str, charset) == 0)
+	words = nb_mots(str, charset);
+	tab = malloc(sizeof(char *) * (words + 1));
+	if (tab == NULL || words == 0)
 		return (NULL);
 	i = 0;
-	while (nb_mots(str, charset))
+	while (i < words)
 	{
 		if (*str && in_charset(*str, charset))
 			str++;
@@ -83,6 +92,5 @@ char	**ft_split_char(const char *str, char charset)
 			tab[i][j++] = *str++;
 		tab[i++][j] = '\0';
 	}
-	tab[i] = 0;
-	return (tab);
+	return (tab[i] = 0, tab);
 }

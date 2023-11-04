@@ -72,4 +72,6 @@ void		do_fill_map(t_map *data, char *lign, int i);
 int			fill_map(t_map *data, char *lign, int fd);
 int			get_map(t_map *data, char *file);
 
+// key_press
+int			key_hook(int keycode, t_map *data);
 #endif

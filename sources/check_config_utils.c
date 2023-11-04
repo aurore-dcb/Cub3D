@@ -12,7 +12,7 @@ int	color_format(char *tab)
 	while (color[i])
 		i++;
 	if (i != 3)
-		return (free_tab(color), 0);
+		return (printf("Error\nColor\n"), free_tab(color), 0);
 	if (ft_atoi(color[0]) < 0 || ft_atoi(color[0]) > 255
 		|| ft_atoi(color[1]) < 0 || ft_atoi(color[1]) > 255
 		|| ft_atoi(color[2]) < 0 || ft_atoi(color[2]) > 255)
@@ -26,17 +26,18 @@ int	check_color(t_map *data, char **tab)
 	if (ft_strcmp(tab[0], "F") == 0 && !data->F_color)
 	{
 		if (!color_format(tab[1]))
-			return (0);
+			return (printf("Error\nColor\n"), 0);
 		data->F_color = ft_strcpy(data->F_color, tab[1]);
 		return (1);
 	}
 	else if (ft_strcmp(tab[0], "C") == 0 && !data->C_color)
 	{
 		if (!color_format(tab[1]))
-			return (0);
+			return (printf("Error\nColor\n"), 0);
 		data->C_color = ft_strcpy(data->C_color, tab[1]);
 		return (1);
 	}
+	printf("Error\nColor\n");
 	return (0);
 }
 
@@ -46,7 +47,7 @@ int	check_texture_paths(t_map *data, char **tab)
 
 	fd = open(tab[1], O_RDONLY);
 	if (fd == -1)
-		return (0);
+		return (printf("Error\nTexture\n"), 0);
 	if (strcmp(tab[0], "NO") == 0 && !data->path_N)
 		data->path_N = ft_strcpy(data->path_N, tab[1]);
 	else if (strcmp(tab[0], "SO") == 0 && !data->path_S)
@@ -58,9 +59,8 @@ int	check_texture_paths(t_map *data, char **tab)
 	else
 	{
 		close(fd);
-		return (0);
+		return (printf("Error\nTexture\n"), 0);
 	}
-	close(fd);
 	return (1);
 	close(fd);
 }
@@ -74,21 +74,24 @@ int	check_texture(char *line, t_map *data)
 		return (0);
 	tab = ft_split(line);
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 		i++;
 	if (i > 2)
-		return (free_tab(tab), printf("Error\n"), 0);
-	if (ft_strcmp(tab[0], "F") == 0 || ft_strcmp(tab[0], "C") == 0)
+		printf("Error\n");
+	else if (ft_strcmp(tab[0], "F") == 0 || ft_strcmp(tab[0], "C") == 0)
 	{
-		if (!check_color(data, tab))
-			return (free_tab(tab), printf("Error Color\n"), 0);
+		if (check_color(data, tab))
+			return (1);
 	}
 	else if (strcmp(tab[0], "NO") == 0 || strcmp(tab[0], "SO") == 0
 		|| strcmp(tab[0], "EA") == 0 || strcmp(tab[0], "WE") == 0)
 	{
-		if (!check_texture_paths(data, tab))
-			return (free_tab(tab), printf("Error Texture\n"), 0);
+		if (check_texture_paths(data, tab))
+			return (1);
 	}
+	else
+		printf("Error\n");
+	printf("Config line : %s", line);
 	free_tab(tab);
-	return (1);
+	return (0);
 }
