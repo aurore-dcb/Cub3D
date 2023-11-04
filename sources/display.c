@@ -23,7 +23,8 @@ void display(t_map *data)
     int hit; // 1 si un mur a ete touche, 0 sinon
     int side; // est ce que c'est un mur N / S ou E / W qui a ete touche
 
-    (void)side;
+    double perpWallDist; // distance entre le plan camera et le mur
+
     x = -1;
     while (++x < data->width)
     {
@@ -37,11 +38,11 @@ void display(t_map *data)
         if (rayDirX == 0)
             deltaDistX = 1e30;
         else
-            deltaDistX = abs((int)(1 / rayDirX));
+            deltaDistX = fabs(1 / rayDirX);
         if (rayDirY == 0)
             deltaDistY = 1e30;
         else
-            deltaDistY = abs((int)(1 / rayDirY));
+            deltaDistY = fabs(1 / rayDirY);
 
         hit = 0;
 
@@ -65,5 +66,36 @@ void display(t_map *data)
             stepY = 1;
             sideDistY = (mapY + 1.0 - data->posY) * deltaDistY;
         }
+
+        // algo pour trouver ou le rayon tape un mur : DDA
+        while (hit == 0)
+        {
+            if (sideDistX < sideDistY)
+            {
+                sideDistX += deltaDistX;
+                mapX += stepX;
+                side = 0;
+            }
+            else
+            {
+                sideDistY += deltaDistY;
+                mapY += stepY;
+                side = 1;
+            }
+            // on s'est deplacer jusqu'au prochain x ou y entier
+            // donc verifier si c'est un mur
+            if (data->map[mapX][mapY] == 1)
+                hit = 1;
+        }
+
+        //Caculer la distance entre le plan camera et le mur
+        if (side == 0)
+            perpWallDist = sideDistX - deltaDistX;
+        else
+            perpWallDist = sideDistY - deltaDistY;
+
+        //Calculer la taille du segment qu'il faut dessiner
+        //cad la hauteur du mur en fonction de sa distance avec le plan camera
+
     }
 }
