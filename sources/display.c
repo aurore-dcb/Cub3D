@@ -26,24 +26,30 @@ void display(t_map *data)
     double perpWallDist; // distance entre le plan camera et le mur
     int line_height; //hauteur du mur qu'on dessine
 
+    // data->dirX = -1;
+    // data->dirY = 0;
     x = -1;
     while (++x < data->width)
     {
         cameraX = 2 * x / (double)data->width - 1;
+        printf("cameraX : %f\n", cameraX);
         rayDirX = data->dirX + data->planeX * cameraX;
         rayDirY = data->dirY + data->planeY * cameraX;
-
+        printf("rayDirX : %f    -   rayDirY : %f\n", rayDirX, rayDirY);
+        
         mapX = (int)data->posX;
         mapY = (int)data->posY;
 
-        if (rayDirX == 0)
-            deltaDistX = 1e30;
-        else
-            deltaDistX = fabs(1 / rayDirX);
-        if (rayDirY == 0)
-            deltaDistY = 1e30;
-        else
-            deltaDistY = fabs(1 / rayDirY);
+        deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+        deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+        // if (rayDirX == 0)
+        //     deltaDistX = 1e30;
+        // else
+        //     deltaDistX = fabs(1 / rayDirX);
+        // if (rayDirY == 0)
+        //     deltaDistY = 1e30;
+        // else
+        //     deltaDistY = fabs(1 / rayDirY);
 
         hit = 0;
 
@@ -71,6 +77,8 @@ void display(t_map *data)
         // algo pour trouver ou le rayon tape un mur : DDA
         while (hit == 0)
         {
+            // printf("%d - %d\n", mapX, mapY);
+            // printf("deltaDistY : %f\n", deltaDistY);
             if (sideDistX < sideDistY)
             {
                 sideDistX += deltaDistX;
@@ -86,7 +94,10 @@ void display(t_map *data)
             // on s'est deplacer jusqu'au prochain x ou y entier
             // donc verifier si c'est un mur
             if (data->map[mapX][mapY] == 1)
+            {
+                // printf("map[%d][%d] : %c\n", mapX, mapY, data->map[mapX][mapY]);
                 hit = 1;
+            }
         }
 
         //Caculer la distance entre le plan camera et le mur
@@ -95,7 +106,8 @@ void display(t_map *data)
         else
             perpWallDist = sideDistY - deltaDistY;
 
-        // printf("perpWallDist = %f\n", perpWallDist);
+        // printf("x: %d perpWallDist = ?%f\n", x, perpWallDist);
+        
         //Calculer la taille du segment qu'il faut dessiner
         //cad la hauteur du mur en fonction de sa distance avec le plan camera
         line_height = (int)(data->height / perpWallDist);
@@ -105,14 +117,12 @@ void display(t_map *data)
         int drawEnd = line_height / 2 + data->height / 2;
         if (drawEnd >= data->height)
             drawEnd = data->height - 1;
-
+        
         //choose wall color
         // char ColorRGB = "color";
-
         // if (side == 1)
         //     color = color / 2;
 
         vertical_line(x, drawStart, drawEnd, "color", data);
-
     }
 }

@@ -4,25 +4,25 @@ void coor_direction_begin(t_map *data)
 {
 	printf("data->y_player = %d\n", data->y_player);
 	printf("data->x_player = %d\n", data->x_player);
-	if (data->map[data->y_player][data->x_player] == 'N')
+	if (data->map[data->x_player][data->y_player] == 'N')
 	{
-		data->dirX = 0;
-		data->dirY = 1;
-	}
-	else if (data->map[data->y_player][data->x_player] == 'S')
-	{
-		data->dirX = 0;
-		data->dirY = -1;
-	}
-	else if (data->map[data->y_player][data->x_player] == 'E')
-	{
+		data->dirY = 0;
 		data->dirX = 1;
-		data->dirY = 0;
 	}
-	else if (data->map[data->y_player][data->x_player] == 'W')
+	else if (data->map[data->x_player][data->y_player] == 'S')
 	{
-		data->dirX = -1;
 		data->dirY = 0;
+		data->dirX = -1;
+	}
+	else if (data->map[data->x_player][data->y_player] == 'E')
+	{
+		data->dirY = 1;
+		data->dirX = 0;
+	}
+	else if (data->map[data->x_player][data->y_player] == 'W')
+	{
+		data->dirY = -1;
+		data->dirX = 0;
 	}
 	data->posX = (double)data->x_player + 0.5;
 	data->posY = (double)data->y_player + 0.5;
