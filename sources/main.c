@@ -76,7 +76,7 @@ void loop(t_map *data)
     //charger les images
 	
 	//affichage
-
+	display(data);
 	//gerer les touches
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);
@@ -95,7 +95,7 @@ int main(int argc, char **argv, char **env)
 	if (!check_map(&data))
 		return (printf("Error map\n"), free_data(&data), 1);
 	//afficher la map
-	display_map(data.map);
+	// display_map(data.map);
 	//determiner les coordonnees du vecteur direction au debut
 	coor_direction_begin(&data);
 	// boucle d'affiche de la fenetre

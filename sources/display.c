@@ -24,6 +24,7 @@ void display(t_map *data)
     int side; // est ce que c'est un mur N / S ou E / W qui a ete touche
 
     double perpWallDist; // distance entre le plan camera et le mur
+    int line_height; //hauteur du mur qu'on dessine
 
     x = -1;
     while (++x < data->width)
@@ -94,8 +95,24 @@ void display(t_map *data)
         else
             perpWallDist = sideDistY - deltaDistY;
 
+        // printf("perpWallDist = %f\n", perpWallDist);
         //Calculer la taille du segment qu'il faut dessiner
         //cad la hauteur du mur en fonction de sa distance avec le plan camera
+        line_height = (int)(data->height / perpWallDist);
+        int drawStart = -line_height / 2 + data->height / 2;
+        if (drawStart < 0)
+            drawStart = 0;
+        int drawEnd = line_height / 2 + data->height / 2;
+        if (drawEnd >= data->height)
+            drawEnd = data->height - 1;
+
+        //choose wall color
+        // char ColorRGB = "color";
+
+        // if (side == 1)
+        //     color = color / 2;
+
+        vertical_line(x, drawStart, drawEnd, "color", data);
 
     }
 }
