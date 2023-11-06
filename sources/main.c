@@ -67,8 +67,14 @@ int main(int argc, char **argv, char **env)
 		return (1);
 	if (!get_map(&data, argv[1]))
 		return (free_data(&data), 1);
+	// int i = 0;
+	// while (data.map[i])
+	// {
+	// 	printf("%s\n", data.map[i]);
+	// 	i++;
+	// }
 	if (!check_map(&data))
-		return (printf("Error map\n"), free_data(&data), 1);
+		return (free_data(&data), 1);
 	free_data(&data);
 	return (0);
 }

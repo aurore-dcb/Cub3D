@@ -44,10 +44,14 @@ int			test_valid_carac(char c);
 int			test_rows(t_map *data);
 int			test_cols_beg(t_map *data);
 int			test_cols_end(t_map *data);
+int			do_test_empty(t_map *data, int i);
 int			test_empty(t_map *data);
-int			test_invalid_char(t_map *data);
 // parsing_player
+int			test_invalid_char(t_map *data);
 int			test_player(t_map *data);
+int			do_beg_parse_map(t_map *data, int i, int *empty_line);
+int			do_end_parse_map(t_map *data, int i, int empty_line);
+int			beg_parse_map(t_map *data);
 
 int			ft_extantion(char *map);
 int			ft_parsing(int argc, char **argv, char **env, t_map *data);
@@ -55,6 +59,7 @@ int			ft_parsing(int argc, char **argv, char **env, t_map *data);
 char		*do_check_config(t_map *data, char *line, int fd);
 int			check_config(char **argv, t_map *data);
 int			check_map(t_map *data);
+int			beg_parse_map(t_map *data);
 // check_config_utils
 int			color_format(char *tab);
 int			check_color(t_map *data, char **tab);

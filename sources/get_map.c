@@ -17,9 +17,11 @@ int	get_map_size(t_map *data, char *lign)
 void	do_fill_map(t_map *data, char *lign, int i)
 {
 	int	j;
+	int	len;
 
 	j = 0;
-	while (lign[j])
+	len = ft_strlen(lign);
+	while (j < len - 1)
 	{
 		data->map[i][j] = lign[j];
 		if (is_carac_map(data->map[i][j]))
@@ -40,7 +42,7 @@ int	fill_map(t_map *data, char *lign, int fd)
 	i = 0;
 	while (i < data->nb_line)
 	{
-		data->map[i] = (char *)malloc((ft_strlen(lign) + 1) * sizeof(char));
+		data->map[i] = (char *)malloc((ft_strlen(lign)) * sizeof(char));
 		if (!data->map[i])
 			return (free_char_spe(data->map, i), 0);
 		do_fill_map(data, lign, i);

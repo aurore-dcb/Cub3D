@@ -48,19 +48,22 @@ int	check_config(char **argv, t_map *data)
 	return (1);
 }
 
+
 int	check_map(t_map *data)
 {
+	if (!beg_parse_map(data))
+		return (printf("Error: empty line\n"), 0);
 	if (!test_rows(data))
-		return (0);
+		return (printf("Error: rows wall\n"), 0);
 	if (!test_cols_beg(data))
-		return (0);
+		return (printf("Error: columns wall\n"), 0);
 	if (!test_cols_end(data))
-		return (0);
+		return (printf("Error: columns wall\n"), 0);
 	if (!test_empty(data))
-		return (0);
+		return (printf("Error: needed wall\n"), 0);
 	if (!test_invalid_char(data))
-		return (0);
+		return (printf("Error: invalid char\n"), 0);
 	if (!test_player(data))
-		return (0);
+		return (printf("Error: player\n"), 0);
 	return (1);
 }
