@@ -57,8 +57,8 @@ void	init_map(t_map *data)
 	data->y_player = -1;
     data->width = 800;
     data->height = 600;
-	data->planeX = 0;
-	data->planeY = 0.66;
+	data->planeX = 0.66;
+	data->planeY = 0;
 }
 
 void loop(t_map *data)
@@ -76,6 +76,8 @@ void loop(t_map *data)
     //charger les images
 	
 	//affichage
+	// display_render(data);
+	// mlx_pixel_put(data->mlx_ptr, data->win_ptr, data->width/2, data->height/2, 0xFF0000);
 	display(data);
 	//gerer les touches
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
