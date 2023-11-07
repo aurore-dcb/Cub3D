@@ -27,15 +27,28 @@ void display(t_map *data)
     int line_height; //hauteur du mur qu'on dessine
 
     x = -1;
-    // printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
+    printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
+    printf("dirX : %f   -    dirY : %f\n", data->dirX, data->dirY);
+    // data->dirX = 0;
+    // data->dirY = 1;
     while (++x < data->width)
     {
+        // if (data->dirX == 1 || data->dirX == -1)
+        //     cameraX = 2 * x / (double)data->width + 1;
+        // else
         cameraX = 2 * x / (double)data->width - 1;
         rayDirX = data->dirX + data->planeX * cameraX;
         rayDirY = data->dirY + data->planeY * cameraX;
         
+        if (x == 0)
+        {
+            printf("cameraX : %f\n", cameraX);
+            printf("rayDirX : %f   -   rayDirY : %f\n", rayDirX, rayDirY);
+        }
         mapX = (int)data->posX;
         mapY = (int)data->posY;
+
+        // printf("mapY : %d\n",mapY);
         
         if (rayDirX == 0)
             deltaDistX = pow(10, 30);
@@ -61,14 +74,16 @@ void display(t_map *data)
         if (rayDirY < 0)
         {
             stepY = 1;
-            sideDistY = (data->posY - mapY) * deltaDistY;
+            sideDistY = (mapY + 1.0 - data->posY) * deltaDistY;
         }
         else
         {
             stepY = -1;
-            sideDistY = (mapY + 1.0 - data->posY) * deltaDistY;
+            sideDistY = (data->posY - mapY) * deltaDistY;
         }
 
+        // printf("sideDistX : %f   -   ", sideDistX);
+        // printf("sideDistY : %f\n", sideDistY);
         // algo pour trouver ou le rayon tape un mur : DDA
         while (hit == 0)
         {
