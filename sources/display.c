@@ -27,8 +27,8 @@ void display(t_map *data)
     int line_height; //hauteur du mur qu'on dessine
 
     x = -1;
-    printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
-    printf("dirX : %f   -    dirY : %f\n", data->dirX, data->dirY);
+    // printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
+    // printf("dirX : %f   -    dirY : %f\n", data->dirX, data->dirY);
     // data->dirX = 0;
     // data->dirY = 1;
     while (++x < data->width)
@@ -40,11 +40,11 @@ void display(t_map *data)
         rayDirX = data->dirX + data->planeX * cameraX;
         rayDirY = data->dirY + data->planeY * cameraX;
         
-        if (x == 0)
-        {
-            printf("cameraX : %f\n", cameraX);
-            printf("rayDirX : %f   -   rayDirY : %f\n", rayDirX, rayDirY);
-        }
+        // if (x == 0)
+        // {
+        //     printf("cameraX : %f\n", cameraX);
+        //     printf("rayDirX : %f   -   rayDirY : %f\n", rayDirX, rayDirY);
+        // }
         mapX = (int)data->posX;
         mapY = (int)data->posY;
 
