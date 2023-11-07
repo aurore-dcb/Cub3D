@@ -86,7 +86,7 @@ void		display(t_map *data);
 
 // display_utils
 void		coor_direction_begin(t_map *data);
-void		vertical_line(int x, int drawStart, int drawEnd, char *color, t_map *data);
-void drawHalfLine(void *mlx_ptr, void *win_ptr, int x, int y, int a, int b);
-void display_render(t_map *data);
+void		vertical_line(int x, int drawStart, int drawEnd, int color, t_map *data);
+void		drawHalfLine(void *mlx_ptr, void *win_ptr, int x, int y, int a, int b);
+void		display_render(t_map *data);
 #endif
