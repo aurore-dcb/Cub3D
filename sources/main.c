@@ -76,8 +76,6 @@ void loop(t_map *data)
     //charger les images
 	
 	//affichage
-	// display_render(data);
-	// mlx_pixel_put(data->mlx_ptr, data->win_ptr, data->width/2, data->height/2, 0xFF0000);
 	display(data);
 	//gerer les touches
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
