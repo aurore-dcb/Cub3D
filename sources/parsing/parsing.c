@@ -23,7 +23,7 @@ int	read_file(t_map *data, char *line, int fd)
 	while (line)
 	{
 		if (!get_map_size(data, line))
-			return (printf("Error\n"), 0);
+			return (printf("Error map size\n"), 0);
 		free(line);
 		data->nb_line += 1;
 		line = get_next_line(fd, 0);
@@ -35,21 +35,21 @@ int	read_file(t_map *data, char *line, int fd)
 int	ft_extantion(char *map)
 {
 	if (ft_strlen(map) < 5)
-		return (printf("Error\nWrong format\n"), 0);
+		return (0);
 	map = &map[ft_strlen(map) - 4];
 	if (ft_strcmp(map, ".map") != 0)
-		return (printf("Error\nWrong format\n"), 0);
+		return (0);
 	return (1);
 }
 
 int	ft_parsing(int argc, char **argv, char **env, t_map *data)
 {
 	if (!env)
-		return (printf("Error\n"), 1);
+		return (printf("Error\nEnv\n"), 1);
 	if (argc != 2)
 		return (printf("Error\nWrong number of arguments\n"), 0);
 	if (!ft_extantion(argv[1]))
-		return (0);
+		return (printf("Error\nWrong format\n"), 0);
 	if (!check_config(argv, data))
 		return (0);
 	return (1);

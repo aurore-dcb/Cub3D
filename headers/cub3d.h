@@ -21,12 +21,18 @@ typedef struct s_map
 	int		nb_line;
 	int		x_player;
 	int		y_player;
+	double	posX;
+	double	posY;
 	char	*path_N;
 	char	*path_S;
 	char	*path_E;
 	char	*path_W;
 	char	*F_color;
 	char	*C_color;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
 }			t_map;
 
 // ft_split2
@@ -77,4 +83,15 @@ void		do_fill_map(t_map *data, char *lign, int i);
 int			fill_map(t_map *data, char *lign, int fd);
 int			get_map(t_map *data, char *file);
 
+// key_press
+int			key_hook(int keycode, t_map *data);
+
+// display
+void		display(t_map *data);
+
+// display_utils
+void		coor_direction_begin(t_map *data);
+void		vertical_line(int x, int drawStart, int drawEnd, int color, t_map *data);
+void		drawHalfLine(void *mlx_ptr, void *win_ptr, int x, int y, int a, int b);
+void		display_render(t_map *data);
 #endif
