@@ -27,7 +27,7 @@ void display(t_map *data)
     int line_height; //hauteur du mur qu'on dessine
 
     x = -1;
-    printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
+    // printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
     while (++x < data->width)
     {
         cameraX = 2 * x / (double)data->width - 1;
@@ -45,6 +45,7 @@ void display(t_map *data)
             deltaDistY = pow(10, 30);
         else
             deltaDistY = fabs(1 / rayDirY);
+
         hit = 0;
 
         if (rayDirX < 0)
@@ -89,7 +90,7 @@ void display(t_map *data)
                 hit = 1;
         }
 
-        // //Caculer la distance entre le plan camera et le mur
+        //Caculer la distance entre le plan camera et le mur
         if (side == 0)
             perpWallDist = sideDistX - deltaDistX;
         else

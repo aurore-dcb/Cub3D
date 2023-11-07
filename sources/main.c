@@ -46,7 +46,6 @@ void display_map(char **map)
 			j++;
 		}
 		i++;
-		// printf("\n");
 	}
 }
 
@@ -73,7 +72,7 @@ void loop(t_map *data)
 		"Cub3D");
     if (!data->win_ptr)
 		return (ft_printf("Error\nCannot display window\n"), free(data->win_ptr));
-    //charger les images
+    //charger les texture
 	
 	//affichage
 	display(data);
@@ -104,23 +103,3 @@ int main(int argc, char **argv, char **env)
 	free_data(&data);
 	return (0);
 }
-
-// int main(int argc, char **argv, char **env)
-// {
-//     t_map data;
-
-//     init_map(&data);
-//     if (!ft_parsing(argc, argv, env, &data))
-//         return (free_data(&data), 1);
-//     printf("path N = %s\n", data.path_N);
-//     printf("path S = %s\n", data.path_S);
-//     printf("path E = %s\n", data.path_E);
-//     printf("path W = %s\n", data.path_W);
-//     printf("color C = %s\n", data.C_color);
-//     printf("color F = %s\n", data.F_color);
-//     // AFFICHER LA FENETRE
-//     loop(&data);
-//     free_data(&data);
-//     free_mlx(&data);
-//     return (0);
-// }

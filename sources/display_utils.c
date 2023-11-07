@@ -31,7 +31,6 @@ void coor_direction_begin(t_map *data)
 	data->posY = (double)data->y_player + 0.5;
 }
 
-//dessiner la colonne de pixels
 void vertical_line(int x, int drawStart, int drawEnd, int color, t_map *data)
 {
 	while (drawStart <= drawEnd)
