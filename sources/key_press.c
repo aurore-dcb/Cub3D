@@ -10,22 +10,28 @@ int	key_hook(int keycode, t_map *data)
 	if (keycode == 97) // A
 	{
 		// printf("keycode : %d\n", keycode);
-		data->posX -= 0.1;
+		data->posX -= 0.1 * data->dirY;
+		data->posY += 0.1 * data->dirX;
+		// data->posX -= 0.1;
 	}
 	else if (keycode == 119) // W
 	{
 		// printf("keycode : %d\n", keycode);
-		data->posY -= 0.1;
+		data->posX += 0.1 * data->dirX;
+		data->posY -= 0.1 * data->dirY;
 	}
 	else if (keycode == 100) // D	
 	{
 		// printf("keycode : %d\n", keycode);
-		data->posX += 0.1;
+		data->posX += 0.1 * data->dirY;
+		data->posY -= 0.1 * data->dirX;
+		
 	}
 	else if (keycode == 115) // S
 	{
 		// printf("keycode : %d\n", keycode);
-		data->posY += 0.1;
+		data->posX -= 0.1 * data->dirX;
+		data->posY += 0.1 * data->dirY;
 	}
 	if (keycode == 65361) // fleche gauche
 	{
@@ -40,9 +46,9 @@ int	key_hook(int keycode, t_map *data)
 		data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
 		data->planeY = pX * sin(rad) + data->planeY * cos(rad);
 
-		printf("data->alpha : %f\n", data->alpha);
-		printf("data->dirX : %f   -   data->dirY : %f\n", data->dirX, data->dirY);
-		printf("data->planeX : %f   -   data->planeY : %f\n", data->planeX, data->planeY);
+		// printf("data->alpha : %f\n", data->alpha);
+		// printf("data->dirX : %f   -   data->dirY : %f\n", data->dirX, data->dirY);
+		// printf("data->planeX : %f   -   data->planeY : %f\n", data->planeX, data->planeY);
 	}
 	else if (keycode == 65363) // fleche droite
 	{
