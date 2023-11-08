@@ -33,6 +33,7 @@ typedef struct s_map
 	double	dirY;
 	double	planeX;
 	double	planeY;
+	double	alpha;
 }			t_map;
 
 // ft_split2
