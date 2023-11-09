@@ -1,7 +1,7 @@
-NO ./img/green64x64.xpm
-SO ./img/green64x64.xpm	
-WE ./img/green64x64.xpm
-EA ./img/green64x64.xpm
+NO ./img/bluestone.xpm
+SO ./img/mossy.xpm	
+WE ./img/purplestone.xpm
+EA ./img/pillar.xpm
    F	   	12,00,223
 
 

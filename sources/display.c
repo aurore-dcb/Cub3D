@@ -106,8 +106,7 @@ void display(t_map *data)
         int drawEnd = line_height / 2 + data->height / 2 + pitch;
         if (drawEnd >= data->height)
             drawEnd = data->height - 1;
-        
-        //textures
+        // textures
         double wallX;
         if (side == 0)
             wallX = data->posY + perpWallDist * rayDirY;
@@ -127,19 +126,50 @@ void display(t_map *data)
         double texPos = (drawStart - pitch - data->height / 2 + line_height / 2) * step;
         
         int y = drawStart;
+        int orien;
+
+        if (side == 0)
+        {
+            if (stepX == 1)
+            {
+                // Le mur touché est orienté vers l'est.
+                orien = 3;
+            }
+            else if (stepX == -1)
+            {
+                // Le mur touché est orienté vers l'ouest.
+                orien = 2;
+            }
+        } 
+        else if (side == 1)
+        {
+            if (stepY == 1)
+            {
+                // Le mur touché est orienté vers le sud.
+                orien = 1;
+            } 
+            else if (stepY == -1)
+            {
+                // Le mur touché est orienté vers le nord.
+                orien = 0;
+            }
+        }  
         while (y < drawEnd)
         {
             int texY = (int)texPos & (data->tex_height - 1);
             texPos += step;
-            int color = 0; // mettre en unsigned int
-            // fonction qui dtermine la couleur
-            color = what_color(data, texX, texY);
-            printf("color : %d\n", color);
+            int color = 0; // mettre en unsigned int ?
+            // fonction qui determine la couleur
+            color = what_color(data, texX, texY, orien);
+            // printf("color : %d\n", color);
             if(side == 1) 
                 color = (color >> 1) & 8355711;
             data->buffer[y][x] = color;
             y++;
         }
+        // int color = 0X0000FF;
+        // if (side == 1) {color = color / 2;}
+        // vertical_line(x, drawStart, drawEnd, color, data);
     }
     draw(data);
     int y = 0;
@@ -155,13 +185,14 @@ void display(t_map *data)
     }
 }
 
-int what_color(t_map *data, int texX, int texY)
+int what_color(t_map *data, int texX, int texY, int orientation)
 {
-    if (data->map[data->y_player][data->x_player] == 'N')
-    {
-        return (data->tex[0][data->tex_height * texY + texX]);
-    }
-    return (0);
+    return (data->tex[orientation][data->tex_height * texY + texX]);
+    // if (data->map[data->y_player][data->x_player] == 'N')
+    // {
+    //     return (data->tex[0][data->tex_height * texY + texX]);
+    // }
+    // return (0);
 }
 
 void	draw(t_map *data)
@@ -170,7 +201,7 @@ void	draw(t_map *data)
 	{
 		for (int x = 0; x < data->width; x++)
 		{
-            printf("test : %d\n", data->img.data[y * data->width + x]);
+            // printf("test : %d\n", data->img.data[y * data->width + x]);
 			data->img.data[y * data->width + x] = data->buffer[y][x];
 		}
 	}

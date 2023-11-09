@@ -108,6 +108,8 @@ void	loop(t_map *data)
 	//charger les texture
 	if (!load_tex(data))
 		return ;
+	data->img.img = mlx_new_image(data->mlx_ptr, data->width, data->height);
+	data->img.data = (int *)mlx_get_data_addr(data->img.img, &data->img.bpp, &data->img.size, &data->img.endian);
 	//affichage
 	display(data);
 	//gerer les touches

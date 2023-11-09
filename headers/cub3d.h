@@ -55,7 +55,8 @@ typedef struct s_map
 	unsigned int	**buffer;
 }					t_map;
 
-int					what_color(t_map *data, int texX, int texY);
+int					what_color(t_map *data, int texX, int texY,
+						int orientation);
 int					load_tex(t_map *data);
 // ft_split2
 char				**ft_split_char(const char *str, char charset);
