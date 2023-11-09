@@ -27,28 +27,15 @@ void display(t_map *data)
     int line_height; //hauteur du mur qu'on dessine
 
     x = -1;
-    // printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
-    // printf("dirX : %f   -    dirY : %f\n", data->dirX, data->dirY);
-    // data->dirX = 0;
-    // data->dirY = 1;
+
     while (++x < data->width)
     {
-        // if (data->dirX == 1 || data->dirX == -1)
-        //     cameraX = 2 * x / (double)data->width + 1;
-        // else
         cameraX = 2 * x / (double)data->width - 1;
         rayDirX = data->dirX + data->planeX * cameraX;
         rayDirY = data->dirY + data->planeY * cameraX;
-        
-        // if (x == 0)
-        // {
-        //     printf("cameraX : %f\n", cameraX);
-        //     printf("rayDirX : %f   -   rayDirY : %f\n", rayDirX, rayDirY);
-        // }
+
         mapX = (int)data->posX;
         mapY = (int)data->posY;
-
-        // printf("mapY : %d\n",mapY);
         
         if (rayDirX == 0)
             deltaDistX = pow(10, 30);
@@ -82,8 +69,6 @@ void display(t_map *data)
             sideDistY = (data->posY - mapY) * deltaDistY;
         }
 
-        // printf("sideDistX : %f   -   ", sideDistX);
-        // printf("sideDistY : %f\n", sideDistY);
         // algo pour trouver ou le rayon tape un mur : DDA
         while (hit == 0)
         {
@@ -111,21 +96,83 @@ void display(t_map *data)
         else
             perpWallDist = sideDistY - deltaDistY;
         
+        int pitch = 100;
         //Calculer la taille du segment qu'il faut dessiner
         //cad la hauteur du mur en fonction de sa distance avec le plan camera
         line_height = (int)(data->height / perpWallDist);
-        int drawStart = -line_height / 2 + data->height / 2;
+        int drawStart = -line_height / 2 + data->height / 2 + pitch;
         if (drawStart < 0)
             drawStart = 0;
-        int drawEnd = line_height / 2 + data->height / 2;
+        int drawEnd = line_height / 2 + data->height / 2 + pitch;
         if (drawEnd >= data->height)
             drawEnd = data->height - 1;
         
-        //couleur du mur
-        int color = 0x0000FF;
-        if (side == 1)
-            color = color / 2;
+        //textures
+        double wallX;
+        if (side == 0)
+            wallX = data->posY + perpWallDist * rayDirY;
+        else
+            wallX = data->posX + perpWallDist * rayDirX;
+        wallX -= floor(wallX);
 
-        vertical_line(x, drawStart, drawEnd, color, data);
+        int texX = (int)(wallX * (double)(data->tex_width));
+        if (side == 0 && rayDirX > 0)
+            texX = data->tex_width - texX - 1;
+        if (side == 1 && rayDirY < 0)
+            texX = data->tex_width - texX - 1;
+
+        double step;
+        step = 1.0 * data->tex_height / line_height;
+
+        double texPos = (drawStart - pitch - data->height / 2 + line_height / 2) * step;
+        
+        int y = drawStart;
+        while (y < drawEnd)
+        {
+            int texY = (int)texPos & (data->tex_height - 1);
+            texPos += step;
+            int color = 0; // mettre en unsigned int
+            // fonction qui dtermine la couleur
+            color = what_color(data, texX, texY);
+            printf("color : %d\n", color);
+            if(side == 1) 
+                color = (color >> 1) & 8355711;
+            data->buffer[y][x] = color;
+            y++;
+        }
     }
+    draw(data);
+    int y = 0;
+    while (y < data->height)
+    {
+        int x = 0;
+        while (x < data->width)
+        {
+            data->buffer[y][x] = 0;
+            x++;
+        }
+        y++;
+    }
+}
+
+int what_color(t_map *data, int texX, int texY)
+{
+    if (data->map[data->y_player][data->x_player] == 'N')
+    {
+        return (data->tex[0][data->tex_height * texY + texX]);
+    }
+    return (0);
+}
+
+void	draw(t_map *data)
+{
+	for (int y = 0; y < data->height; y++)
+	{
+		for (int x = 0; x < data->width; x++)
+		{
+            printf("test : %d\n", data->img.data[y * data->width + x]);
+			data->img.data[y * data->width + x] = data->buffer[y][x];
+		}
+	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 }

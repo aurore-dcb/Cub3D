@@ -47,3 +47,4 @@ void vertical_line(int x, int drawStart, int drawEnd, int color, t_map *data)
 		drawStart++;
 	}
 }
+
