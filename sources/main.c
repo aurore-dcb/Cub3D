@@ -25,8 +25,6 @@ void	init_map(t_map *data)
 	data->y_player = -1;
     data->width = 800;
     data->height = 600;
-	data->planeX = 0.66;
-	data->planeY = 0;
 }
 
 void loop(t_map *data)

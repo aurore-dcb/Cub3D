@@ -4,34 +4,27 @@
 
 int	key_hook(int keycode, t_map *data)
 {
-	// printf("keycode : %d\n", keycode);
 	if (keycode == XK_Escape)
 		mlx_loop_end(data->mlx_ptr);
-	if (keycode == 97) // A
+	if (keycode == 119) // W
 	{
-		// printf("keycode : %d\n", keycode);
-		data->posX -= 0.1 * data->dirY;
-		data->posY += 0.1 * data->dirX;
-		// data->posX -= 0.1;
-	}
-	else if (keycode == 119) // W
-	{
-		// printf("keycode : %d\n", keycode);
 		data->posX += 0.1 * data->dirX;
 		data->posY -= 0.1 * data->dirY;
 	}
-	else if (keycode == 100) // D	
-	{
-		// printf("keycode : %d\n", keycode);
-		data->posX += 0.1 * data->dirY;
-		data->posY -= 0.1 * data->dirX;
-		
-	}
 	else if (keycode == 115) // S
 	{
-		// printf("keycode : %d\n", keycode);
 		data->posX -= 0.1 * data->dirX;
 		data->posY += 0.1 * data->dirY;
+	}
+	else if (keycode == 97) // A
+	{
+		data->posX -= 0.1 * data->planeX;
+		data->posY += 0.1 * data->planeY;
+	}
+	else if (keycode == 100) // D	
+	{
+		data->posX += 0.1 * data->planeX;
+		data->posY -= 0.1 * data->planeY;
 	}
 	if (keycode == 65361) // fleche gauche
 	{
@@ -45,10 +38,6 @@ int	key_hook(int keycode, t_map *data)
 		double pX = data->planeX;
 		data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
 		data->planeY = pX * sin(rad) + data->planeY * cos(rad);
-
-		// printf("data->alpha : %f\n", data->alpha);
-		// printf("data->dirX : %f   -   data->dirY : %f\n", data->dirX, data->dirY);
-		// printf("data->planeX : %f   -   data->planeY : %f\n", data->planeX, data->planeY);
 	}
 	else if (keycode == 65363) // fleche droite
 	{
@@ -62,12 +51,7 @@ int	key_hook(int keycode, t_map *data)
 		double pX = data->planeX;
 		data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
 		data->planeY = pX * sin(rad) + data->planeY * cos(rad);
-
-		printf("data->alpha : %f\n", data->alpha);
-		printf("data->dirX : %f   -   data->dirY : %f\n", data->dirX, data->dirY);
-		printf("data->planeX : %f   -   data->planeY : %f\n", data->planeX, data->planeY);
 	}
-	// else if (keycode == 65363) // fleche droite
 	if (keycode == 97 || keycode == 119 || keycode == 100 || keycode == 115 || keycode == 65361 || keycode == 65363)
 	{
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
