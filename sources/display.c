@@ -26,8 +26,10 @@ void display(t_map *data)
     double perpWallDist; // distance entre le plan camera et le mur
     int line_height; //hauteur du mur qu'on dessine
 
-    x = -1;
+    // FLOOR CASTING
 
+    // WALL CASTING
+    x = -1;
     while (++x < data->width)
     {
         cameraX = 2 * x / (double)data->width - 1;
@@ -128,48 +130,33 @@ void display(t_map *data)
         int y = drawStart;
         int orien;
 
+        // determiner l'orientation du mur que le rayon a touche
         if (side == 0)
         {
-            if (stepX == 1)
-            {
-                // Le mur touché est orienté vers l'est.
+            if (stepX == 1) // est
                 orien = 3;
-            }
-            else if (stepX == -1)
-            {
-                // Le mur touché est orienté vers l'ouest.
+            else if (stepX == -1) //ouest
                 orien = 2;
-            }
-        } 
+        }
         else if (side == 1)
         {
-            if (stepY == 1)
-            {
-                // Le mur touché est orienté vers le sud.
+            if (stepY == 1) //sud
                 orien = 1;
-            } 
-            else if (stepY == -1)
-            {
-                // Le mur touché est orienté vers le nord.
+            else if (stepY == -1) //nord
                 orien = 0;
-            }
-        }  
+        }
+
         while (y < drawEnd)
         {
             int texY = (int)texPos & (data->tex_height - 1);
             texPos += step;
             int color = 0; // mettre en unsigned int ?
-            // fonction qui determine la couleur
             color = what_color(data, texX, texY, orien);
-            // printf("color : %d\n", color);
             if(side == 1) 
                 color = (color >> 1) & 8355711;
             data->buffer[y][x] = color;
             y++;
         }
-        // int color = 0X0000FF;
-        // if (side == 1) {color = color / 2;}
-        // vertical_line(x, drawStart, drawEnd, color, data);
     }
     draw(data);
     int y = 0;
@@ -187,23 +174,25 @@ void display(t_map *data)
 
 int what_color(t_map *data, int texX, int texY, int orientation)
 {
+    // protections ?
     return (data->tex[orientation][data->tex_height * texY + texX]);
-    // if (data->map[data->y_player][data->x_player] == 'N')
-    // {
-    //     return (data->tex[0][data->tex_height * texY + texX]);
-    // }
-    // return (0);
 }
 
 void	draw(t_map *data)
 {
-	for (int y = 0; y < data->height; y++)
+    int y;
+    int x;
+
+    y = 0;
+	while (y < data->height)
 	{
-		for (int x = 0; x < data->width; x++)
+        x = 0;
+		while (x < data->width)
 		{
-            // printf("test : %d\n", data->img.data[y * data->width + x]);
 			data->img.data[y * data->width + x] = data->buffer[y][x];
-		}
+            x++;
+        }
+        y++;
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
 }

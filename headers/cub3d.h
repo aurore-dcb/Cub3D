@@ -35,7 +35,7 @@ typedef struct s_map
 	int				x_player;
 	int				y_player;
 
-	double posX; // positions du player em double
+	double posX; // positions du player type double
 	double posY; // (et au milieu de la case au depart)
 	double			dirX;
 	double			dirY;
