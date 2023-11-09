@@ -21,7 +21,7 @@ void	do_fill_map(t_map *data, char *lign, int i)
 
 	j = 0;
 	len = ft_strlen(lign);
-	while (j < len - 1)
+	while (j < len)
 	{
 		data->map[i][j] = lign[j];
 		if (is_carac_map(data->map[i][j]))
@@ -31,6 +31,8 @@ void	do_fill_map(t_map *data, char *lign, int i)
 			data->nb_player += 1;
 		}
 		j++;
+		if (j == len - 1 && lign[j] && lign[j] == '\n')
+			break ;
 	}
 	data->map[i][j] = '\0';
 }

@@ -4,27 +4,49 @@
 
 int	key_hook(int keycode, t_map *data)
 {
+	int new_posX = 0;
+	int new_posY = 0;
+
 	if (keycode == XK_Escape)
 		mlx_loop_end(data->mlx_ptr);
 	if (keycode == 119) // W
 	{
-		data->posX += 0.1 * data->dirX;
-		data->posY -= 0.1 * data->dirY;
+		new_posX = data->map[(int)(data->posY)][(int)(data->posX + data->dirX * 0.1)];
+		new_posY = data->map[(int)(data->posY - data->dirY * 0.1)][(int)(data->posX)];
+
+		// dprintf(2, "x = %d y = %d case = %s", (int)(data->posY), (int)(data->posX + data->dirX * 0.1), data->map[(int)(data->posY)][(int)(data->posX + data->dirX * 0.1)]);
+		if (new_posX == '0' || is_carac_map(new_posX))
+			data->posX += 0.1 * data->dirX;
+		if (new_posY == '0' || is_carac_map(new_posY))
+			data->posY -= 0.1 * data->dirY;
 	}
 	else if (keycode == 115) // S
 	{
-		data->posX -= 0.1 * data->dirX;
-		data->posY += 0.1 * data->dirY;
+		new_posX = data->map[(int)(data->posY)][(int)(data->posX - data->dirX * 0.1)];
+		new_posY = data->map[(int)(data->posY + data->dirY * 0.1)][(int)(data->posX)];
+
+		if (new_posX == '0' || is_carac_map(new_posX))
+			data->posX -= 0.1 * data->dirX;
+		if (new_posY == '0' || is_carac_map(new_posY))
+			data->posY += 0.1 * data->dirY;
 	}
 	else if (keycode == 97) // A
 	{
-		data->posX -= 0.1 * data->planeX;
-		data->posY += 0.1 * data->planeY;
+		new_posX = data->map[(int)(data->posY)][(int)(data->posX - data->planeX * 0.1)];
+		new_posY = data->map[(int)(data->posY + data->planeY * 0.1)][(int)(data->posX)];
+		if (new_posX == '0' || is_carac_map(new_posX))
+			data->posX -= 0.1 * data->planeX;
+		if (new_posY == '0' || is_carac_map(new_posY))
+			data->posY += 0.1 * data->planeY;
 	}
 	else if (keycode == 100) // D	
 	{
-		data->posX += 0.1 * data->planeX;
-		data->posY -= 0.1 * data->planeY;
+		new_posX = data->map[(int)(data->posY)][(int)(data->posX + data->planeX * 0.1)];
+		new_posY = data->map[(int)(data->posY - data->planeY * 0.1)][(int)(data->posX)];
+		if (new_posX == '0' || is_carac_map(new_posX))
+			data->posX += 0.1 * data->planeX;
+		if (new_posY == '0' || is_carac_map(new_posY))
+			data->posY -= 0.1 * data->planeY;
 	}
 	if (keycode == 65361) // fleche gauche
 	{
