@@ -118,6 +118,13 @@ void	loop(t_map *data)
 	mlx_loop(data->mlx_ptr);
 }
 
+void img_pix_put(t_image *img, int x, int y, int color)
+{
+    char *pixel;
+    pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+    *(int *)pixel = color;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_map	data;

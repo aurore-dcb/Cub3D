@@ -4,7 +4,7 @@ SRCS =	${addprefix sources/, \
 			${addprefix parsing/, parsing.c parsing_utils.c \
 				parsing_test.c parsing_player.c	check_config.c \
 				check_config_utils.c get_map.c ft_split_char.c } \
-			main.c frees.c key_press.c display.c display_utils.c wall_casting.c\
+			main.c frees.c key_press.c display.c display_utils.c mini_map.c wall_casting.c\
 		}
 
 OBJS = ${SRCS:sources/%.c=objects/%.o}

@@ -14,12 +14,16 @@
 
 typedef struct s_image
 {
-	void			*img;
+    void    *mlx_img;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
+	void		*img;
 	int				*data;
-	int				bpp;
 	int				size;
-	int				endian;
 }					t_image;
+
 
 typedef struct s_ray
 {
@@ -45,44 +49,53 @@ typedef struct s_ray
 
 typedef struct s_map
 {
-	char			**map;
-	void			*mlx_ptr;
-	void			*win_ptr;
-	int				width;
-	int				height;
+    char            **map;
+    void            *mlx_ptr;
+    void            *win_ptr;
+    int                width;
+    int                height;
 
-	int				nb_player;
-	int				nb_col;
-	int				nb_line;
-	int				x_player;
-	int				y_player;
+    int                nb_player;
+    int                nb_col;
+    int                nb_line;
+    int                x_player;
+    int                y_player;
 
-	t_ray			ray;
+    t_ray            ray;
 
-	double			posX; // positions du player type double
-	double			posY; // (et au milieu de la case au depart)
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
+    double            posX; // positions du player type double
+    double            posY; // (et au milieu de la case au depart)
+    double            dirX;
+    double            dirY;
+    double            planeX;
+    double            planeY;
 
-	t_image			img;
-	int				tex_width;
-	int				tex_height;
-	char			*path_N;
-	char			*path_S;
-	char			*path_E;
-	char			*path_W;
-	char			*F_color;
-	char			*C_color;
-	int				**tex;
-	unsigned int	**buffer;
-}					t_map;
+    t_image            img;
+    int                tex_width;
+    int                tex_height;
+    char            *path_N;
+    char            *path_S;
+    char            *path_E;
+    char            *path_W;
+    char            *F_color;
+    char            *C_color;
+    int                **tex;
+    unsigned int    **buffer;
+}                    t_map;
 
+void		display_map(char **map);
+int			mini_map(t_map *data);
+void		img_pix_put(t_image *img, int x, int y, int color);
+
+// mini_map
+void		draw_rectangle(t_image *img, int x, int y, int width, int height, int color);
+void		draw_circle(t_image *img, int x, int y, int radius, int color);
+int			mini_map(t_map *data);
 void	wall_casting(t_map *data);
 int					what_color(t_map *data, int texX, int texY,
 						int orientation);
 int					load_tex(t_map *data);
+
 // ft_split2
 char				**ft_split_char(const char *str, char charset);
 // parsing
@@ -135,7 +148,7 @@ int					key_hook(int keycode, t_map *data);
 void				display(t_map *data);
 // display_utils
 void				coor_direction_begin(t_map *data);
-void				vertical_line(int x, int drawStart, int drawEnd, int color,
-						t_map *data);
+// void				vertical_line(int x, int drawStart, int drawEnd, int color,
+// 						t_map *data);
 void				draw(t_map *data);
 #endif
