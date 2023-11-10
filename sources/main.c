@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	display_map(char **map)
+void	display_map(char **map) // a supprimer a la fin
 {
 	int	i;
 	int	j;
@@ -19,7 +19,7 @@ void	display_map(char **map)
 	}
 }
 
-void	init_map(t_map *data)
+int	init_map(t_map *data)
 {
 	int i;
 
@@ -31,30 +31,25 @@ void	init_map(t_map *data)
 	data->tex_height = 64;
 	data->tex_width = 64;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
+	ft_memset(&data->floor, 0, sizeof(t_floor));
 	data->buffer = malloc(sizeof(unsigned int*) * (data->height));
 	if (!data->buffer)
-	{
-		printf("Error\nInitialization");
-		return ;
-	}
+		return (0);
 	i = 0;
 	while (i < data->height)
 	{
 		data->buffer[i] = malloc(sizeof(unsigned int) * (data->width));
 		if (!data->buffer[i])
-			return ; // free tab + print erreur
+			return (free_buffer(data->buffer), 0);
 		i++;
 	}
-	i = 0;
-	data->tex = malloc(sizeof(int *) * (4)); // pour 4 texture : remplacer par une variable nb_textures
-	if (!data->tex)
-		return ; // erreur
+	return (1);
 }
 
 int load_img(t_map *data, t_image *img, char *path, int i)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	img->img = mlx_xpm_file_to_image(data->mlx_ptr, path, &data->tex_width, &data->tex_height);
 	if (!img->img)
@@ -63,7 +58,8 @@ int load_img(t_map *data, t_image *img, char *path, int i)
 	if (!img->data)
 		return (printf("Error\nCannot load texture\n"), 0);
 	data->tex[i] = malloc(sizeof(int) * (data->tex_height * data->tex_width));
-	// gerrer erreur malloc
+	if (!data->tex[i])
+		return (printf("Error\nMalloc textures\n"), 0);
 	y = 0;
 	while (y < data->tex_height)
 	{
@@ -81,6 +77,9 @@ int load_img(t_map *data, t_image *img, char *path, int i)
 
 int	load_tex(t_map *data)
 {
+	data->tex = malloc(sizeof(int *) * (data->nb_tex)); // pour 4 texture : remplacer par une variable nb_textures
+	if (!data->tex)
+		return (printf("Error\nMalloc\n"), 0);
 	if (!load_img(data, &data->img, data->path_N, 0))
 		return (0);
 	if (!load_img(data, &data->img, data->path_S, 1))
@@ -105,14 +104,15 @@ void	loop(t_map *data)
 	if (!data->win_ptr)
 		return (ft_printf("Error\nCannot display window\n"),
 			free(data->win_ptr));
-	//charger les texture
 	if (!load_tex(data))
 		return ;
 	data->img.img = mlx_new_image(data->mlx_ptr, data->width, data->height);
+	if (!data->img.img)
+		return ;
 	data->img.data = (int *)mlx_get_data_addr(data->img.img, &data->img.bpp, &data->img.size, &data->img.endian);
-	//affichage
+	if (!data->img.data)
+		return ;
 	display(data);
-	//gerer les touches
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);
@@ -129,18 +129,16 @@ int	main(int argc, char **argv, char **env)
 {
 	t_map	data;
 
-	init_map(&data);
+	if (!init_map(&data))
+		return (printf("Error\nInitialization\n"), 0);
 	if (!ft_parsing(argc, argv, env, &data))
 		return (free_data(&data), 1);
 	if (!get_map(&data, argv[1]))
 		return (free_data(&data), 1);
 	if (!check_map(&data))
 		return (free_data(&data), 1);
-	//afficher la map
-	display_map(data.map);
-	//determiner les coordonnees du vecteur direction au debut
+	// display_map(data.map);
 	coor_direction_begin(&data);
-	// boucle d'affiche de la fenetre
 	loop(&data);
 	free_mlx(&data);
 	free_data(&data);

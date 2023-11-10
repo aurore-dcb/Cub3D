@@ -41,26 +41,33 @@ int	check_color(t_map *data, char **tab)
 	return (0);
 }
 
-// int load_tex(t_map *data)
-// {
-	
-// }
-
 int	check_texture_paths(t_map *data, char **tab)
 {
 	int	fd;
-
+	
 	fd = open(tab[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\nTexture\n"), 0);
 	if (strcmp(tab[0], "NO") == 0 && !data->path_N)
+	{
+		data->nb_tex += 1;
 		data->path_N = ft_strcpy(data->path_N, tab[1]);
+	}
 	else if (strcmp(tab[0], "SO") == 0 && !data->path_S)
+	{
+		data->nb_tex += 1;
 		data->path_S = ft_strcpy(data->path_S, tab[1]);
+	}
 	else if (strcmp(tab[0], "EA") == 0 && !data->path_E)
+	{
+		data->nb_tex += 1;
 		data->path_E = ft_strcpy(data->path_E, tab[1]);
+	}
 	else if (strcmp(tab[0], "WE") == 0 && !data->path_W)
+	{
+		data->nb_tex += 1;
 		data->path_W = ft_strcpy(data->path_W, tab[1]);
+	}
 	else
 	{
 		close(fd);

@@ -1,12 +1,12 @@
 #include "cub3d.h"
 
-void coor_direction_begin(t_map *data)
+void	coor_direction_begin(t_map *data)
 {
-	int player;
+	int	player;
+
 	player = data->x_player;
 	data->x_player = data->y_player;
 	data->y_player = player;
-
 	if (data->map[data->y_player][data->x_player] == 'N')
 	{
 		data->dirY = 1;

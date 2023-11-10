@@ -15,6 +15,21 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
+void free_buffer(unsigned int **buf)
+{
+	int	i;
+
+	i = 0;
+	if (!buf)
+		return ;
+	while (buf[i])
+	{
+		free(buf[i]);
+		i++;
+	}
+	free(buf);
+}
+
 void	free_char_spe(char **tableau, int len)
 {
 	int	i;

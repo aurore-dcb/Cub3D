@@ -1,13 +1,28 @@
 NAME = cub3D
 
 SRCS =	${addprefix sources/, \
-			${addprefix parsing/, parsing.c parsing_utils.c \
-				parsing_test.c parsing_player.c	check_config.c \
-				check_config_utils.c get_map.c ft_split_char.c } \
-			${addprefix raycasting/, frees.c key_press.c display.c \
-			display_utils.c mini_map.c wall_casting.c calc_wall_casting.c} \
+			${addprefix parsing/, \
+					parsing.c \
+					parsing_utils.c \
+					parsing_test.c \
+					parsing_player.c \
+					check_config.c \
+					check_config_utils.c \
+					get_map.c \
+					ft_split_char.c \
+				} \
+			${addprefix raycasting/, \
+					display.c \
+					display_utils.c \
+					wall_casting.c \
+					calc_wall_casting.c \
+					floor_casting.c \
+				} \
 			main.c \
-		}
+			frees.c \
+			key_press.c \
+			mini_map.c \
+			}
 
 OBJS = ${SRCS:sources/%.c=objects/%.o}
 HEADER = -I headers/ -I libft/ -I mlx

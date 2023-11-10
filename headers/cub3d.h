@@ -14,34 +14,33 @@
 
 typedef struct s_image
 {
-    void    *mlx_img;
-    char    *addr;
-    int     bpp;
-    int     line_len;
-    int     endian;
-	void		*img;
+	void			*mlx_img;
+	char			*addr;
+	int				bpp;
+	int				line_len;
+	int				endian;
+	void			*img;
 	int				*data;
 	int				size;
 }					t_image;
 
-
 typedef struct s_ray
 {
 	double	cameraX;
-    double	rayDirX; //coordonnees du vecteur rayon
-    double	rayDirY;
-    int		mapX; // coordonnees de la case dans laquelle on est (case de char **map) 
-    int		mapY;
-    double	sideDistX;// longueur entre la position actuelle et le prochain mur en x ou en y
-    double	sideDistY;
-    double	deltaDistX;// longueur entre un mur en x et le prochain mur en x (pas la distance euclidienne)
-    double	deltaDistY; // longueur entre un mur en y et le prochain mur en y
-    int		stepX;// direction dans laquelle se deplacer en x et en y (+1 ou -1) pour suivre le rayon
-    int		stepY;
-    int		hit; // 1 si un mur a ete touche, 0 sinon
-    int		side; // est ce que c'est un mur N / S ou E / W qui a ete touche
-    double	perpWallDist; // distance entre le plan camera et le mur
-    int		line_height; // hauteur du mur qu'on dessine
+	double	rayDirX; //coordonnees du vecteur rayon
+	double	rayDirY;
+	int		mapX; // coordonnees de la case dans laquelle on est (case de char **map)
+	int		mapY;
+	double	sideDistX; // longueur entre la position actuelle et le prochain mur en x ou en y
+	double	sideDistY;
+	double	deltaDistX; // longueur entre un mur en x et le prochain mur en x (pas la distance euclidienne)
+	double	deltaDistY; // longueur entre un mur en y et le prochain mur en y
+	int		stepX;        // direction dans laquelle se deplacer en x et en y (+1 ou -1) pour suivre le rayon
+	int		stepY;
+	int		hit;             // 1 si un mur a ete touche, 0 sinon
+	int		side;            // est ce que c'est un mur N / S ou E / W qui a ete touche
+	double	perpWallDist; // distance entre le plan camera et le mur
+	int		line_height;     // hauteur du mur qu'on dessine
 	int		pitch;
 	int		drawStart;
 	int		drawEnd;
@@ -49,62 +48,85 @@ typedef struct s_ray
 	double	wallX;
 	double	step;
 	double	texPos;
-} t_ray;
+}			t_ray;
+
+typedef struct s_floor
+{
+	float	rayDirX0;
+	float	rayDirY0;
+	float	rayDirX1;
+	float	rayDirY1;
+	int		p; // position actuelle en y par rapport au milieu de l'ecran
+	float	pos_z; // position verticale de la camera
+	float	row_distance; // distance horizontale entre la camera et le floor
+	float	floor_stepx;
+	float	floor_stepy;
+	float	floorx;
+	float	floory;
+	int		cellx;
+	int		celly;
+	// int		tx; // coordonnees de la texture
+	// int		ty;
+}		t_floor;
 
 typedef struct s_map
 {
-    char            **map;
-    void            *mlx_ptr;
-    void            *win_ptr;
-    int                width;
-    int                height;
+	char			**map;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	int				width;
+	int				height;
 
-    int                nb_player;
-    int                nb_col;
-    int                nb_line;
-    int                x_player;
-    int                y_player;
+	int				nb_player;
+	int				nb_col;
+	int				nb_line;
+	int				nb_tex;
+	int				x_player;
+	int				y_player;
 
-    t_ray            ray;
+	t_ray			ray;
+	t_floor			floor;
 
-    double            posX; // positions du player type double
-    double            posY; // (et au milieu de la case au depart)
-    double            dirX;
-    double            dirY;
-    double            planeX;
-    double            planeY;
+	double			posX; // positions du player type double
+	double			posY; // (et au milieu de la case au depart)
+	double			dirX;
+	double			dirY;
+	double			planeX;
+	double			planeY;
 
-    t_image            img;
-    int                tex_width;
-    int                tex_height;
-    char            *path_N;
-    char            *path_S;
-    char            *path_E;
-    char            *path_W;
-    char            *F_color;
-    char            *C_color;
-    int                **tex;
-    unsigned int    **buffer;
-}                    t_map;
+	t_image			img;
+	int				tex_width;
+	int				tex_height;
+	char			*path_N;
+	char			*path_S;
+	char			*path_E;
+	char			*path_W;
+	char			*F_color;
+	char			*C_color;
+	int				**tex;
+	unsigned int	**buffer;
+}					t_map;
 
-void		display_map(char **map);
-int			mini_map(t_map *data);
-void		img_pix_put(t_image *img, int x, int y, int color);
+int					mini_map(t_map *data);
+void				img_pix_put(t_image *img, int x, int y, int color);
+// floor_casting
+void				floor_casting(t_map *data);
+
 // wall_casting
-void	wall_orientation(t_map *data);
-void	pixel_color(t_map *data, double texX, double texY, int x);
-void	textures(t_map *data, int x);
-void	wall_casting(t_map *data);
+void				wall_orientation(t_map *data);
+void				pixel_color(t_map *data, double texX, double texY, int x);
+void				textures(t_map *data, int x);
+void				wall_casting(t_map *data);
 // calc_wall_catsing
-void	init_side(t_map *data);
-void	dda_algo(t_map *data);
-void	wall_size(t_map *data);
+void				init_side(t_map *data);
+void				dda_algo(t_map *data);
+void				wall_size(t_map *data);
 // mini_map
-void		draw_rectangle(t_image *img, int x, int y, int width, int height, int color);
-void		draw_circle(t_image *img, int x, int y, int radius, int color);
-int			mini_map(t_map *data);
-int					what_color(t_map *data, int texX, int texY,
-						int orientation);
+void				draw_rectangle(t_image *img, int x, int y, int width,
+						int height, int color);
+void				draw_circle(t_image *img, int x, int y, int radius,
+						int color);
+int					mini_map(t_map *data);
 int					load_tex(t_map *data);
 
 // ft_split2
@@ -146,6 +168,7 @@ int					check_texture(char *line, t_map *data);
 // frees
 void				free_char_spe(char **tableau, int len);
 void				free_tab(char **tab);
+void				free_buffer(unsigned int **buf);
 void				free_data(t_map *data);
 void				free_mlx(t_map *data);
 // get_map
@@ -160,4 +183,7 @@ void				display(t_map *data);
 // display_utils
 void				coor_direction_begin(t_map *data);
 void				draw(t_map *data);
+//main
+int					init_map(t_map *data);
+void	display_map(char **map); // a supprimer a la fin
 #endif
