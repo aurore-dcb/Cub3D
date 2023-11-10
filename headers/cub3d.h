@@ -45,6 +45,10 @@ typedef struct s_ray
 	int		pitch;
 	int		drawStart;
 	int		drawEnd;
+	int		wall_orient;
+	double	wallX;
+	double	step;
+	double	texPos;
 } t_ray;
 
 typedef struct s_map
@@ -86,12 +90,19 @@ typedef struct s_map
 void		display_map(char **map);
 int			mini_map(t_map *data);
 void		img_pix_put(t_image *img, int x, int y, int color);
-
+// wall_casting
+void	wall_orientation(t_map *data);
+void	pixel_color(t_map *data, double texX, double texY, int x);
+void	textures(t_map *data, int x);
+void	wall_casting(t_map *data);
+// calc_wall_catsing
+void	init_side(t_map *data);
+void	dda_algo(t_map *data);
+void	wall_size(t_map *data);
 // mini_map
 void		draw_rectangle(t_image *img, int x, int y, int width, int height, int color);
 void		draw_circle(t_image *img, int x, int y, int radius, int color);
 int			mini_map(t_map *data);
-void	wall_casting(t_map *data);
 int					what_color(t_map *data, int texX, int texY,
 						int orientation);
 int					load_tex(t_map *data);
@@ -148,7 +159,5 @@ int					key_hook(int keycode, t_map *data);
 void				display(t_map *data);
 // display_utils
 void				coor_direction_begin(t_map *data);
-// void				vertical_line(int x, int drawStart, int drawEnd, int color,
-// 						t_map *data);
 void				draw(t_map *data);
 #endif

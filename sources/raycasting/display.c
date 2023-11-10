@@ -2,7 +2,6 @@
 
 void display(t_map *data)
 {
-
     // FLOOR CASTING
     // WALL CASTING
     wall_casting(data);

@@ -72,7 +72,7 @@ int	key_hook(int keycode, t_map *data)
 	}
 	if (keycode == 97 || keycode == 119 || keycode == 100 || keycode == 115 || keycode == 65361 || keycode == 65363)
 	{
-		// mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		display(data);
 	}
 	return (1);

@@ -38,13 +38,3 @@ void coor_direction_begin(t_map *data)
 	data->posX = (double)data->x_player + 0.5;
 	data->posY = (double)data->y_player + 0.5;
 }
-
-// void vertical_line(t_image *img_all, int x, int drawStart, int drawEnd, int color)
-// {
-// 	while (drawStart <= drawEnd)
-// 	{
-// 		img_pix_put(img_all, x, drawStart, color);
-// 		drawStart++;
-// 	}
-// }
-
