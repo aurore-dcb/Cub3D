@@ -39,11 +39,11 @@ void coor_direction_begin(t_map *data)
 	data->posY = (double)data->y_player + 0.5;
 }
 
-void vertical_line(int x, int drawStart, int drawEnd, int color, t_map *data)
+void vertical_line(t_image *img_all, int x, int drawStart, int drawEnd, int color)
 {
 	while (drawStart <= drawEnd)
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, drawStart, color);
+		img_pix_put(img_all, x, drawStart, color);
 		drawStart++;
 	}
 }

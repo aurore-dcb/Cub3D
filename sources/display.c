@@ -26,6 +26,10 @@ void display(t_map *data)
     double perpWallDist; // distance entre le plan camera et le mur
     int line_height; //hauteur du mur qu'on dessine
 
+    t_image img_all;
+    img_all.mlx_img = mlx_new_image(data->mlx_ptr, data->width, data->height);
+    img_all.addr = mlx_get_data_addr(img_all.mlx_img, &img_all.bpp, &img_all.line_len, &img_all.endian);
+
     x = -1;
     // printf("posX : %f   -    posY : %f\n", data->posX, data->posY);
     // printf("dirX : %f   -    dirY : %f\n", data->dirX, data->dirY);
@@ -126,6 +130,8 @@ void display(t_map *data)
         if (side == 1)
             color = color / 2;
 
-        vertical_line(x, drawStart, drawEnd, color, data);
+        vertical_line(&img_all, x, drawStart, drawEnd, color);
     }
+    mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img_all.mlx_img, 0, 0);
+    mini_map(data);
 }

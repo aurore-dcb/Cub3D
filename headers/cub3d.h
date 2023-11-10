@@ -11,12 +11,12 @@
 
 typedef struct s_image
 {
-    void    *mlx_img;
-    char    *addr;
-    int     bpp;
-    int     line_len;
-    int     endian;
-}   t_image;
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}			t_image;
 
 typedef struct s_map
 {
@@ -46,6 +46,13 @@ typedef struct s_map
 }			t_map;
 
 void		display_map(char **map);
+int			mini_map(t_map *data);
+void		img_pix_put(t_image *img, int x, int y, int color);
+
+// mini_map
+void		draw_rectangle(t_image *img, int x, int y, int width, int height, int color);
+void		draw_circle(t_image *img, int x, int y, int radius, int color);
+int			mini_map(t_map *data);
 
 // ft_split2
 char		**ft_split_char(const char *str, char charset);
@@ -103,8 +110,8 @@ void		display(t_map *data);
 
 // display_utils
 void		coor_direction_begin(t_map *data);
-void		vertical_line(int x, int drawStart, int drawEnd, int color,
-				t_map *data);
+void		vertical_line(t_image *img_all, int x, int drawStart, int drawEnd,
+				int color);
 void		drawHalfLine(void *mlx_ptr, void *win_ptr, int x, int y, int a,
 				int b);
 void		display_render(t_map *data);
