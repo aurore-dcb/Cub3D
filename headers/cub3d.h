@@ -12,6 +12,12 @@
 # define PI 3.14159265358979323846
 # define ALPHA 2
 
+typedef struct s_2DPoint
+{
+    int x;
+    int y;
+}               t_2DPoint;
+
 typedef struct s_image
 {
     void    *mlx_img;
@@ -23,7 +29,6 @@ typedef struct s_image
 	int				*data;
 	int				size;
 }					t_image;
-
 
 typedef struct s_ray
 {
@@ -54,7 +59,6 @@ typedef struct s_map
     void            *win_ptr;
     int                width;
     int                height;
-
     int                nb_player;
     int                nb_col;
     int                nb_line;
@@ -88,8 +92,8 @@ int			mini_map(t_map *data);
 void		img_pix_put(t_image *img, int x, int y, int color);
 
 // mini_map
-void		draw_rectangle(t_image *img, int x, int y, int width, int height, int color);
-void		draw_circle(t_image *img, int x, int y, int radius, int color);
+// void		draw_rectangle(t_image *img, int x, int y, int width, int height, int color);
+// void		draw_circle(t_image *img, int x, int y, int radius, int color);
 int			mini_map(t_map *data);
 void	wall_casting(t_map *data);
 int					what_color(t_map *data, int texX, int texY,
