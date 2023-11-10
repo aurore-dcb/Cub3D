@@ -1,78 +1,85 @@
 
 #include "cub3d.h"
 
-void	draw_rectangle(t_image *img, int x, int y, int width, int height, int color)
+void	draw_rectangle(t_map *data, t_2DPoint square, int size, int color)
 {
-	for (int i = y; i < y + height; i++)
+	int	i;
+	int	j;
+
+	i = square.y;
+	j = 0;
+	while (i < square.y + size)
 	{
-		for (int j = x; j < x + width; j++)
+		j = square.x;
+		while (j < square.x + size)
 		{
-			img_pix_put(img, j, i, color);
+			data->img.data[i * data->width + j] = color;
+			j++;
 		}
+		i++;
 	}
 }
 
-void	draw_circle(t_image *img, int x, int y, int radius, int color)
+void	draw_circle(t_map *data, t_2DPoint p, int rad, int color)
 {
-	for (int i = y - radius; i <= y + radius; i++)
+	int	i;
+	int	j;
+
+	i = p.y - rad;
+	j = 0;
+	while (i <= p.y + rad)
 	{
-		for (int j = x - radius; j <= x + radius; j++)
+		j = p.x - rad;
+		while (j <= p.x + rad)
 		{
-			if ((i - y) * (i - y) + (j - x) * (j - x) <= radius * radius)
+			if ((i - p.y) * (i - p.y) + (j - p.x) * (j - p.x) <= rad * rad)
 			{
-				img_pix_put(img, j, i, color);
+				data->img.data[i * data->width + j] = color;
 			}
+			j++;
 		}
+		i++;
+	}
+}
+
+void	do_mini_map(t_map *data, int x, int y, int pixel_size)
+{
+	t_2DPoint	square;
+
+	square.x = x * pixel_size;
+	square.y = y * pixel_size;
+	if (data->map[y][x] == '1')
+	{
+		draw_rectangle(data, square, pixel_size, 0x0000FF);
+	}
+	else
+	{
+		draw_rectangle(data, square, pixel_size, 0xFFFFFF);
 	}
 }
 
 int	mini_map(t_map *data)
 {
-	int		map_width;
-	int		map_height;
-	int		pixel_size;
-	int		player_radius;
-	t_image	img;
-	int		square_x;
-	int		square_y;
-	int		center_x;
-	int		center_y;
+	t_2DPoint	p;
+	int			pixel_size;
+	int			x;
+	int			y;
 
-	map_width = data->nb_col - 1;
-	map_height = data->nb_line;
 	pixel_size = 8;
-	player_radius = pixel_size / 4;
-	img.mlx_img = mlx_new_image(data->mlx_ptr, map_width * pixel_size,
-			map_height * pixel_size);
-	img.addr = mlx_get_data_addr(img.mlx_img, &img.bpp, &img.line_len,
-			&img.endian);
-	for (int y = 0; y < map_height; y++)
+	x = 0;
+	y = 0;
+	while (y < data->nb_line)
 	{
-		for (int x = 0; x < map_width; x++)
+		x = 0;
+		while (x < data->nb_col - 1)
 		{
-			square_x = x * pixel_size;
-			square_y = y * pixel_size;
-			if (data->map[y][x] == '1')
-			{
-				draw_rectangle(&img, square_x, square_y, pixel_size, pixel_size,
-					0x0000FF);
-			}
-			else if (data->map[y][x] == 'W')
-			{
-				draw_rectangle(&img, square_x, square_y, pixel_size, pixel_size,
-					0xFFFFFF);
-			}
-			else
-			{
-				draw_rectangle(&img, square_x, square_y, pixel_size, pixel_size,
-					0xFFFFFF);
-			}
+			do_mini_map(data, x, y, pixel_size);
+			x++;
 		}
+		y++;
 	}
-	// printf("data->posX = %f, data->posY = %f\n", data->posX, data->posY);
-	center_x = data->posX * (pixel_size);
-	center_y = data->posY * (pixel_size);
-	draw_circle(&img, center_x, center_y, player_radius, 0xFF0000);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img.mlx_img, 0, 0);
+	p.x = data->posX * pixel_size;
+	p.y = data->posY * pixel_size;
+	draw_circle(data, p, pixel_size / 4, 0xFF0000);
 	return (0);
 }

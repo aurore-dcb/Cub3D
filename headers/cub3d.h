@@ -12,6 +12,12 @@
 # define PI 3.14159265358979323846
 # define ALPHA 2
 
+typedef struct s_2DPoint
+{
+    int x;
+    int y;
+}               t_2DPoint;
+
 typedef struct s_image
 {
 	void			*mlx_img;
@@ -108,7 +114,6 @@ typedef struct s_map
 }					t_map;
 
 int					mini_map(t_map *data);
-void				img_pix_put(t_image *img, int x, int y, int color);
 // floor_casting
 void				floor_casting(t_map *data);
 
@@ -122,11 +127,6 @@ void				init_side(t_map *data);
 void				dda_algo(t_map *data);
 void				wall_size(t_map *data);
 // mini_map
-void				draw_rectangle(t_image *img, int x, int y, int width,
-						int height, int color);
-void				draw_circle(t_image *img, int x, int y, int radius,
-						int color);
-int					mini_map(t_map *data);
 int					load_tex(t_map *data);
 
 // ft_split2
