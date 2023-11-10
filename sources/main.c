@@ -30,6 +30,7 @@ void	init_map(t_map *data)
 	data->height = 600;
 	data->tex_height = 64;
 	data->tex_width = 64;
+	ft_memset(&data->ray, 0, sizeof(t_ray));
 	data->buffer = malloc(sizeof(unsigned int*) * (data->height));
 	if (!data->buffer)
 	{
@@ -45,7 +46,7 @@ void	init_map(t_map *data)
 		i++;
 	}
 	i = 0;
-	data->tex = malloc(sizeof(int *) * (4));
+	data->tex = malloc(sizeof(int *) * (4)); // pour 4 texture : remplacer par une variable nb_textures
 	if (!data->tex)
 		return ; // erreur
 }
@@ -69,7 +70,6 @@ int load_img(t_map *data, t_image *img, char *path, int i)
 		x = 0;
 		while (x < data->tex_width)
 		{
-			// printf("test : %d\n", img->data[y * data->tex_width + x]);
 			data->tex[i][y * data->tex_width + x] = img->data[y * data->tex_width + x];
 			x++;
 		}

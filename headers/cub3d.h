@@ -21,6 +21,28 @@ typedef struct s_image
 	int				endian;
 }					t_image;
 
+typedef struct s_ray
+{
+	double	cameraX;
+    double	rayDirX; //coordonnees du vecteur rayon
+    double	rayDirY;
+    int		mapX; // coordonnees de la case dans laquelle on est (case de char **map) 
+    int		mapY;
+    double	sideDistX;// longueur entre la position actuelle et le prochain mur en x ou en y
+    double	sideDistY;
+    double	deltaDistX;// longueur entre un mur en x et le prochain mur en x (pas la distance euclidienne)
+    double	deltaDistY; // longueur entre un mur en y et le prochain mur en y
+    int		stepX;// direction dans laquelle se deplacer en x et en y (+1 ou -1) pour suivre le rayon
+    int		stepY;
+    int		hit; // 1 si un mur a ete touche, 0 sinon
+    int		side; // est ce que c'est un mur N / S ou E / W qui a ete touche
+    double	perpWallDist; // distance entre le plan camera et le mur
+    int		line_height; // hauteur du mur qu'on dessine
+	int		pitch;
+	int		drawStart;
+	int		drawEnd;
+} t_ray;
+
 typedef struct s_map
 {
 	char			**map;
@@ -35,8 +57,10 @@ typedef struct s_map
 	int				x_player;
 	int				y_player;
 
-	double posX; // positions du player type double
-	double posY; // (et au milieu de la case au depart)
+	t_ray			ray;
+
+	double			posX; // positions du player type double
+	double			posY; // (et au milieu de la case au depart)
 	double			dirX;
 	double			dirY;
 	double			planeX;
@@ -55,6 +79,7 @@ typedef struct s_map
 	unsigned int	**buffer;
 }					t_map;
 
+void	wall_casting(t_map *data);
 int					what_color(t_map *data, int texX, int texY,
 						int orientation);
 int					load_tex(t_map *data);
