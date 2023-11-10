@@ -41,6 +41,11 @@ int	check_color(t_map *data, char **tab)
 	return (0);
 }
 
+// int load_tex(t_map *data)
+// {
+	
+// }
+
 int	check_texture_paths(t_map *data, char **tab)
 {
 	int	fd;

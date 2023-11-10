@@ -1,7 +1,7 @@
-NO ./img/bluestone.png
-SO ./img/colorstone.png		
-WE ./img/eagle.png
-EA ./img/greystone.png
+NO ./img/bluestone.xpm
+SO ./img/mossy.xpm	
+WE ./img/purplestone.xpm
+EA ./img/green64x64.xpm
    F	   	12,00,223
 
 
@@ -13,7 +13,7 @@ C 200,30,255
 10000001000000001
 10000000000001001
 10001010001000001
-1000000000W000011
+10000000N00000011
 10100001000000101
 10000000000000101
 11111111111111111

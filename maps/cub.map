@@ -1,7 +1,7 @@
-NO ./img/bluestone.png
-SO ./img/colorstone.png		
-WE ./img/eagle.png
-EA ./img/greystone.png
+NO ./img/bluestone.xpm
+SO ./img/mossy.xpm	
+WE ./img/purplestone.xpm
+EA ./img/pillar.xpm
    F	   	12,00,223
 
 

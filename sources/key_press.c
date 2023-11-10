@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-#define PI 3.14159265358979323846
-
 int	key_hook(int keycode, t_map *data)
 {
 	int new_posX = 0;
@@ -50,8 +48,7 @@ int	key_hook(int keycode, t_map *data)
 	}
 	if (keycode == 65361) // fleche gauche
 	{
-		data->alpha = 2;
-		double rad = (data->alpha * PI) / 180;
+		double rad = (ALPHA * PI) / 180;
 
 		double dX = data->dirX;
 		data->dirX = data->dirX * cos(rad) - data->dirY * sin(rad);
@@ -63,8 +60,7 @@ int	key_hook(int keycode, t_map *data)
 	}
 	else if (keycode == 65363) // fleche droite
 	{
-		data->alpha = -2;
-		double rad = (data->alpha * PI) / 180;
+		double rad = (-ALPHA * PI) / 180;
 
 		double dX = data->dirX;
 		data->dirX = data->dirX * cos(rad) - data->dirY * sin(rad);

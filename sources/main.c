@@ -1,10 +1,11 @@
 #include "cub3d.h"
 
-void display_map(char **map)
+void	display_map(char **map)
 {
-	int i = 0;
-	int j;
+	int	i;
+	int	j;
 
+	i = 0;
 	while (map[i])
 	{
 		j = 0;
@@ -20,27 +21,95 @@ void display_map(char **map)
 
 void	init_map(t_map *data)
 {
-    ft_memset(data, 0, sizeof(t_map));
+	int i;
+
+	ft_memset(data, 0, sizeof(t_map));
 	data->x_player = -1;
 	data->y_player = -1;
-    data->width = 800;
-    data->height = 600;
+	data->width = 800;
+	data->height = 600;
+	data->tex_height = 64;
+	data->tex_width = 64;
+	ft_memset(&data->ray, 0, sizeof(t_ray));
+	data->buffer = malloc(sizeof(unsigned int*) * (data->height));
+	if (!data->buffer)
+	{
+		printf("Error\nInitialization");
+		return ;
+	}
+	i = 0;
+	while (i < data->height)
+	{
+		data->buffer[i] = malloc(sizeof(unsigned int) * (data->width));
+		if (!data->buffer[i])
+			return ; // free tab + print erreur
+		i++;
+	}
+	i = 0;
+	data->tex = malloc(sizeof(int *) * (4)); // pour 4 texture : remplacer par une variable nb_textures
+	if (!data->tex)
+		return ; // erreur
 }
 
-void loop(t_map *data)
+int load_img(t_map *data, t_image *img, char *path, int i)
 {
-    data->mlx_ptr = mlx_init();
-    if (!data->mlx_ptr)
-    {
-        printf("Error\nCannot init window\n");
-        return ;
-    }
-    data->win_ptr = mlx_new_window(data->mlx_ptr, data->width, data->height,
-		"Cub3D");
-    if (!data->win_ptr)
-		return (ft_printf("Error\nCannot display window\n"), free(data->win_ptr));
-    //charger les texture
-	
+	int y;
+	int x;
+
+	img->img = mlx_xpm_file_to_image(data->mlx_ptr, path, &data->tex_width, &data->tex_height);
+	if (!img->img)
+		return (printf("Error\nCannot load texture\n"), 0);
+	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size, &img->endian);
+	if (!img->data)
+		return (printf("Error\nCannot load texture\n"), 0);
+	data->tex[i] = malloc(sizeof(int) * (data->tex_height * data->tex_width));
+	// gerrer erreur malloc
+	y = 0;
+	while (y < data->tex_height)
+	{
+		x = 0;
+		while (x < data->tex_width)
+		{
+			data->tex[i][y * data->tex_width + x] = img->data[y * data->tex_width + x];
+			x++;
+		}
+		y++;
+	}
+	mlx_destroy_image(data->mlx_ptr, data->img.img);
+	return (1);
+}
+
+int	load_tex(t_map *data)
+{
+	if (!load_img(data, &data->img, data->path_N, 0))
+		return (0);
+	if (!load_img(data, &data->img, data->path_S, 1))
+		return (0);
+	if (!load_img(data, &data->img, data->path_W, 2))
+		return (0);
+	if (!load_img(data, &data->img, data->path_E, 3))
+		return (0);
+	return (1);
+}
+
+void	loop(t_map *data)
+{
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+	{
+		printf("Error\nCannot init window\n");
+		return ;
+	}
+	data->win_ptr = mlx_new_window(data->mlx_ptr, data->width, data->height,
+			"Cub3D");
+	if (!data->win_ptr)
+		return (ft_printf("Error\nCannot display window\n"),
+			free(data->win_ptr));
+	//charger les texture
+	if (!load_tex(data))
+		return ;
+	data->img.img = mlx_new_image(data->mlx_ptr, data->width, data->height);
+	data->img.data = (int *)mlx_get_data_addr(data->img.img, &data->img.bpp, &data->img.size, &data->img.endian);
 	//affichage
 	display(data);
 	//gerer les touches
@@ -49,112 +118,24 @@ void loop(t_map *data)
 	mlx_loop(data->mlx_ptr);
 }
 
-// int main(int argc, char **argv, char **env)
-// {
-// 	t_map	data;
-
-// 	init_map(&data);
-// 	if (!ft_parsing(argc, argv, env, &data))
-// 		return (free_data(&data), 1);
-// 	if (!get_map(&data, argv[1]))
-// 		return (free_data(&data), 1);
-// 	if (!check_map(&data))
-// 		return (free_data(&data), 1);
-// 	//afficher la map
-// 	display_map(data.map);
-// 	//determiner les coordonnees du vecteur direction au debut
-// 	coor_direction_begin(&data);
-// 	// boucle d'affiche de la fenetre
-// 	loop(&data);
-//     free_mlx(&data);
-// 	free_data(&data);
-// 	return (0);
-// }
-
-void img_pix_put(t_image *img, int x, int y, int color)
+int	main(int argc, char **argv, char **env)
 {
-    char *pixel;
-    pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    *(int *)pixel = color;
+	t_map	data;
+
+	init_map(&data);
+	if (!ft_parsing(argc, argv, env, &data))
+		return (free_data(&data), 1);
+	if (!get_map(&data, argv[1]))
+		return (free_data(&data), 1);
+	if (!check_map(&data))
+		return (free_data(&data), 1);
+	//afficher la map
+	display_map(data.map);
+	//determiner les coordonnees du vecteur direction au debut
+	coor_direction_begin(&data);
+	// boucle d'affiche de la fenetre
+	loop(&data);
+	free_mlx(&data);
+	free_data(&data);
+	return (0);
 }
-
-void draw_rectangle(t_image *img, int x, int y, int width, int height, int color)
-{
-    for (int i = y; i < y + height; i++)
-    {
-        for (int j = x; j < x + width; j++)
-        {
-            img_pix_put(img, j, i, color);
-        }
-    }
-}
-
-void draw_circle(t_image *img, int x, int y, int radius, int color)
-{
-    for (int i = y - radius; i <= y + radius; i++)
-    {
-        for (int j = x - radius; j <= x + radius; j++)
-        {
-            if ((i - y) * (i - y) + (j - x) * (j - x) <= radius * radius)
-            {
-                img_pix_put(img, j, i, color);
-            }
-        }
-    }
-}
-
-
-int main()
-{
-    void *mlx = mlx_init();
-    void *win = mlx_new_window(mlx, 800, 600, "Map Display");
-
-    int pixel_size = 30;
-    int player_radius = pixel_size / 4;
-
-    t_image img;
-    img.mlx_img = mlx_new_image(mlx, 800, 600);
-    img.addr = mlx_get_data_addr(img.mlx_img, &img.bpp, &img.line_len, &img.endian);
-
-    char *map[] = {
-        "11111111111111111",
-        "10000001000000001",
-        "10000000000001001",
-        "10001010001000001",
-        "1000000000W000011",
-        "10100001000000101",
-        "10000000000000101",
-        "11111111111111111"};
-
-    for (int y = 0; y < 8; y++)
-    {
-        for (int x = 0; x < 17; x++)
-        {
-            int square_x = x * pixel_size;
-            int square_y = y * pixel_size;
-
-            if (map[y][x] == '1')
-            {
-                draw_rectangle(&img, square_x, square_y, pixel_size, pixel_size, 0x0000FF);
-            }
-            else if (map[y][x] == 'W')
-            {
-                draw_rectangle(&img, square_x, square_y, pixel_size, pixel_size, 0xFFFFFF);
-                int center_x = square_x + (pixel_size / 2);
-                int center_y = square_y + (pixel_size / 2);
-                draw_circle(&img, center_x, center_y, player_radius, 0x00FF00);
-            }
-            else
-            {
-                draw_rectangle(&img, square_x, square_y, pixel_size, pixel_size, 0xFFFFFF);
-            }
-        }
-    }
-
-    mlx_put_image_to_window(mlx, win, img.mlx_img, 0, 0);
-    mlx_loop(mlx);
-
-    return 0;
-}
-
-
