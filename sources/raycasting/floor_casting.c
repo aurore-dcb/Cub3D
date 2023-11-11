@@ -21,22 +21,28 @@ void	floor_casting(t_map *data)
 	t_floor floor;
 
 	floor = data->floor;
-	y = -1;
-	while (++y < data->height)
+	y = data->height / 2 + 1;
+	while (y < data->height)
 	{
 		floor.rayDirX0 = data->dirX - data->planeX;
 		floor.rayDirY0 = data->dirY - data->planeY;
 		floor.rayDirX1 = data->dirX + data->planeX;
 		floor.rayDirY1 = data->dirY + data->planeY;
+
 		floor.p = y - data->height / 2;
+
 		floor.pos_z = 0.5 * data->height;
+
 		floor.row_distance = floor.pos_z / floor.p;
+
 		floor.floor_stepx = floor.row_distance * (floor.rayDirX1
-				- floor.rayDirX0) / data->height;
+				- floor.rayDirX0) / data->width;
 		floor.floor_stepy = floor.row_distance * (floor.rayDirY1
-				- floor.rayDirY0) / data->height;
+				- floor.rayDirY0) / data->width;
+
 		floor.floorx = data->posX + floor.row_distance * floor.rayDirX0;
 		floor.floory = data->posY + floor.row_distance * floor.rayDirY0;
+
 		x = -1;
 		while (++x < data->width)
 		{
@@ -46,10 +52,12 @@ void	floor_casting(t_map *data)
 			floor.floory += floor.floor_stepy;
 			// color = //fonction
             // color_ceiling = get_color(data);
-			color_ceiling = 0;
-            color = 200;
-			data->buffer[y][x] = color_ceiling;
-			data->buffer[data->height - y - 1][x] = color;
+			color_ceiling = 100;
+            color = 255;
+			data->buffer[y][x] = color; // floor
+			data->buffer[data->height - y - 1][x] = color_ceiling; // ceilling
 		}
+		y++;
 	}
+
 }

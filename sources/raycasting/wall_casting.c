@@ -32,8 +32,8 @@ void	pixel_color(t_map *data, double tex_x, double tex_y, int x)
 		data->ray.texPos += data->ray.step;
 		color = data->tex[data->ray.wall_orient][data->tex_height * (int)tex_y
 			+ (int)tex_x];
-		if (data->ray.side == 1)
-			color /= 2;
+		// if (data->ray.side == 1)
+		// 	color /= 2;
 		data->buffer[y][x] = color;
 		y++;
 	}

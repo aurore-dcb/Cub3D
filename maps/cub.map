@@ -1,7 +1,7 @@
-NO ./img/bluestone.xpm
-SO ./img/mossy.xpm	
-WE ./img/purplestone.xpm
-EA ./img/pillar.xpm
+NO ./img/zelda/zelda_water.xpm
+SO ./img/zelda/zelda_perso2.xpm	
+WE ./img/zelda/zelda1.xpm
+EA ./img/zelda/zelda_perso.xpm
    F	   	12,00,223
 
 

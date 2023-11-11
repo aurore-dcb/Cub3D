@@ -87,11 +87,9 @@ int	do_end_parse_map(t_map *data, int i, int empty_line)
 int	beg_parse_map(t_map *data)
 {
 	int	i;
-	int	j;
 	int	empty_line;
 
 	i = 0;
-	j = 0;
 	empty_line = 0;
 	while (i < data->nb_line)
 	{

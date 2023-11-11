@@ -1,7 +1,7 @@
-NO ./img/bluestone.xpm
-SO ./img/green64x64.xpm	
-WE ./img/purplestone.xpm
-EA ./img/green64x64.xpm
+NO ./img/mario/brick_mario.xpm
+SO ./img/mario/interrogation_point_mario.xpm	
+WE ./img/mario/mario_pipe.xpm
+EA ./img/mario/mario_mushroom.xpm
    F	   	12,00,223
 
 

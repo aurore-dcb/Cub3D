@@ -1,13 +1,13 @@
-NO ./img/bluestone.png
-SO ./img/colorstone.png
+NO ./img/hiver/neige.xpm
+SO ./img/hiver/pinguin.xpm
 
 
 C 200,30,38
 
-EA              ./img/greystone.png
+EA              ./img/hiver/sapin.xpm
 
                 F 255,100,0
-WE ./img/eagle.png
+WE ./img/hiver/snowman.xpm
 
         1111111111111111111111111
         100000000011000000000011 1
