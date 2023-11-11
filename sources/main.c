@@ -19,10 +19,8 @@ void	display_map(char **map) // a supprimer a la fin
 	}
 }
 
-int	init_map(t_map *data)
+void	init_map(t_map *data)
 {
-	int i;
-
 	ft_memset(data, 0, sizeof(t_map));
 	data->x_player = -1;
 	data->y_player = -1;
@@ -31,19 +29,6 @@ int	init_map(t_map *data)
 	data->tex_height = 64;
 	data->tex_width = 64;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
-	ft_memset(&data->floor, 0, sizeof(t_floor));
-	data->buffer = malloc(sizeof(unsigned int*) * (data->height));
-	if (!data->buffer)
-		return (0);
-	i = 0;
-	while (i < data->height)
-	{
-		data->buffer[i] = malloc(sizeof(unsigned int) * (data->width));
-		if (!data->buffer[i])
-			return (free_buffer(data->buffer), 0);
-		i++;
-	}
-	return (1);
 }
 
 int load_img(t_map *data, t_image *img, char *path, int i)
@@ -118,14 +103,11 @@ void	loop(t_map *data)
 	mlx_loop(data->mlx_ptr);
 }
 
-
-
 int	main(int argc, char **argv, char **env)
 {
 	t_map	data;
 
-	if (!init_map(&data))
-		return (printf("Error\nInitialization\n"), 0);
+	init_map(&data);
 	if (!ft_parsing(argc, argv, env, &data))
 		return (free_data(&data), 1);
 	if (!get_map(&data, argv[1]))

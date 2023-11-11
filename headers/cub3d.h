@@ -56,25 +56,6 @@ typedef struct s_ray
 	double	texPos;
 }			t_ray;
 
-typedef struct s_floor
-{
-	float	rayDirX0;
-	float	rayDirY0;
-	float	rayDirX1;
-	float	rayDirY1;
-	int		p; // position actuelle en y par rapport au milieu de l'ecran
-	float	pos_z; // position verticale de la camera
-	float	row_distance; // distance horizontale entre la camera et le floor
-	float	floor_stepx;
-	float	floor_stepy;
-	float	floorx;
-	float	floory;
-	int		cellx;
-	int		celly;
-	// int		tx; // coordonnees de la texture
-	// int		ty;
-}		t_floor;
-
 typedef struct s_map
 {
 	char			**map;
@@ -91,7 +72,6 @@ typedef struct s_map
 	int				y_player;
 
 	t_ray			ray;
-	t_floor			floor;
 
 	double			posX; // positions du player type double
 	double			posY; // (et au milieu de la case au depart)
@@ -111,6 +91,8 @@ typedef struct s_map
 	char			*C_color;
 	int				**tex;
 	unsigned int	**buffer;
+
+	int				dis_map;
 }					t_map;
 
 int					mini_map(t_map *data);
@@ -180,11 +162,12 @@ int					get_map(t_map *data, char *file);
 // key_press
 int					key_hook(int keycode, t_map *data);
 // display
+int					init_buffer(t_map *data);
 void				display(t_map *data);
 // display_utils
 void				coor_direction_begin(t_map *data);
 void				draw(t_map *data);
 //main
-int					init_map(t_map *data);
-void	display_map(char **map); // a supprimer a la fin
+void				init_map(t_map *data);
+void				display_map(char **map); // a supprimer a la fin
 #endif

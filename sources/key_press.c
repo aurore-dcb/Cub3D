@@ -1,5 +1,11 @@
 #include "cub3d.h"
 
+int good_keycode(int keycode)
+{
+	return (keycode == 97 || keycode == 119 || keycode == 100 || keycode == 115
+		|| keycode == 65361 || keycode == 65363 || keycode == 109);
+}
+
 int	key_hook(int keycode, t_map *data)
 {
 	int		new_posx;
@@ -75,8 +81,9 @@ int	key_hook(int keycode, t_map *data)
 		data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
 		data->planeY = px * sin(rad) + data->planeY * cos(rad);
 	}
-	if (keycode == 97 || keycode == 119 || keycode == 100 || keycode == 115
-		|| keycode == 65361 || keycode == 65363)
+	if (keycode == 109)
+		data->dis_map = (data->dis_map + 1) % 2;
+	if (good_keycode(keycode) == 1)
 	{
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		display(data);
