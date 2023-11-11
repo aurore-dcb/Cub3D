@@ -35,6 +35,7 @@ void	pixel_color(t_map *data, double tex_x, double tex_y, int x)
 		// if (data->ray.side == 1)
 		// 	color /= 2;
 		data->buffer[y][x] = color;
+		// printf("color : %X\n", data->buffer[y][x]);
 		y++;
 	}
 }

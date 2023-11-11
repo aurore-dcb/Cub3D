@@ -116,6 +116,7 @@ typedef struct s_map
 int					mini_map(t_map *data);
 // floor_casting
 void				floor_casting(t_map *data);
+void				floor_casting2(t_map *data);
 
 // wall_casting
 void				wall_orientation(t_map *data);

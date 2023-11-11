@@ -1,63 +1,40 @@
 #include "cub3d.h"
 
-unsigned int	get_color(t_map *data)
+unsigned int	get_color(char *s)
 {
-	unsigned int	color;
 	char			**comp;
+	unsigned int	color;
 
-	comp = ft_split_char(data->C_color, ',');
-	color = ((unsigned int)ft_atoi(comp[0]) << 16 | (unsigned int)ft_atoi(comp[1]) << 8 | (unsigned int)ft_atoi(comp[2]));
+	comp = ft_split_char(s, ',');
+    if (!comp)
+        return (0);
+    int r = ft_atoi(comp[0]);
+    int g = ft_atoi(comp[1]);
+    int b = ft_atoi(comp[2]);
+	color = ((unsigned int)r << 16 | (unsigned int)g << 8 | (unsigned int)b);
 	free_tab(comp);
     return (color);
 }
 
 void	floor_casting(t_map *data)
 {
-	int y;
-	int x;
-	unsigned int color_ceiling;
-	// unsigned int color_floor;
-    unsigned int color;
-	t_floor floor;
+    int y;
+    int x;
+    unsigned int ceiling_color;
+    unsigned int floor_color;
 
-	floor = data->floor;
-	y = data->height / 2 + 1;
-	while (y < data->height)
-	{
-		floor.rayDirX0 = data->dirX - data->planeX;
-		floor.rayDirY0 = data->dirY - data->planeY;
-		floor.rayDirX1 = data->dirX + data->planeX;
-		floor.rayDirY1 = data->dirY + data->planeY;
-
-		floor.p = y - data->height / 2;
-
-		floor.pos_z = 0.5 * data->height;
-
-		floor.row_distance = floor.pos_z / floor.p;
-
-		floor.floor_stepx = floor.row_distance * (floor.rayDirX1
-				- floor.rayDirX0) / data->width;
-		floor.floor_stepy = floor.row_distance * (floor.rayDirY1
-				- floor.rayDirY0) / data->width;
-
-		floor.floorx = data->posX + floor.row_distance * floor.rayDirX0;
-		floor.floory = data->posY + floor.row_distance * floor.rayDirY0;
-
-		x = -1;
-		while (++x < data->width)
-		{
-			floor.cellx = (int)floor.floorx;
-			floor.celly = (int)floor.floory;
-			floor.floorx += floor.floor_stepx;
-			floor.floory += floor.floor_stepy;
-			// color = //fonction
-            // color_ceiling = get_color(data);
-			color_ceiling = 100;
-            color = 255;
-			data->buffer[y][x] = color; // floor
-			data->buffer[data->height - y - 1][x] = color_ceiling; // ceilling
-		}
-		y++;
-	}
-
+    ceiling_color = get_color(data->C_color);
+    floor_color = get_color(data->F_color);
+    x = 0;
+    while (x < data->width)
+    {
+        y = 0;
+        while (y < data->height && data->buffer[y][x] == 0)
+            data->buffer[y++][x] = ceiling_color;
+        while (y < data->height && data->buffer[y][x] != 0)
+            y++;
+        while (y < data->height && data->buffer[y][x] == 0)
+            data->buffer[y++][x] = floor_color;
+        x++;
+    }
 }
