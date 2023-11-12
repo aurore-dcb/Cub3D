@@ -10,7 +10,7 @@
 # include <unistd.h>
 
 # define PI 3.14159265358979323846
-# define ALPHA 2
+# define ALPHA 4
 
 typedef struct s_2DPoint
 {
@@ -102,7 +102,7 @@ void				floor_casting2(t_map *data);
 
 // wall_casting
 void				wall_orientation(t_map *data);
-void				pixel_color(t_map *data, double texX, double texY, int x);
+void				pixel_color(t_map *data, int texX, int texY, int x);
 void				textures(t_map *data, int x);
 void				wall_casting(t_map *data);
 // calc_wall_catsing

@@ -2,7 +2,6 @@
 
 void	wall_orientation(t_map *data)
 {
-	data->ray.wall_orient = 0;
 	if (data->ray.side == 0)
 	{
 		if (data->ray.stepX == 1) // est
@@ -19,7 +18,7 @@ void	wall_orientation(t_map *data)
 	}
 }
 
-void	pixel_color(t_map *data, double tex_x, double tex_y, int x)
+void	pixel_color(t_map *data, int tex_x, int tex_y, int x)
 {
 	int				y;
 	unsigned int	color;
@@ -27,11 +26,10 @@ void	pixel_color(t_map *data, double tex_x, double tex_y, int x)
 	y = data->ray.drawStart;
 	while (y < data->ray.drawEnd)
 	{
-		color = 0;
 		tex_y = (int)data->ray.texPos & (data->tex_height - 1);
 		data->ray.texPos += data->ray.step;
-		color = data->tex[data->ray.wall_orient][data->tex_height * (int)tex_y
-			+ (int)tex_x];
+		color = data->tex[data->ray.wall_orient][data->tex_height * tex_y
+			+ tex_x];
 		data->buffer[y][x] = color;
 		y++;
 	}
@@ -45,7 +43,7 @@ void	textures(t_map *data, int x)
 	tex_x = 0;
 	tex_y = 0;
 	if (data->ray.side == 0)
-		data->ray.wallX = data->posY + data->ray.perpWallDist
+		data->ray.wallX = data->posY - data->ray.perpWallDist
 			* data->ray.rayDirY;
 	else
 		data->ray.wallX = data->posX + data->ray.perpWallDist

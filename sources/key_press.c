@@ -14,6 +14,7 @@ int	key_hook(int keycode, t_map *data)
 	double	dx;
 	double	px;
 
+	// printf("keycode : %d\n", keycode);
 	new_posx = 0;
 	new_posy = 0;
 	rad = 0.0;

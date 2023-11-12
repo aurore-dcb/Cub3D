@@ -58,11 +58,11 @@ void	wall_size(t_map *data)
 		data->ray.perpWallDist = data->ray.sideDistX - data->ray.deltaDistX;
 	else
 		data->ray.perpWallDist = data->ray.sideDistY - data->ray.deltaDistY;
-	data->ray.pitch = 100;
 	//Calculer la taille du segment qu'il faut dessiner
 	//cad la hauteur du mur en fonction de sa distance avec le plan camera
 	data->ray.line_height = (int)(data->height / data->ray.perpWallDist);
-	data->ray.drawStart = -(data->ray.line_height) / 2 + data->height / 2
+	data->ray.pitch = 100;
+	data->ray.drawStart = -data->ray.line_height / 2 + data->height / 2 +
 		+ data->ray.pitch;
 	if (data->ray.drawStart < 0)
 		data->ray.drawStart = 0;
