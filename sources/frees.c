@@ -62,8 +62,8 @@ void	free_char_spe(char **tableau, int len)
 
 void	free_data(t_map *data)
 {
-	if (data->map)
-		free_tab(data->map);
+	// if (data->map)
+	// 	free_tab(data->map);
 	if (data->path_N)
 		free(data->path_N);
 	if (data->path_S)
