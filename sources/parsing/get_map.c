@@ -44,7 +44,7 @@ int	fill_map(t_map *data, char *lign, int fd)
 	i = 0;
 	while (i < data->nb_line)
 	{
-		data->map[i] = (char *)malloc((ft_strlen(lign)) * sizeof(char));
+		data->map[i] = (char *)malloc((ft_strlen(lign) + 1) * sizeof(char));
 		if (!data->map[i])
 			return (free_char_spe(data->map, i), 0);
 		do_fill_map(data, lign, i);
