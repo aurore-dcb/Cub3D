@@ -9,6 +9,7 @@ int	get_map_size(t_map *data, char *lign)
 		return (0);
 	while (lign[i])
 		i++;
+	i--;
 	if (data->nb_col < i)
 		data->nb_col = i;
 	return (1);

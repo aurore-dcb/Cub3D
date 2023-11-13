@@ -11,6 +11,7 @@
 
 # define PI 3.14159265358979323846
 # define ALPHA 4
+# define SPEED 0.1
 
 typedef struct s_2D
 {
@@ -163,6 +164,15 @@ int					get_map(t_map *data, char *file);
 // key_press
 int   				mouse_move(int x, int y, t_map *data);
 int					key_hook(int keycode, t_map *data);
+// handle_key
+void	w_key(t_map *data);
+void	s_key(t_map *data);
+void	a_key(t_map *data);
+void	d_key(t_map *data);
+// mouse_key
+// void	mouse_y(t_map *data, t_2D last, int y);
+// void	mouse_x(t_map *data, t_2D last, int x);
+// int	mouse_move(int x, int y, t_map *data);
 // display
 int					init_buffer(t_map *data);
 void				display(t_map *data);
