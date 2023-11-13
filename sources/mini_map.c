@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_rectangle(t_map *data, t_2DPoint square, int size, int color)
+void	draw_rectangle(t_map *data, t_2D square, int size, int color)
 {
 	int	i;
 	int	j;
@@ -19,7 +19,7 @@ void	draw_rectangle(t_map *data, t_2DPoint square, int size, int color)
 	}
 }
 
-void	draw_circle(t_map *data, t_2DPoint p, int rad, int color)
+void	draw_circle(t_map *data, t_2D p, int rad, int color)
 {
 	int	i;
 	int	j;
@@ -41,75 +41,59 @@ void	draw_circle(t_map *data, t_2DPoint p, int rad, int color)
 	}
 }
 
-void	do_mini_map(t_map *data, int x, int y, int pixel_size)
+void	do_draw_fixed(t_map *d, t_2D start, t_2D end, int pixel_size)
 {
-	t_2DPoint	square;
+	t_2D	square;
+	t_2D	p;
 
-	square.x = x * pixel_size;
-	square.y = y * pixel_size;
-	if (data->map[y][x] == '0' || is_carac_map(data->map[y][x]))
+	p.y = start.y;
+	p.x = start.x;
+	while (p.y <= end.y)
 	{
-		draw_rectangle(data, square, pixel_size, 0xFFFFFF);
-	}
-	else
-	{
-		draw_rectangle(data, square, pixel_size, 0x0000FF);
+		p.x = start.x;
+		while (p.x <= end.x)
+		{
+			square.x = (p.x - start.x) * pixel_size;
+			square.y = (p.y - start.y) * pixel_size;
+			if (p.y < 0 || p.y >= d->nb_line || p.x < 0 || p.x >= d->nb_col)
+			{
+				p.x++;
+				continue ;
+			}
+			else if (d->map[p.y][p.x] == '0' || is_carac_map(d->map[p.y][p.x]))
+				draw_rectangle(d, square, pixel_size, 0xFFFFFF);
+			else
+				draw_rectangle(d, square, pixel_size, 0x0000FF);
+			p.x++;
+		}
+		p.y++;
 	}
 }
 
-void draw_fixed_mini_map(t_map *data, int view_radius, int pixel_size)
+void	draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size)
 {
-    int startX = data->posX - view_radius;
-    int startY = data->posY - view_radius;
+	t_2D	start;
+	t_2D	end;
 
-    startX = (startX < 0) ? 0 : startX;
-    startY = (startY < 0) ? 0 : startY;
-
-    int endX = data->posX + view_radius;
-    int endY = data->posY + view_radius;
-
-    endX = (endX >= data->nb_col) ? data->nb_col - 1 : endX;
-    endY = (endY >= data->nb_line) ? data->nb_line - 1 : endY;
-
-    for (int y = startY; y <= endY; y++)
-    {
-        for (int x = startX; x <= endX; x++)
-        {
-            t_2DPoint square;
-            square.x = (x - startX) * pixel_size;
-            square.y = (y - startY) * pixel_size;
-
-            if (data->map[y][x] == '0' || is_carac_map(data->map[y][x]))
-            {
-                draw_rectangle(data, square, pixel_size, 0xFFFFFF);
-            }
-            else
-            {
-                draw_rectangle(data, square, pixel_size, 0x0000FF);
-            }
-        }
-    }
+	start.x = (int)data->posX - view.x;
+	start.y = (int)data->posY - view.y;
+	end.x = data->posX + view.x;
+	end.y = data->posY + view.y;
+	do_draw_fixed(data, start, end, pixel_size);
 }
 
-int mini_map(t_map *data)
+int	mini_map(t_map *data)
 {
-    int pixel_size = 8;
-    int view_radius = 5;  // Rayon de la vue autour du joueur
+	t_2D	minimap_center;
+	t_2D	view;
+	int		pixel_size;
 
-    draw_fixed_mini_map(data, view_radius, pixel_size);
-    // Coordonnées du centre de la minimap
-    t_2DPoint minimapCenter;
-    minimapCenter.x = (view_radius * 2 * pixel_size + 8) / 2;
-    minimapCenter.y = (view_radius * 2 * pixel_size - 8) / 2;
-
-    // Coordonnées du cercle rouge au centre de la minimap
-    t_2DPoint circleCenter;
-    circleCenter.x = 30;
-    circleCenter.y = 30;
-
-    // Dessiner le cercle rouge au centre de la minimap
-    draw_circle(data, minimapCenter, pixel_size / 4, 0xFF0000);
-
-
-    return 0;
+	pixel_size = 8;
+	view.x = 5;
+	view.y = 3;
+	minimap_center.x = (view.x * 2 * pixel_size + 8) / 2;
+	minimap_center.y = ((view.y + 1) * 2 * pixel_size - 8) / 2;
+	draw_fixed_mini_map(data, view, pixel_size);
+	draw_circle(data, minimap_center, pixel_size / 4, 0xFF0000);
+	return (0);
 }

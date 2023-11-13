@@ -1,11 +1,11 @@
-NO ./img/bluestone.png
-./img/colorstone.png		
-WE ./img/eagle.png
-EA ./img/greystone.png
+NO ./img/origin/bluestone.xpm
+SO ./img/origin/colorstone.xpm
+
+WE ./img/origin/eagle.xpm
+EA ./img/origin/greystone.xpm
     F	   	12,00,223
 
-
-
+dafasdfgag
 
 C 200,30,255
 

@@ -15,14 +15,14 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void free_tab_int(int **buf)
+void free_tab_int(int **buf, t_map *data)
 {
 	int	i;
 
 	i = 0;
 	if (!buf)
 		return ;
-	while (buf[i])
+	while (i < data->nb_tex)
 	{
 		free(buf[i]);
 		i++;
@@ -30,14 +30,14 @@ void free_tab_int(int **buf)
 	free(buf);
 }
 
-void free_buffer(unsigned int **buf)
+void free_buffer(unsigned int **buf, t_map *data)
 {
 	int	i;
 
 	i = 0;
 	if (!buf)
 		return ;
-	while (buf[i])
+	while (i < data->height)
 	{
 		free(buf[i]);
 		i++;

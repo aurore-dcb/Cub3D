@@ -14,7 +14,7 @@ int init_buffer(t_map *data)
 		x = 0;
 		data->buffer[y] = malloc(sizeof(unsigned int) * (data->width));
 		if (!data->buffer[x])
-			return (free_buffer(data->buffer), 0);
+			return (free_buffer(data->buffer, data), 0);
 		while (x < data->width)
 		{
 			data->buffer[y][x] = 0;
@@ -42,7 +42,6 @@ void	display(t_map *data)
 	floor_casting(data);
 	draw(data);
 	// Nettoyer le buffer
-	// free_buffer(data->buffer);
 	y = 0;
 	while (y < data->height)
 	{
@@ -54,6 +53,7 @@ void	display(t_map *data)
 		}
 		y++;
 	}
+	free_buffer(data->buffer, data);
 }
 
 void	draw(t_map *data)

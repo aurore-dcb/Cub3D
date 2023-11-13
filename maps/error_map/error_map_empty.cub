@@ -1,0 +1,19 @@
+NO ./img/mario/brick_mario.xpm
+SO ./img/mario/interrogation_point_mario.xpm	
+WE ./img/mario/mario_pipe.xpm
+EA ./img/mario/mario_mushroom.xpm
+   F	   	255,0,255
+
+
+
+
+C 0,128,255
+
+11111111111111111
+10000010000000001
+100000100  001001
+10000000000000001
+11111111011111111
+10101000000000101
+10000000N00000101
+11111111111111111

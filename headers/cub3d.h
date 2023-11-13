@@ -12,11 +12,11 @@
 # define PI 3.14159265358979323846
 # define ALPHA 4
 
-typedef struct s_2DPoint
+typedef struct s_2D
 {
     int x;
     int y;
-}               t_2DPoint;
+}               t_2D;
 
 typedef struct s_image
 {
@@ -151,8 +151,8 @@ int					check_texture(char *line, t_map *data);
 // frees
 void				free_char_spe(char **tableau, int len);
 void				free_tab(char **tab);
-void				free_tab_int(int **buf);
-void				free_buffer(unsigned int **buf);
+void				free_tab_int(int **buf, t_map *data);
+void				free_buffer(unsigned int **buf, t_map *data);
 void				free_data(t_map *data);
 void				free_mlx(t_map *data);
 // get_map

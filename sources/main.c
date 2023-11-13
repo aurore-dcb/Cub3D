@@ -118,8 +118,8 @@ int	main(int argc, char **argv, char **env)
 	// display_map(data.map);
 	coor_direction_begin(&data);
 	loop(&data);
-	// free_tab_int(data.tex);
-	free_buffer(data.buffer);
+	free_tab_int(data.tex, &data);
+	// free_buffer(data.buffer);
 	free_mlx(&data);
 	free_data(&data);
 	return (0);

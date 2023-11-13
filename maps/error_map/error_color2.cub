@@ -1,13 +1,13 @@
-NO ./img/bluestone.png
-SO
-WE ./img/eagle.png
-EA ./img/greystone.png
+NO ./img/origin/bluestone.xpm
+SO ./img/origin/colorstone.xpm
+
+WE ./img/origin/eagle.xpm
+EA ./img/origin/greystone.xpm
     F	   	12,00,223
 
 
 
-
-C 200,30,255
+C 
 
 11111111111111111
 10000001000000001
