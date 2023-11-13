@@ -73,8 +73,8 @@ int	check_texture_paths(t_map *data, char **tab)
 		close(fd);
 		return (printf("Error\nTexture\n"), 0);
 	}
-	return (1);
 	close(fd);
+	return (1);
 }
 
 int	check_texture(char *line, t_map *data)
@@ -93,13 +93,13 @@ int	check_texture(char *line, t_map *data)
 	else if (ft_strcmp(tab[0], "F") == 0 || ft_strcmp(tab[0], "C") == 0)
 	{
 		if (check_color(data, tab))
-			return (1);
+			return (free_tab(tab), 1);
 	}
 	else if (strcmp(tab[0], "NO") == 0 || strcmp(tab[0], "SO") == 0
 		|| strcmp(tab[0], "EA") == 0 || strcmp(tab[0], "WE") == 0)
 	{
 		if (check_texture_paths(data, tab))
-			return (1);
+			return (free_tab(tab), 1);
 	}
 	else
 		printf("Error\n");

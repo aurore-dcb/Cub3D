@@ -81,6 +81,8 @@ typedef struct s_map
 	double			planeY;
 
 	t_image			img;
+	t_image			main;
+
 	int				tex_width;
 	int				tex_height;
 	char			*path_N;
@@ -98,8 +100,6 @@ typedef struct s_map
 int					mini_map(t_map *data);
 // floor_casting
 void				floor_casting(t_map *data);
-void				floor_casting2(t_map *data);
-
 // wall_casting
 void				wall_orientation(t_map *data);
 void				pixel_color(t_map *data, int texX, int texY, int x);
@@ -151,6 +151,7 @@ int					check_texture(char *line, t_map *data);
 // frees
 void				free_char_spe(char **tableau, int len);
 void				free_tab(char **tab);
+void				free_tab_int(int **buf);
 void				free_buffer(unsigned int **buf);
 void				free_data(t_map *data);
 void				free_mlx(t_map *data);
@@ -160,6 +161,7 @@ void				do_fill_map(t_map *data, char *lign, int i);
 int					fill_map(t_map *data, char *lign, int fd);
 int					get_map(t_map *data, char *file);
 // key_press
+int   				mouse_move(int x, int y, t_map *data);
 int					key_hook(int keycode, t_map *data);
 // display
 int					init_buffer(t_map *data);

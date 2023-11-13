@@ -91,13 +91,14 @@ void	loop(t_map *data)
 			free(data->win_ptr));
 	if (!load_tex(data))
 		return ;
-	data->img.img = mlx_new_image(data->mlx_ptr, data->width, data->height);
-	if (!data->img.img)
+	data->main.img = mlx_new_image(data->mlx_ptr, data->width, data->height);
+	if (!data->main.img)
 		return ;
-	data->img.data = (int *)mlx_get_data_addr(data->img.img, &data->img.bpp, &data->img.size, &data->img.endian);
-	if (!data->img.data)
+	data->main.data = (int *)mlx_get_data_addr(data->main.img, &data->main.bpp, &data->main.size, &data->main.endian);
+	if (!data->main.data)
 		return ;
 	display(data);
+	mlx_hook(data->win_ptr, MotionNotify, PointerMotionMask, &mouse_move, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);
@@ -117,6 +118,8 @@ int	main(int argc, char **argv, char **env)
 	// display_map(data.map);
 	coor_direction_begin(&data);
 	loop(&data);
+	// free_tab_int(data.tex);
+	free_buffer(data.buffer);
 	free_mlx(&data);
 	free_data(&data);
 	return (0);

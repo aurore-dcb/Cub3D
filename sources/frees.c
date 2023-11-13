@@ -15,6 +15,21 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
+void free_tab_int(int **buf)
+{
+	int	i;
+
+	i = 0;
+	if (!buf)
+		return ;
+	while (buf[i])
+	{
+		free(buf[i]);
+		i++;
+	}
+	free(buf);
+}
+
 void free_buffer(unsigned int **buf)
 {
 	int	i;
@@ -65,6 +80,7 @@ void	free_data(t_map *data)
 
 void	free_mlx(t_map *data)
 {
+	mlx_destroy_image(data->mlx_ptr, data->main.img);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);

@@ -67,12 +67,12 @@ void	draw(t_map *data)
 		x = 0;
 		while (x < data->width)
 		{
-			data->img.data[y * data->width + x] = data->buffer[y][x];
+			data->main.data[y * data->width + x] = data->buffer[y][x];
 			x++;
 		}
 		y++;
 	}
 	if (data->dis_map == 0)
 		mini_map(data);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->main.img, 0, 0);
 }
