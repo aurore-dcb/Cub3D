@@ -1,11 +1,5 @@
 #include "cub3d.h"
 
-int	good_keycode(int keycode)
-{
-	return (keycode == 97 || keycode == 119 || keycode == 100 || keycode == 115
-		|| keycode == 65361 || keycode == 65363 || keycode == 109);
-}
-
 void	left_key(t_map *data)
 {
 	double	rad;
@@ -36,28 +30,64 @@ void	right_key(t_map *data)
 	data->planeY = px * sin(rad) + data->planeY * cos(rad);
 }
 
-int	key_hook(int keycode, t_map *data)
+int	key_press(int keycode, t_map *data)
 {
-	if (keycode == XK_Escape)
-		mlx_loop_end(data->mlx_ptr);
 	if (keycode == 119)
-		w_key(data);
+		data->w = 1;
 	else if (keycode == 115)
-		s_key(data);
-	else if (keycode == 97)
-		a_key(data);
+		data->s = 1;
 	else if (keycode == 100)
-		d_key(data);
-	if (keycode == 65361)
-		left_key(data);
+		data->d = 1;
+	else if (keycode == 97)
+		data->a = 1;
 	else if (keycode == 65363)
+		data->right = 1;
+	else if (keycode == 65361)
+		data->left = 1;
+	else if (keycode == 65505)
+		data->shift = 1;
+	else if (keycode == XK_Escape)
+		mlx_loop_end(data->mlx_ptr);
+	return (0);
+}
+
+int	key_release(int keycode, t_map *data)
+{
+	if (keycode == 119)
+		data->w = 0;
+	else if (keycode == 115)
+		data->s = 0;
+	else if (keycode == 100)
+		data->d = 0;
+	else if (keycode == 97)
+		data->a = 0;
+	else if (keycode == 65363)
+		data->right = 0;
+	else if (keycode == 65361)
+		data->left = 0;
+	else if (keycode == 65505)
+		data->shift = 0;
+	return (0);
+}
+
+int	key_hook(t_map *data)
+{
+	data->speed = 0.01;
+	if (data->shift)
+		data->speed = 0.03;
+	if (data->w)
+		w_key(data);
+	if (data->s)
+		s_key(data);
+	if (data->a)
+		a_key(data);
+	if (data->d)
+		d_key(data);
+	if (data->right)
 		right_key(data);
-	if (keycode == 109)
-		data->dis_map = (data->dis_map + 1) % 2;
-	if (good_keycode(keycode) == 1)
-	{
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-		display(data);
-	}
+	if (data->left)
+		left_key(data);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	display(data);
 	return (1);
 }
