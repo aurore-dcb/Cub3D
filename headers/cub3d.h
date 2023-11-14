@@ -154,8 +154,9 @@ void				free_char_spe(char **tableau, int len);
 void				free_tab(char **tab);
 void				free_tab_int(int **buf, t_map *data);
 void				free_buffer(unsigned int **buf, t_map *data);
-void				free_data(t_map *data);
+// void				free_data(t_map *data);
 void				free_mlx(t_map *data);
+void 				free_all(t_map *data);
 // get_map
 int					get_map_size(t_map *data, char *lign);
 void				do_fill_map(t_map *data, char *lign, int i);

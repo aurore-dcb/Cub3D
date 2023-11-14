@@ -15,7 +15,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void free_tab_int(int **buf, t_map *data)
+void	free_tab_int(int **buf, t_map *data)
 {
 	int	i;
 
@@ -30,14 +30,14 @@ void free_tab_int(int **buf, t_map *data)
 	free(buf);
 }
 
-void free_buffer(unsigned int **buf, t_map *data)
+void	free_buffer(unsigned int **buf, t_map *data)
 {
 	int	i;
 
 	i = 0;
 	if (!buf)
 		return ;
-	while (i < data->height)
+	while (i < data->height && buf && buf[i] != NULL)
 	{
 		free(buf[i]);
 		i++;
@@ -60,10 +60,39 @@ void	free_char_spe(char **tableau, int len)
 	free(tableau);
 }
 
-void	free_data(t_map *data)
+// void	free_data(t_map *data)
+// {
+// 	if (data->map)
+// 		free_tab(data->map);
+// 	if (data->path_N)
+// 		free(data->path_N);
+// 	if (data->path_S)
+// 		free(data->path_S);
+// 	if (data->path_E)
+// 		free(data->path_E);
+// 	if (data->path_W)
+// 		free(data->path_W);
+// 	if (data->C_color)
+// 		free(data->C_color);
+// 	if (data->F_color)
+// 		free(data->F_color);
+// }
+
+void	free_mlx(t_map *data)
 {
-	if (data->map)
-		free_tab(data->map);
+	if (data->mlx_ptr)
+	{
+		if (data->main.img)
+			mlx_destroy_image(data->mlx_ptr, data->main.img);
+		if (data->win_ptr)
+			mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
+	}
+}
+void free_all(t_map *data)
+{
+	free_mlx(data);
 	if (data->path_N)
 		free(data->path_N);
 	if (data->path_S)
@@ -76,12 +105,10 @@ void	free_data(t_map *data)
 		free(data->C_color);
 	if (data->F_color)
 		free(data->F_color);
-}
-
-void	free_mlx(t_map *data)
-{
-	mlx_destroy_image(data->mlx_ptr, data->main.img);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
+	if (data->map)
+		free_tab(data->map);
+	if (data->tex)
+		free_tab_int(data->tex, data);
+	// if (data->buffer != NULL)
+	// 	free_buffer(data->buffer, data);
 }
