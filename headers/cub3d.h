@@ -10,8 +10,7 @@
 # include <unistd.h>
 
 # define PI 3.14159265358979323846
-# define ALPHA 4
-# define SPEED 0.1
+# define ALPHA 0.5
 
 typedef struct s_2D
 {
@@ -96,6 +95,14 @@ typedef struct s_map
 	unsigned int	**buffer;
 
 	int				dis_map;
+	int 			w;
+	int 			s;
+	int 			d;
+	int 			a;
+	int 			right;
+	int 			left;
+	int				shift;
+	double 			speed;
 }					t_map;
 
 int					mini_map(t_map *data);
@@ -164,7 +171,9 @@ int					fill_map(t_map *data, char *lign, int fd);
 int					get_map(t_map *data, char *file);
 // key_press
 int   				mouse_move(int x, int y, t_map *data);
-int					key_hook(int keycode, t_map *data);
+int					key_hook(t_map *data);
+int	key_press(int keycode, t_map *data);
+int	key_release(int keycode, t_map *data);
 // handle_key
 void	w_key(t_map *data);
 void	s_key(t_map *data);

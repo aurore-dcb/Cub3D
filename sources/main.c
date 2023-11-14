@@ -28,6 +28,13 @@ void	init_map(t_map *data)
 	data->height = 600;
 	data->tex_height = 64;
 	data->tex_width = 64;
+	data->w = 0;
+	data->a = 0;
+	data->s = 0;
+	data->d = 0;
+	data->right = 0;
+	data->left = 0;
+	data->shift = 0;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 }
 
@@ -99,8 +106,10 @@ void	loop(t_map *data)
 		return ;
 	display(data);
 	mlx_hook(data->win_ptr, MotionNotify, PointerMotionMask, &mouse_move, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, key_hook, data);
+	mlx_hook(data->win_ptr, 2, 1L << 0, key_press, data);
+	mlx_hook(data->win_ptr, 3, 1L << 1, key_release, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);
+	mlx_loop_hook(data->mlx_ptr, key_hook, data);
 	mlx_loop(data->mlx_ptr);
 }
 
