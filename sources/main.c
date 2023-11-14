@@ -110,17 +110,16 @@ int	main(int argc, char **argv, char **env)
 
 	init_map(&data);
 	if (!ft_parsing(argc, argv, env, &data))
-		return (free_data(&data), 1);
+		return (free_all(&data), 1);
 	if (!get_map(&data, argv[1]))
-		return (free_data(&data), 1);
+		return (free_all(&data), 1);
 	if (!check_map(&data))
-		return (free_data(&data), 1);
+		return (free_all(&data), 1);
 	// display_map(data.map);
 	coor_direction_begin(&data);
 	loop(&data);
-	free_tab_int(data.tex, &data);
-	// free_buffer(data.buffer);
-	free_mlx(&data);
-	free_data(&data);
+	free_all(&data);
+	// free_mlx(&data);
+	// free_data(&data);
 	return (0);
 }

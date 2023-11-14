@@ -66,10 +66,12 @@ int	key_hook(int keycode, t_map *data)
 				* 0.1)];
 		new_posy = data->map[(int)(data->posY - data->dirY
 				* 0.1)][(int)(data->posX)];
+		// printf("new_posx : %c   -   new_posy : %c\n", new_posx, new_posy);
 		if (new_posx == '0' || is_carac_map(new_posx))
 			data->posX += 0.1 * data->dirX;
 		if (new_posy == '0' || is_carac_map(new_posy))
 			data->posY -= 0.1 * data->dirY;
+		// printf("posx : %f   -   posy : %f\n", data->posX, data->posY);
 	}
 	else if (keycode == 115) // S
 	{
@@ -77,10 +79,12 @@ int	key_hook(int keycode, t_map *data)
 				* 0.1)];
 		new_posy = data->map[(int)(data->posY + data->dirY
 				* 0.1)][(int)(data->posX)];
+		// printf("new_posx : %d   -   new_posy : %d\n", new_posx, new_posy);
 		if (new_posx == '0' || is_carac_map(new_posx))
 			data->posX -= 0.1 * data->dirX;
 		if (new_posy == '0' || is_carac_map(new_posy))
 			data->posY += 0.1 * data->dirY;
+		// printf("posx : %f   -   posy : %f\n", data->posX, data->posY);
 	}
 	else if (keycode == 97) // A
 	{
