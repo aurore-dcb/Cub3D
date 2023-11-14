@@ -1,12 +1,12 @@
 #include "cub3d.h"
 
-int init_buffer(t_map *data)
+int	init_buffer(t_map *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
-	data->buffer = malloc(sizeof(unsigned int*) * (data->height));
+	data->buffer = malloc(sizeof(unsigned int *) * (data->height));
 	if (!data->buffer)
 		return (0);
 	while (y < data->height)
@@ -30,18 +30,14 @@ void	display(t_map *data)
 	int	y;
 	int	x;
 
-	// initialiser toutes les cases du buffer a 0
 	if (!init_buffer(data))
 	{
 		printf("Error\nMalloc");
 		return ;
 	}
-	// WALL CASTING
 	wall_casting(data);
-	// FLOOR CASTING
 	floor_casting(data);
 	draw(data);
-	// Nettoyer le buffer
 	y = 0;
 	while (y < data->height)
 	{

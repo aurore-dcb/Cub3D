@@ -44,8 +44,6 @@ void	dda_algo(t_map *data)
 			data->ray.mapY += data->ray.stepY;
 			data->ray.side = 1;
 		}
-		// on s'est deplacer jusqu'au prochain x ou y entier
-		// donc verifier si c'est un mur
 		if (data->map[data->ray.mapY][data->ray.mapX] == '1')
 			data->ray.hit = 1;
 	}
@@ -53,17 +51,14 @@ void	dda_algo(t_map *data)
 
 void	wall_size(t_map *data)
 {
-	//Caculer la distance entre le plan camera et le mur
 	if (data->ray.side == 0)
 		data->ray.perpWallDist = data->ray.sideDistX - data->ray.deltaDistX;
 	else
 		data->ray.perpWallDist = data->ray.sideDistY - data->ray.deltaDistY;
-	//Calculer la taille du segment qu'il faut dessiner
-	//cad la hauteur du mur en fonction de sa distance avec le plan camera
 	data->ray.line_height = (int)(data->height / data->ray.perpWallDist);
 	data->ray.pitch = 100;
-	data->ray.drawStart = -data->ray.line_height / 2 + data->height / 2 +
-		+ data->ray.pitch;
+	data->ray.drawStart = -data->ray.line_height / 2 + data->height / 2 + \
+		+data->ray.pitch;
 	if (data->ray.drawStart < 0)
 		data->ray.drawStart = 0;
 	data->ray.drawEnd = data->ray.line_height / 2 + data->height / 2

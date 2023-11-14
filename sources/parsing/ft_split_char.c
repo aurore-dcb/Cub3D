@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_split_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:35:50 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/04 10:47:25 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/14 11:23:57 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	**ft_split_char(const char *str, char charset)
 	words = nb_mots(str, charset);
 	tab = malloc(sizeof(char *) * (words + 1));
 	if (tab == NULL || words == 0)
-		return (NULL);
+		return (free(tab), NULL);
 	i = 0;
 	while (i < words)
 	{

@@ -4,16 +4,16 @@ void	wall_orientation(t_map *data)
 {
 	if (data->ray.side == 0)
 	{
-		if (data->ray.stepX == 1) // est
+		if (data->ray.stepX == 1)
 			data->ray.wall_orient = 3;
-		else if (data->ray.stepX == -1) //ouest
+		else if (data->ray.stepX == -1)
 			data->ray.wall_orient = 2;
 	}
 	else if (data->ray.side == 1)
 	{
-		if (data->ray.stepY == 1) //sud
+		if (data->ray.stepY == 1)
 			data->ray.wall_orient = 1;
-		else if (data->ray.stepY == -1) //nord
+		else if (data->ray.stepY == -1)
 			data->ray.wall_orient = 0;
 	}
 }

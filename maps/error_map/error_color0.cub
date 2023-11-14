@@ -3,11 +3,11 @@ SO ./img/origin/colorstone.xpm
 
 WE ./img/origin/eagle.xpm
 EA ./img/origin/greystone.xpm
+
+
     F	   	12,00,223
-
-
-
 C 200,30,255,,
+
 
 11111111111111111
 10000001000000001

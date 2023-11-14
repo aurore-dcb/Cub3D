@@ -1,6 +1,26 @@
 #include "cub3d.h"
 
-void	coor_direction_begin(t_map *data)
+void	init_direction(t_map *data)
+{
+	if (data->map[data->y_player][data->x_player] == 'E')
+	{
+		data->dirY = 0;
+		data->dirX = 1;
+		data->planeX = 0;
+		data->planeY = -0.66;
+	}
+	else if (data->map[data->y_player][data->x_player] == 'W')
+	{
+		data->dirY = 0;
+		data->dirX = -1;
+		data->planeX = 0;
+		data->planeY = 0.66;
+	}
+	data->posX = (double)data->x_player + 0.5;
+	data->posY = (double)data->y_player + 0.5;
+}
+
+void	direction_begin(t_map *data)
 {
 	int	player;
 
@@ -21,20 +41,5 @@ void	coor_direction_begin(t_map *data)
 		data->planeX = -0.66;
 		data->planeY = 0;
 	}
-	else if (data->map[data->y_player][data->x_player] == 'E')
-	{
-		data->dirY = 0;
-		data->dirX = 1;
-		data->planeX = 0;
-		data->planeY = -0.66;
-	}
-	else if (data->map[data->y_player][data->x_player] == 'W')
-	{
-		data->dirY = 0;
-		data->dirX = -1;
-		data->planeX = 0;
-		data->planeY = 0.66;
-	}
-	data->posX = (double)data->x_player + 0.5;
-	data->posY = (double)data->y_player + 0.5;
+	init_direction(data);
 }

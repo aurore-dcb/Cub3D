@@ -44,37 +44,22 @@ int	check_color(t_map *data, char **tab)
 int	check_texture_paths(t_map *data, char **tab)
 {
 	int	fd;
-	
+
 	fd = open(tab[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\nTexture\n"), 0);
 	if (strcmp(tab[0], "NO") == 0 && !data->path_N)
-	{
-		data->nb_tex += 1;
 		data->path_N = ft_strcpy(data->path_N, tab[1]);
-	}
 	else if (strcmp(tab[0], "SO") == 0 && !data->path_S)
-	{
-		data->nb_tex += 1;
 		data->path_S = ft_strcpy(data->path_S, tab[1]);
-	}
 	else if (strcmp(tab[0], "EA") == 0 && !data->path_E)
-	{
-		data->nb_tex += 1;
 		data->path_E = ft_strcpy(data->path_E, tab[1]);
-	}
 	else if (strcmp(tab[0], "WE") == 0 && !data->path_W)
-	{
-		data->nb_tex += 1;
 		data->path_W = ft_strcpy(data->path_W, tab[1]);
-	}
 	else
-	{
-		close(fd);
-		return (printf("Error\nTexture\n"), 0);
-	}
-	close(fd);
-	return (1);
+		return (close(fd), printf("Error\nTexture\n"), 0);
+	data->nb_tex += 1;
+	return (close(fd), 1);
 }
 
 int	check_texture(char *line, t_map *data)
@@ -88,7 +73,7 @@ int	check_texture(char *line, t_map *data)
 	i = 0;
 	while (tab && tab[i])
 		i++;
-	if (i > 2)
+	if (i != 2)
 		printf("Error\n");
 	else if (ft_strcmp(tab[0], "F") == 0 || ft_strcmp(tab[0], "C") == 0)
 	{
@@ -103,7 +88,5 @@ int	check_texture(char *line, t_map *data)
 	}
 	else
 		printf("Error\n");
-	printf("Config line : %s", line);
-	free_tab(tab);
-	return (0);
+	return (printf("Config line : %s", line), free_tab(tab), 0);
 }
