@@ -28,6 +28,7 @@ int	load_img(t_map *data, t_image *img, char *path, int i)
 	data->tex[i] = malloc(sizeof(int) * (data->tex_height * data->tex_width));
 	if (!data->tex[i])
 		return (printf("Error\nMalloc textures\n"), 0);
+	data->len_tex++;
 	y = -1;
 	while (++y < data->tex_height)
 	{

@@ -15,19 +15,21 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	free_tab_int(int **buf, t_map *data)
+void	free_tab_int(int **buf, t_map *data, int n)
 {
 	int	i;
 
 	i = 0;
 	if (!buf)
 		return ;
-	while (i < data->nb_tex)
+	(void)data;
+	while (i < n)
 	{
 		free(buf[i]);
 		i++;
 	}
 	free(buf);
+	buf = NULL;
 }
 
 void	free_buffer(unsigned int **buf, t_map *data)
@@ -86,5 +88,5 @@ void	free_all(t_map *data)
 	if (data->map)
 		free_tab(data->map);
 	if (data->tex)
-		free_tab_int(data->tex, data);
+		free_tab_int(data->tex, data, data->len_tex);
 }

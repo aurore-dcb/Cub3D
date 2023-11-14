@@ -88,6 +88,7 @@ typedef struct s_map
 	char			*F_color;
 	char			*C_color;
 	int				**tex;
+	int				len_tex;
 	unsigned int	**buffer;
 	int				dis_map;
 }					t_map;
@@ -99,7 +100,8 @@ int					load_tex(t_map *data);
 void				loop(t_map *data);
 // frees
 void				free_tab(char **tab);
-void				free_tab_int(int **buf, t_map *data);
+void				free_tab_int(int **buf, t_map *data, int n);
+// void				free_tab_int(int **buf, t_map *data);
 void				free_buffer(unsigned int **buf, t_map *data);
 void				free_char_spe(char **tableau, int len);
 void				free_all(t_map *data);
