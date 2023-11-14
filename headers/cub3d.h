@@ -10,7 +10,7 @@
 # include <unistd.h>
 
 # define PI 3.14159265358979323846
-# define ALPHA 0.5
+# define ALPHA 0.8
 
 typedef struct s_2D
 {
@@ -90,7 +90,7 @@ typedef struct s_map
 	int				len_tex;
 	unsigned int	**buffer;
 	int				dis_map;
-	int 			w;
+    int 			w;
 	int 			s;
 	int 			d;
 	int 			a;
@@ -118,10 +118,10 @@ void				s_key(t_map *data);
 void				a_key(t_map *data);
 void				d_key(t_map *data);
 // key_press
-int					good_keycode(int keycode);
-void				left_key(t_map *data);
-void				right_key(t_map *data);
-int					key_hook(int keycode, t_map *data);
+int   				mouse_move(int x, int y, t_map *data);
+int					key_hook(t_map *data);
+int	                key_press(int keycode, t_map *data);
+int					key_release(int keycode, t_map *data);
 // mouse_key
 void				mouse_y(t_map *data, int last, int y);
 void				mouse_x(t_map *data, int last, int x);
@@ -142,20 +142,31 @@ int					get_map_size(t_map *data, char *lign);
 void				do_fill_map(t_map *data, char *lign, int i);
 int					fill_map(t_map *data, char *lign, int fd);
 int					get_map(t_map *data, char *file);
-// key_press
-int   				mouse_move(int x, int y, t_map *data);
-int					key_hook(int keycode, t_map *data);
-int	key_press(int keycode, t_map *data);
-int	key_release(int keycode, t_map *data);
-// handle_key
-void	w_key(t_map *data);
-void	s_key(t_map *data);
-void	a_key(t_map *data);
-void	d_key(t_map *data);
-// mouse_key
-// void	mouse_y(t_map *data, t_2D last, int y);
-// void	mouse_x(t_map *data, t_2D last, int x);
-// int	mouse_move(int x, int y, t_map *data);
+// parsing_player
+int					test_player(t_map *data);
+int					test_invalid_char(t_map *data);
+int					do_beg_parse_map(t_map *data, int i, int *empty_line);
+int					do_end_parse_map(t_map *data, int i, int empty_line);
+int					beg_parse_map(t_map *data);
+// parsing_test
+int					test_rows(t_map *data);
+int					test_cols_beg(t_map *data);
+int					test_cols_end(t_map *data);
+int					do_test_empty(t_map *data, int i);
+int					test_empty(t_map *data);
+// parsing_utils
+int					is_sp(char c);
+int					is_digit_map(char c);
+int					is_carac_map(char c);
+int					test_valid_carac(char c);
+// parsing
+int					begin_line(char *line);
+int					read_file(t_map *data, char *line, int fd);
+int					ft_extantion(char *map);
+int					ft_parsing(int argc, char **argv, char **env, t_map *data);
+// display_utils
+void				init_direction(t_map *data);
+void				direction_begin(t_map *data);
 // display
 int					init_buffer(t_map *data);
 void				display(t_map *data);
