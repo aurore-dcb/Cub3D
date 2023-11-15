@@ -100,6 +100,7 @@ typedef struct s_map
 	int				shift;
 	double 			speed;
 	int				doors;
+	int				has_door;
 }					t_map;
 
 // main
@@ -159,6 +160,7 @@ int					test_cols_end(t_map *data);
 int					do_test_empty(t_map *data, int i);
 int					test_empty(t_map *data);
 // parsing_utils
+int					is_door(char c);
 int					is_sp(char c);
 int					is_digit_map(char c);
 int					is_carac_map(char c);

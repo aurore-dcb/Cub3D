@@ -36,6 +36,8 @@ int	test_invalid_char(t_map *data)
 			{
 				if (data->map[i][j] && !test_valid_carac(data->map[i][j]))
 					return (0);
+				if (data->map[i][j] && is_door(data->map[i][j]))
+					data->has_door += 1;
 				j++;
 			}
 			i++;

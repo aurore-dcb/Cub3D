@@ -1,5 +1,12 @@
 #include "cub3d_bonus.h"
 
+int	is_door(char c)
+{
+	if (c == 'D')
+		return (1);
+	return (0);
+}
+
 int	is_sp(char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
