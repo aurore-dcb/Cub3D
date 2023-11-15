@@ -107,12 +107,13 @@ void				init_map(t_map *data);
 int					load_img(t_map *data, t_image *img, char *path, int i);
 int					load_tex(t_map *data);
 void				loop(t_map *data);
-// frees
+// frees_utils
 void				free_tab(char **tab);
 void				free_tab_int(int **buf, t_map *data, int n);
-// void				free_tab_int(int **buf, t_map *data);
 void				free_buffer(unsigned int **buf, t_map *data);
 void				free_char_spe(char **tableau, int len);
+// frees
+void				free_all2(t_map *data);
 void				free_all(t_map *data);
 // handle_key
 void				w_key(t_map *data);
@@ -132,6 +133,7 @@ int					mouse_move(int x, int y, t_map *data);
 int					color_format(char *tab);
 int					check_color(t_map *data, char **tab);
 int					check_texture_paths(t_map *data, char **tab);
+int					if_check_texture(t_map *data, int i, char **tab);
 int					check_texture(char *line, t_map *data);
 // check_config
 char				*do_check_config(t_map *data, char *line, int fd);
@@ -185,10 +187,13 @@ void				wall_orientation(t_map *data);
 void				pixel_color(t_map *data, int tex_x, int tex_y, int x);
 void				textures(t_map *data, int x);
 void				wall_casting(t_map *data);
-// minimap
+// minimap utils
 void				draw_rectangle(t_map *data, t_2D square, int size,
 						int color);
 void				draw_circle(t_map *data, t_2D p, int rad, int color);
+// minimap
+void				end_draw_fixed(t_map *d, t_2D p, t_2D square,
+						int pixel_size);
 void				do_draw_fixed(t_map *d, t_2D start, t_2D end,
 						int pixel_size);
 void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);

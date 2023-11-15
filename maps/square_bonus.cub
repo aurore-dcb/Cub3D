@@ -2,7 +2,7 @@ NO ./img/mario/brick_mario.xpm
 SO ./img/mario/interrogation_point_mario.xpm	
 WE ./img/mario/mario_pipe.xpm
 EA ./img/mario/mario_mushroom.xpm
-DO ./img/mario/coin_mario.xpm
+DO ./img/mario/tileset_dungeon_PNG.xpm
 
    F	   	0,200,0
 

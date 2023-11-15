@@ -64,17 +64,8 @@ int	check_texture_paths(t_map *data, char **tab)
 	return (close(fd), 1);
 }
 
-int	check_texture(char *line, t_map *data)
+int	if_check_texture(t_map *data, int i, char **tab)
 {
-	int		i;
-	char	**tab;
-
-	if (!line)
-		return (0);
-	tab = ft_split(line);
-	i = 0;
-	while (tab && tab[i])
-		i++;
 	if (i != 2)
 		printf("Error\n");
 	else if (ft_strcmp(tab[0], "F") == 0 || ft_strcmp(tab[0], "C") == 0)
@@ -91,5 +82,21 @@ int	check_texture(char *line, t_map *data)
 	}
 	else
 		printf("Error\n");
+	return (0);
+}
+
+int	check_texture(char *line, t_map *data)
+{
+	int		i;
+	char	**tab;
+
+	if (!line)
+		return (0);
+	tab = ft_split(line);
+	i = 0;
+	while (tab && tab[i])
+		i++;
+	if (if_check_texture(data, i, tab))
+		return (1);
 	return (printf("Config line : %s", line), free_tab(tab), 0);
 }
