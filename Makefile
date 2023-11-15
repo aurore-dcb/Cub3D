@@ -1,4 +1,5 @@
 NAME = cub3D
+NAME_BONUS = cub3D_bonus
 
 SRCS =	${addprefix sources/, \
 			${addprefix parsing/, \
@@ -26,32 +27,34 @@ SRCS =	${addprefix sources/, \
 			mini_map.c \
 			}
 
-# SRCS_BONUS =	${addprefix sources_bonus/, \
-# 			${addprefix parsing_bonus/, \
-# 					parsing_bonus.c \
-# 					parsing_utils_bonus.c \
-# 					parsing_test_bonus.c \
-# 					parsing_player_bonus.c \
-# 					check_config_bonus.c \
-# 					check_config_utils_bonus.c \
-# 					get_map_bonus.c \
-# 					ft_split_char_bonus.c \
-# 				} \
-# 			${addprefix raycasting_bonus/, \
-# 					display_bonus.c \
-# 					display_utils_bonus.c \
-# 					wall_casting_bonus.c \
-# 					calc_wall_casting_bonus.c \
-# 					floor_casting_bonus.c \
-# 				} \
-# 			main_bonus.c \
-# 			frees_bonus.c \
-# 			key_press_bonus.c \
-# 			mini_map_bonus.c \
-# 			}
+SRCS_BONUS =	${addprefix sources_bonus/, \
+			${addprefix parsing_bonus/, \
+					parsing_bonus.c \
+					parsing_utils_bonus.c \
+					parsing_test_bonus.c \
+					parsing_player_bonus.c \
+					check_config_bonus.c \
+					check_config_utils_bonus.c \
+					get_map_bonus.c \
+					ft_split_char_bonus.c \
+				} \
+			${addprefix raycasting_bonus/, \
+					display_bonus.c \
+					display_utils_bonus.c \
+					wall_casting_bonus.c \
+					calc_wall_casting_bonus.c \
+					floor_casting_bonus.c \
+				} \
+			main_bonus.c \
+			frees_bonus.c \
+			key_press_bonus.c \
+			handle_key_bonus.c \
+			mouse_key_bonus.c \
+			mini_map_bonus.c \
+			}
 
 OBJS = ${SRCS:sources/%.c=objects/%.o}
-# OBJS_BONUS = ${SRCS:sources_bonus/%.c=objects_bonus/%.o}
+OBJS_BONUS = ${SRCS_BONUS:sources_bonus/%.c=objects_bonus/%.o}
 HEADER = -I headers/ -I libft/ -I mlx
 
 CC = cc
@@ -63,7 +66,7 @@ LIBFT_DIR	= libft
 LIBFT_LIB	= libft/libft.a
 MLX_DIR		= minilibx-linux
 
-all:		libft ${NAME}
+all:		${NAME}
 
 ${NAME}:	${OBJS}
 			make -C ${LIBFT_DIR}
@@ -71,6 +74,17 @@ ${NAME}:	${OBJS}
 			${CC} ${CFLAGS} $(HEADER) -o ${NAME} ${OBJS} ${MLX_FLAGS} ${LIBFT_LIB} -lm
 
 objects/%.o: sources/%.c
+			mkdir -p $(dir $@)
+			${CC} ${CFLAGS} $(HEADER) -c -o $@ $^
+
+bonus: $(NAME_BONUS)
+
+${NAME_BONUS}:	${OBJS_BONUS}
+			make -C ${LIBFT_DIR}
+			make -C ${MLX_DIR}
+			${CC} ${CFLAGS} $(HEADER) -o ${NAME_BONUS} ${OBJS_BONUS} ${MLX_FLAGS} ${LIBFT_LIB} -lm
+
+objects_bonus/%.o: sources_bonus/%.c
 			mkdir -p $(dir $@)
 			${CC} ${CFLAGS} $(HEADER) -c -o $@ $^
 
