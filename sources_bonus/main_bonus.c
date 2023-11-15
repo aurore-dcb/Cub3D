@@ -16,6 +16,7 @@ void	init_map(t_map *data)
 	data->right = 0;
 	data->left = 0;
 	data->shift = 0;
+	data->doors = 1;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 }
 
@@ -61,8 +62,8 @@ int	load_tex(t_map *data)
 		return (0);
 	if (!load_img(data, &data->img, data->path_E, 3))
 		return (0);
-	// if (!load_img(data, &data->img, data->path_D, 3))
-	// 	return (0);
+	if (!load_img(data, &data->img, data->path_D, 4))
+		return (0);
 	return (1);
 }
 

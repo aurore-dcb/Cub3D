@@ -11,7 +11,7 @@ int	begin_line(char *line)
 	if (line[i] == '\n')
 		return (1);
 	if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W'
-		|| line[i] == 'C' || line[i] == 'F')
+		|| line[i] == 'C' || line[i] == 'F' || line[i] == 'D')
 		return (1);
 	return (0);
 }

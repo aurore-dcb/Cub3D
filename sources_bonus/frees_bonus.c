@@ -81,6 +81,8 @@ void	free_all(t_map *data)
 		free(data->path_E);
 	if (data->path_W)
 		free(data->path_W);
+	if (data->path_D)
+		free(data->path_D);
 	if (data->C_color)
 		free(data->C_color);
 	if (data->F_color)

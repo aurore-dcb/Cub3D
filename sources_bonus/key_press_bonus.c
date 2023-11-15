@@ -61,6 +61,8 @@ int	key_release(int keycode, t_map *data)
 		data->d = 0;
 	else if (keycode == 97)
 		data->a = 0;
+	else if (keycode == 101)
+		data->doors *= -1;
 	else if (keycode == 65363)
 		data->right = 0;
 	else if (keycode == 65361)

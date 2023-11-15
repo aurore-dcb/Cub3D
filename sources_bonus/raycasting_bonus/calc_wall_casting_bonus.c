@@ -44,7 +44,9 @@ void	dda_algo(t_map *data)
 			data->ray.mapY += data->ray.stepY;
 			data->ray.side = 1;
 		}
-		if (data->map[data->ray.mapY][data->ray.mapX] == '1')
+		if (data->map[data->ray.mapY][data->ray.mapX] == '1'
+			|| (data->doors == 1
+			&& data->map[data->ray.mapY][data->ray.mapX] == 'D'))
 			data->ray.hit = 1;
 	}
 }

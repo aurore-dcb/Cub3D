@@ -42,7 +42,8 @@ int	check_config(char **argv, t_map *data)
 	if (!data->C_color || !data->F_color)
 		return (printf("Error\nMissing color\n"), get_next_line(fd, 1),
 			free(line), close(fd), 0);
-	else if (!data->path_E || !data->path_N || !data->path_S || !data->path_W)
+	else if (!data->path_E || !data->path_N || !data->path_S
+		|| !data->path_W || !data->path_D)
 	{
 		get_next_line(fd, 1);
 		return (printf("Error\nMissing texture\n"), free(line), close(fd), 0);

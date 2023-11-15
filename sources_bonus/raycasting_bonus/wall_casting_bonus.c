@@ -2,7 +2,9 @@
 
 void	wall_orientation(t_map *data)
 {
-	if (data->ray.side == 0)
+	if (data->map[data->ray.mapY][data->ray.mapX] == 'D')
+		data->ray.wall_orient = 4;
+	else if (data->ray.side == 0)
 	{
 		if (data->ray.stepX == 1)
 			data->ray.wall_orient = 3;

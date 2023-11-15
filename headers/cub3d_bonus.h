@@ -84,6 +84,7 @@ typedef struct s_map
 	char			*path_S;
 	char			*path_E;
 	char			*path_W;
+	char			*path_D;
 	char			*F_color;
 	char			*C_color;
 	int				**tex;
@@ -98,6 +99,7 @@ typedef struct s_map
 	int 			left;
 	int				shift;
 	double 			speed;
+	int				doors;
 }					t_map;
 
 // main
