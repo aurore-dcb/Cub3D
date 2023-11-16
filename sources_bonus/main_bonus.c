@@ -18,6 +18,7 @@ void	init_map(t_map *data)
 	data->shift = 0;
 	data->doors = 1;
 	data->has_door = 1;
+	data->dis_map = -1;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 }
 

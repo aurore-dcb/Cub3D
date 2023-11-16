@@ -23,8 +23,6 @@ SRCS =	${addprefix sources/, \
 			frees.c \
 			key_press.c \
 			handle_key.c \
-			mouse_key.c \
-			mini_map.c \
 			}
 
 SRCS_BONUS =	${addprefix sources_bonus/, \

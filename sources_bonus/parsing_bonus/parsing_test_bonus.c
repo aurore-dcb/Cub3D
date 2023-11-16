@@ -60,7 +60,7 @@ int	test_cols_end(t_map *data)
 	while (i < data->nb_line)
 	{
 		j = 0;
-		if (ft_strlen(data->map[i]))
+		if (ft_strlen(data->map[i]) > 1)
 		{
 			while (data->map[i][j])
 				j++;
@@ -84,10 +84,19 @@ int	do_test_empty(t_map *data, int i)
 	{
 		while (data->map[i][j + 1])
 		{
-			if ((data->map[i][j] == '0' && is_sp(data->map[i - 1][j]))
-				|| (data->map[i][j] == '0' && is_sp(data->map[i + 1][j]))
-				|| (data->map[i][j] == '0' && is_sp(data->map[i][j + 1]))
-				|| (data->map[i][j] == '0' && is_sp(data->map[i][j - 1])))
+			if (data->map[i][j] == '0')
+				if ((ft_strlen(data->map[i - 1]) < j)
+					|| !data->map[i - 1][j] || is_sp(data->map[i - 1][j]))
+					return (0);
+			if (data->map[i][j] == '0')
+				if ((ft_strlen(data->map[i + 1]) < j)
+					|| !data->map[i + 1][j] || is_sp(data->map[i + 1][j]))
+					return (0);
+			if (data->map[i][j] == '0'
+				&& (!data->map[i][j + 1] || is_sp(data->map[i][j + 1])))
+				return (0);
+			if (data->map[i][j] == '0'
+				&& (!data->map[i][j - 1] || is_sp(data->map[i][j - 1])))
 				return (0);
 			j++;
 		}

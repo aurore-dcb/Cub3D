@@ -46,6 +46,8 @@ int	key_press(int keycode, t_map *data)
 		data->left = 1;
 	else if (keycode == 65505)
 		data->shift = 1;
+	// else if (keycode == 109)
+	// 	data->dis_map = 1;
 	else if (keycode == XK_Escape)
 		mlx_loop_end(data->mlx_ptr);
 	return (0);
@@ -74,6 +76,8 @@ int	key_release(int keycode, t_map *data)
 		data->left = 0;
 	else if (keycode == 65505)
 		data->shift = 0;
+	else if (keycode == 109)
+		data->dis_map *= -1;
 	return (0);
 }
 

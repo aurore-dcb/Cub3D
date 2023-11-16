@@ -87,7 +87,6 @@ void	loop(t_map *data)
 	if (!data->main.data)
 		return ;
 	display(data);
-	mlx_hook(data->win_ptr, MotionNotify, PointerMotionMask, &mouse_move, data);
 	mlx_hook(data->win_ptr, 2, 1L << 0, key_press, data);
 	mlx_hook(data->win_ptr, 3, 1L << 1, key_release, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);

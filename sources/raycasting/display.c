@@ -68,7 +68,5 @@ void	draw(t_map *data)
 		}
 		y++;
 	}
-	if (data->dis_map == 0)
-		mini_map(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->main.img, 0, 0);
 }

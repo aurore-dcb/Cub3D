@@ -25,7 +25,8 @@ void	do_draw_fixed(t_map *d, t_2D start, t_2D end, int pixel_size)
 		{
 			square.x = (p.x - start.x) * pixel_size;
 			square.y = (p.y - start.y) * pixel_size;
-			if (p.y < 0 || p.y >= d->nb_line || p.x < 0 || p.x >= d->nb_col)
+			if (p.y < 0 || p.y >= d->nb_line || p.x < 0
+				|| p.x >= ft_strlen(d->map[p.y]))
 				draw_rectangle(d, square, pixel_size, 0x000000);
 			else
 				end_draw_fixed(d, p, square, pixel_size);

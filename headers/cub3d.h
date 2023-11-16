@@ -89,14 +89,12 @@ typedef struct s_map
 	int				**tex;
 	int				len_tex;
 	unsigned int	**buffer;
-	int				dis_map;
     int 			w;
 	int 			s;
 	int 			d;
 	int 			a;
 	int 			right;
 	int 			left;
-	int				shift;
 	double 			speed;
 }					t_map;
 
