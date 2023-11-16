@@ -19,6 +19,7 @@ void	init_map(t_map *data)
 	data->doors = 1;
 	data->has_door = 1;
 	data->dis_map = -1;
+	data->b_left = -1;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 }
 
@@ -92,7 +93,13 @@ void	loop(t_map *data)
 	if (!data->main.data)
 		return ;
 	display(data);
-	mlx_hook(data->win_ptr, MotionNotify, PointerMotionMask, &mouse_move, data);
+	mlx_mouse_move(data->mlx_ptr, data->win_ptr, data->width / 2, data->height / 2);
+	mlx_mouse_hook(data->win_ptr, mouse_click, data);
+	// if (data->b_left == 1)
+	// {
+	mlx_hook(data->win_ptr, 6, 1L << 6, &mouse_move, data);
+	// }
+	// mlx_hook(data->win_ptr, MotionNotify, PointerMotionMask, &mouse_move, data);
 	mlx_hook(data->win_ptr, 2, 1L << 0, key_press, data);
 	mlx_hook(data->win_ptr, 3, 1L << 1, key_release, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);

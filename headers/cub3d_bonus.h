@@ -11,6 +11,7 @@
 
 # define PI 3.14159265358979323846
 # define ALPHA 0.8
+# define ALPHA_MOUSE 3
 
 typedef struct s_2D
 {
@@ -101,6 +102,8 @@ typedef struct s_map
 	double 			speed;
 	int				doors;
 	int				has_door;
+	int				mx;
+	int 			b_left;
 }					t_map;
 
 // main
@@ -122,14 +125,14 @@ void				s_key(t_map *data);
 void				a_key(t_map *data);
 void				d_key(t_map *data);
 // key_press
-int   				mouse_move(int x, int y, t_map *data);
 int					key_hook(t_map *data);
 int	                key_press(int keycode, t_map *data);
 int					key_release(int keycode, t_map *data);
 // mouse_key
-void				mouse_y(t_map *data, int last, int y);
-void				mouse_x(t_map *data, int last, int x);
+void				mouse_y(t_map *data);
+void				mouse_x(t_map *data);
 int					mouse_move(int x, int y, t_map *data);
+int 				mouse_click(int button, int x, int y, t_map *data);
 // check_config_utils
 int					color_format(char *tab);
 int					check_color(t_map *data, char **tab);

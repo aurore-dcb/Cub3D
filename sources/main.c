@@ -15,7 +15,6 @@ void	init_map(t_map *data)
 	data->d = 0;
 	data->right = 0;
 	data->left = 0;
-	data->shift = 0;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 }
 
