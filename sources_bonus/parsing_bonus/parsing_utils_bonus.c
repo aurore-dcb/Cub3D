@@ -14,6 +14,13 @@ int	is_digit_map(char c)
 	return (0);
 }
 
+int	is_carac_minimap(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	return (0);
+}
+
 int	is_carac_map(char c, t_map *data)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')

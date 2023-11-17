@@ -2,11 +2,18 @@
 
 void	end_draw_fixed(t_map *d, t_2D p, t_2D square, int pixel_size)
 {
-	if (d->map[p.y][p.x] == '0' || is_carac_map(d->map[p.y][p.x], d)
+	if (d->map[p.y][p.x] == '0' || is_carac_minimap(d->map[p.y][p.x])
 			|| (d->map[p.y][p.x] == 'D' && d->doors == -1))
 		draw_rectangle(d, square, pixel_size, 0xFFFFFF);
 	else if (d->map[p.y][p.x] == 'D' && d->doors == 1)
 		draw_rectangle(d, square, pixel_size, 0x008000);
+	else if (d->map[p.y][p.x] == 'C')
+	{
+		draw_rectangle(d, square, pixel_size, 0xFFFFFF);
+		square.x += pixel_size / 2;
+		square.y += pixel_size / 2;
+		draw_circle(d, square, pixel_size / 2, 0xFFD700);
+	}
 	else
 		draw_rectangle(d, square, pixel_size, 0x000000);
 }

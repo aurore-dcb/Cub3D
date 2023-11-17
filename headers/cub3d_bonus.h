@@ -210,6 +210,7 @@ int					test_empty(t_map *data);
 // parsing_utils
 int					is_sp(char c);
 int					is_digit_map(char c);
+int					is_carac_minimap(char c);
 int    				is_carac_map(char c, t_map *data);
 int					test_valid_carac(char c, t_map *data);
 // parsing
