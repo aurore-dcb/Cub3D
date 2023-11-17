@@ -143,9 +143,10 @@ typedef struct s_map
 	int				shift;
 	double 			speed;
 	int				doors;
-	int				has_door;
 	int				mx;
 	int 			b_left;
+	int				nb_sprites;
+	int				nb_doors;
 }					t_map;
 
 // main
@@ -205,7 +206,6 @@ int					test_cols_end(t_map *data);
 int					do_test_empty(t_map *data, int i);
 int					test_empty(t_map *data);
 // parsing_utils
-int					is_door(char c);
 int					is_sp(char c);
 int					is_digit_map(char c);
 int    				is_carac_map(char c, t_map *data);
@@ -247,7 +247,6 @@ void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);
 int					mini_map(t_map *data);
 
 void    		sprite_casting(t_map *data);
-int 			nb_sprite(t_map *data);
 int 			init_sprite(t_map *data);
 
 #endif

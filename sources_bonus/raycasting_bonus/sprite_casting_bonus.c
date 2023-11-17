@@ -61,16 +61,16 @@ void	sprite_casting(t_map *data)
 
 	s = &data->sprite;
 	i = -1;
-	while (++i < nb_sprite(data))
+	while (++i < data->nb_sprites)
 	{
 		s->sprite_order[i] = i;
 		s->sprite_dist[i] = ((data->posX - s->sprite[i].x) * (data->posX
 					- s->sprite[i].x) + (data->posY - s->sprite[i].y)
 				* (data->posY - s->sprite[i].y));
 	}
-	sort_sprites(s->sprite_order, s->sprite_dist, nb_sprite(data));
+	sort_sprites(s->sprite_order, s->sprite_dist, data->nb_sprites);
 	i = -1;
-	while (++i < nb_sprite(data))
+	while (++i < data->nb_sprites)
 	{
 		s->spritex = (s->sprite[s->sprite_order[i]].x - data->posX);
 		s->spritey = s->sprite[s->sprite_order[i]].y - data->posY;
@@ -134,7 +134,10 @@ void	sprite_casting(t_map *data)
 				{
 					s->d = (y - vMoveScreen) * 256 - data->height * 128 + s->spriteHeight * 128;
 					s->texY = ((s->d * data->tex_height) / s->spriteHeight) / 256;
-					s->color = data->tex[5][data->tex_width * s->texY + s->texX];
+					if (data->nb_doors)
+						s->color = data->tex[5][data->tex_width * s->texY + s->texX];
+					else
+						s->color = data->tex[4][data->tex_width * s->texY + s->texX];
 					if ((s->color & 0x00FFFFFF) != 0)
 						data->buffer[y][stripe] = s->color;
 					y++;

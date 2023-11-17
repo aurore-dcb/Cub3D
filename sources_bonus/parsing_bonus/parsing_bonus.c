@@ -23,7 +23,7 @@ int	read_file(t_map *data, char *line, int fd)
 	while (line)
 	{
 		if (!get_map_size(data, line))
-			return (printf("Error map size\n"), 0);
+			return (printf("Error\nMap size\n"), 0);
 		free(line);
 		data->nb_line += 1;
 		line = get_next_line(fd, 0);

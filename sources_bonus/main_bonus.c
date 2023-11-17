@@ -17,9 +17,10 @@ void	init_map(t_map *data)
 	data->left = 0;
 	data->shift = 0;
 	data->doors = 1;
-	data->has_door = 1;
 	data->dis_map = -1;
 	data->b_left = -1;
+	data->nb_sprites = 0;
+	data->nb_doors = 0;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 	ft_memset(&data->sprite, 0, sizeof(t_coll));
 }
@@ -66,13 +67,24 @@ int	load_tex(t_map *data)
 		return (0);
 	if (!load_img(data, &data->img, data->path_E, 3))
 		return (0);
-	if (!load_img(data, &data->img, data->path_D, 4))
-		return (0);
-	if (data->path_CO && nb_sprite(data))
+	if (data->path_D && data->nb_doors)
 	{
-		if (!load_img(data, &data->img, data->path_CO, 5))
-            return (0);
-        if (!init_sprite(data))
+		if (!load_img(data, &data->img, data->path_D, 4))
+			return (0);
+	}
+	if (data->path_CO && data->nb_sprites)
+	{
+		if (data->nb_doors)
+		{
+			if (!load_img(data, &data->img, data->path_CO, 5))
+            	return (0);
+		}
+		else
+		{
+			if (!load_img(data, &data->img, data->path_CO, 4))
+            	return (0);
+		}
+		if (!init_sprite(data))
             return (0);
     }
 	return (1);
