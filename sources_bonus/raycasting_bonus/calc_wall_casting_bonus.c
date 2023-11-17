@@ -60,7 +60,7 @@ void	wall_size(t_map *data)
 	data->ray.line_height = (int)(data->height / data->ray.perpWallDist);
 	data->ray.pitch = 100;
 	data->ray.drawStart = -data->ray.line_height / 2 + data->height / 2 + \
-		+data->ray.pitch;
+		+ data->ray.pitch;
 	if (data->ray.drawStart < 0)
 		data->ray.drawStart = 0;
 	data->ray.drawEnd = data->ray.line_height / 2 + data->height / 2

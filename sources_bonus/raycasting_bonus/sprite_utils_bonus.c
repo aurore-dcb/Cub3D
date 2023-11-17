@@ -31,9 +31,12 @@ int init_sprite(t_map *data)
     if (!data->sprite.sprite)
         return (printf("Error\nMalloc sprites\n"), 0);
     fill_sprite(data);
-    data->sprite.Zbuffer = malloc(sizeof(double) * data->width);
     if (!data->sprite.Zbuffer)
-        return (printf("Error\nMalloc sprites\n"), 0);
+    {
+        data->sprite.Zbuffer = malloc(sizeof(double) * data->width);
+        if (!data->sprite.Zbuffer)
+            return (printf("Error\nMalloc sprites\n"), 0);
+    }
     data->sprite.sprite_order = malloc(sizeof(int) * nb_sprite(data));
     if (!data->sprite.sprite_order)
         return (printf("Error\nMalloc sprites\n"), 0);
