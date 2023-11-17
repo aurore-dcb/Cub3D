@@ -52,45 +52,43 @@ int	load_tex(t_map *data)
 	data->tex = malloc(sizeof(int *) * (data->nb_tex));
 	if (!data->tex)
 		return (printf("Error\nMalloc\n"), 0);
-	if (!load_img(data, &data->img, data->path_N, 0))
+	if (!load_img(data, &data->img, data->path_n, 0))
 		return (0);
-	if (!load_img(data, &data->img, data->path_S, 1))
+	if (!load_img(data, &data->img, data->path_s, 1))
 		return (0);
-	if (!load_img(data, &data->img, data->path_W, 2))
+	if (!load_img(data, &data->img, data->path_w, 2))
 		return (0);
-	if (!load_img(data, &data->img, data->path_E, 3))
+	if (!load_img(data, &data->img, data->path_e, 3))
 		return (0);
 	return (1);
 }
 
-void	loop(t_map *data)
+int	loop(t_map *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
-	{
-		printf("Error\nCannot init window\n");
-		return ;
-	}
+		return (printf("Error\nCannot init window\n"), 0);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->width, data->height,
 			"Cub3D");
 	if (!data->win_ptr)
-		return (ft_printf("Error\nCannot display window\n"),
-			free(data->win_ptr));
+		return (printf("Error\nCannot display window\n"),
+			free(data->win_ptr), 0);
 	if (!load_tex(data))
-		return ;
+		return (0);
 	data->main.img = mlx_new_image(data->mlx_ptr, data->width, data->height);
 	if (!data->main.img)
-		return ;
+		return (0);
 	data->main.data = (int *)mlx_get_data_addr(data->main.img, &data->main.bpp,
 			&data->main.size, &data->main.endian);
 	if (!data->main.data)
-		return ;
+		return (0);
 	display(data);
 	mlx_hook(data->win_ptr, 2, 1L << 0, key_press, data);
 	mlx_hook(data->win_ptr, 3, 1L << 1, key_release, data);
 	mlx_hook(data->win_ptr, 17, 1L << 17, mlx_loop_end, data->mlx_ptr);
 	mlx_loop_hook(data->mlx_ptr, key_hook, data);
 	mlx_loop(data->mlx_ptr);
+	return (1);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -105,7 +103,8 @@ int	main(int argc, char **argv, char **env)
 	if (!check_map(&data))
 		return (free_all(&data), 1);
 	direction_begin(&data);
-	loop(&data);
+	if (!loop(&data))
+		return (free_all(&data), 1);
 	free_all(&data);
 	return (0);
 }

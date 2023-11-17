@@ -59,7 +59,7 @@ int	check_texture_paths(t_map *data, char **tab)
 	else if (strcmp(tab[0], "DO") == 0 && !data->path_D)
 		data->path_D = ft_strcpy(data->path_D, tab[1]);
 	else if (strcmp(tab[0], "CO") == 0 && !data->path_CO)
-        data->path_CO = ft_strcpy(data->path_CO, tab[1]);
+		data->path_CO = ft_strcpy(data->path_CO, tab[1]);
 	else
 		return (close(fd), printf("Error\nTexture\n"), 0);
 	data->nb_tex += 1;

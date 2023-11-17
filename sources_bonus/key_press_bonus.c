@@ -1,35 +1,5 @@
 #include "cub3d_bonus.h"
 
-void	left_key(t_map *data)
-{
-	double	rad;
-	double	dx;
-	double	px;
-
-	dx = data->dirX;
-	px = data->planeX;
-	rad = (ALPHA * PI) / 180;
-	data->dirX = data->dirX * cos(rad) - data->dirY * sin(rad);
-	data->dirY = dx * sin(rad) + data->dirY * cos(rad);
-	data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
-	data->planeY = px * sin(rad) + data->planeY * cos(rad);
-}
-
-void	right_key(t_map *data)
-{
-	double	rad;
-	double	dx;
-	double	px;
-
-	dx = data->dirX;
-	px = data->planeX;
-	rad = (-ALPHA * PI) / 180;
-	data->dirX = data->dirX * cos(rad) - data->dirY * sin(rad);
-	data->dirY = dx * sin(rad) + data->dirY * cos(rad);
-	data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
-	data->planeY = px * sin(rad) + data->planeY * cos(rad);
-}
-
 int	key_press(int keycode, t_map *data)
 {
 	if (keycode == 119)
@@ -79,6 +49,22 @@ int	key_release(int keycode, t_map *data)
 	return (0);
 }
 
+void	key_hook_part2(t_map *data)
+{
+	if (data->b_left == 1)
+	{
+		if (data->mx < (data->width / 2))
+			mouse_x(data);
+		if (data->mx > (data->width / 2))
+			mouse_y(data);
+		mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
+	}
+	else
+	{
+		mlx_mouse_show(data->mlx_ptr, data->win_ptr);
+	}
+}
+
 int	key_hook(t_map *data)
 {
 	data->speed = 0.01;
@@ -96,18 +82,7 @@ int	key_hook(t_map *data)
 		right_key(data);
 	if (data->left)
 		left_key(data);
-	if (data->b_left == 1)
-	{
-		if (data->mx < (data->width / 2) - 10)
-			mouse_x(data);
-		if (data->mx > (data->width / 2) + 10)
-			mouse_y(data);
-		mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
-	}
-	else
-	{
-		mlx_mouse_show(data->mlx_ptr, data->win_ptr);
-	}
+	key_hook_part2(data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	display(data);
 	return (1);

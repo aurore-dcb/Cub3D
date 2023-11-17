@@ -89,6 +89,6 @@ void	wall_casting(t_map *data)
 		wall_size(data);
 		textures(data, x);
 		if (data->nb_sprites > 0)
-            data->sprite.Zbuffer[x] = data->ray.perpWallDist;
+			data->sprite.Zbuffer[x] = data->ray.perpWallDist;
 	}
 }

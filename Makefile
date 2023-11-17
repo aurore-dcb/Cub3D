@@ -53,6 +53,8 @@ SRCS_BONUS =	${addprefix sources_bonus/, \
 			mouse_key_bonus.c \
 			mini_map_bonus.c \
 			mini_map_utils_bonus.c \
+			load_bonus.c \
+			key_direction_bonus.c \
 			}
 
 OBJS = ${SRCS:sources/%.c=objects/%.o}
