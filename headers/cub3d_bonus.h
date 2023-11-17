@@ -1,5 +1,5 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
@@ -153,7 +153,7 @@ typedef struct s_map
 void				init_map(t_map *data);
 int					load_img(t_map *data, t_image *img, char *path, int i);
 int					load_tex(t_map *data);
-void				loop(t_map *data);
+int				loop(t_map *data);
 // frees_utils
 void				free_tab(char **tab);
 void				free_tab_int(int **buf, t_map *data, int n);
@@ -171,6 +171,8 @@ void				d_key(t_map *data);
 int					key_hook(t_map *data);
 int					key_press(int keycode, t_map *data);
 int					key_release(int keycode, t_map *data);
+void	left_key(t_map *data);
+void	right_key(t_map *data);
 // mouse_key
 void				mouse_y(t_map *data);
 void				mouse_x(t_map *data);
@@ -208,7 +210,8 @@ int					test_empty(t_map *data);
 // parsing_utils
 int					is_sp(char c);
 int					is_digit_map(char c);
-int					is_carac_map(char c, t_map *data);
+int					is_carac_minimap(char c);
+int    				is_carac_map(char c, t_map *data);
 int					test_valid_carac(char c, t_map *data);
 // parsing
 int					begin_line(char *line);
@@ -246,9 +249,14 @@ void				do_draw_fixed(t_map *d, t_2D start, t_2D end,
 void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);
 int					mini_map(t_map *data);
 
-void				sprite_casting(t_map *data);
-int					init_sprite(t_map *data);
+void    		sprite_casting(t_map *data);
+int 			init_sprite(t_map *data);
 void				take_coin(t_map *data);
 int					nb_sprite(t_map *data);
+
+// load
+int	load_img(t_map *data, t_image *img, char *path, int i);
+int	load_tex_part2(t_map *data);
+int	load_tex(t_map *data);
 
 #endif

@@ -34,20 +34,23 @@ int	mouse_move(int x, int y, t_map *data)
 {
 	if (data->b_left == 1)
 	{
-		mlx_mouse_move(data->mlx_ptr, data->win_ptr, data->width / 2, data->height / 2);
+		mlx_mouse_move(data->mlx_ptr, data->win_ptr, data->width / 2,
+			data->height / 2);
 	}
 	data->mx = x;
 	(void)y;
 	return (0);
 }
 
-int mouse_click(int button, int x, int y, t_map *data)
+int	mouse_click(int button, int x, int y, t_map *data)
 {
 	(void)x;
 	(void)y;
-    if (button == 1) // Clic gauche
-    {
+	if (button == 1)
+	{
+		mlx_mouse_move(data->mlx_ptr, data->win_ptr, data->width / 2,
+			data->height / 2);
 		data->b_left *= -1;
-    }
-    return (0);
+	}
+	return (0);
 }

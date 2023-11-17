@@ -6,13 +6,13 @@ void	left_key(t_map *data)
 	double	dx;
 	double	px;
 
-	dx = data->dirX;
-	px = data->planeX;
+	dx = data->dirx;
+	px = data->planex;
 	rad = (ALPHA * PI) / 180;
-	data->dirX = data->dirX * cos(rad) - data->dirY * sin(rad);
-	data->dirY = dx * sin(rad) + data->dirY * cos(rad);
-	data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
-	data->planeY = px * sin(rad) + data->planeY * cos(rad);
+	data->dirx = data->dirx * cos(rad) - data->diry * sin(rad);
+	data->diry = dx * sin(rad) + data->diry * cos(rad);
+	data->planex = data->planex * cos(rad) - data->planey * sin(rad);
+	data->planey = px * sin(rad) + data->planey * cos(rad);
 }
 
 void	right_key(t_map *data)
@@ -21,13 +21,13 @@ void	right_key(t_map *data)
 	double	dx;
 	double	px;
 
-	dx = data->dirX;
-	px = data->planeX;
+	dx = data->dirx;
+	px = data->planex;
 	rad = (-ALPHA * PI) / 180;
-	data->dirX = data->dirX * cos(rad) - data->dirY * sin(rad);
-	data->dirY = dx * sin(rad) + data->dirY * cos(rad);
-	data->planeX = data->planeX * cos(rad) - data->planeY * sin(rad);
-	data->planeY = px * sin(rad) + data->planeY * cos(rad);
+	data->dirx = data->dirx * cos(rad) - data->diry * sin(rad);
+	data->diry = dx * sin(rad) + data->diry * cos(rad);
+	data->planex = data->planex * cos(rad) - data->planey * sin(rad);
+	data->planey = px * sin(rad) + data->planey * cos(rad);
 }
 
 int	key_press(int keycode, t_map *data)

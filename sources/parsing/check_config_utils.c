@@ -23,18 +23,18 @@ int	color_format(char *tab)
 
 int	check_color(t_map *data, char **tab)
 {
-	if (ft_strcmp(tab[0], "F") == 0 && !data->F_color)
+	if (ft_strcmp(tab[0], "F") == 0 && !data->f_color)
 	{
 		if (!color_format(tab[1]))
 			return (printf("Error\nColor\n"), 0);
-		data->F_color = ft_strcpy(data->F_color, tab[1]);
+		data->f_color = ft_strcpy(data->f_color, tab[1]);
 		return (1);
 	}
-	else if (ft_strcmp(tab[0], "C") == 0 && !data->C_color)
+	else if (ft_strcmp(tab[0], "C") == 0 && !data->c_color)
 	{
 		if (!color_format(tab[1]))
 			return (printf("Error\nColor\n"), 0);
-		data->C_color = ft_strcpy(data->C_color, tab[1]);
+		data->c_color = ft_strcpy(data->c_color, tab[1]);
 		return (1);
 	}
 	printf("Error\nColor\n");
@@ -48,14 +48,14 @@ int	check_texture_paths(t_map *data, char **tab)
 	fd = open(tab[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\nTexture\n"), 0);
-	if (strcmp(tab[0], "NO") == 0 && !data->path_N)
-		data->path_N = ft_strcpy(data->path_N, tab[1]);
-	else if (strcmp(tab[0], "SO") == 0 && !data->path_S)
-		data->path_S = ft_strcpy(data->path_S, tab[1]);
-	else if (strcmp(tab[0], "EA") == 0 && !data->path_E)
-		data->path_E = ft_strcpy(data->path_E, tab[1]);
-	else if (strcmp(tab[0], "WE") == 0 && !data->path_W)
-		data->path_W = ft_strcpy(data->path_W, tab[1]);
+	if (strcmp(tab[0], "NO") == 0 && !data->path_n)
+		data->path_n = ft_strcpy(data->path_n, tab[1]);
+	else if (strcmp(tab[0], "SO") == 0 && !data->path_s)
+		data->path_s = ft_strcpy(data->path_s, tab[1]);
+	else if (strcmp(tab[0], "EA") == 0 && !data->path_e)
+		data->path_e = ft_strcpy(data->path_e, tab[1]);
+	else if (strcmp(tab[0], "WE") == 0 && !data->path_w)
+		data->path_w = ft_strcpy(data->path_w, tab[1]);
 	else
 		return (close(fd), printf("Error\nTexture\n"), 0);
 	data->nb_tex += 1;

@@ -73,18 +73,18 @@ void	free_all(t_map *data)
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
 	}
-	if (data->path_N)
-		free(data->path_N);
-	if (data->path_S)
-		free(data->path_S);
-	if (data->path_E)
-		free(data->path_E);
-	if (data->path_W)
-		free(data->path_W);
-	if (data->C_color)
-		free(data->C_color);
-	if (data->F_color)
-		free(data->F_color);
+	if (data->path_n)
+		free(data->path_n);
+	if (data->path_s)
+		free(data->path_s);
+	if (data->path_e)
+		free(data->path_e);
+	if (data->path_w)
+		free(data->path_w);
+	if (data->c_color)
+		free(data->c_color);
+	if (data->f_color)
+		free(data->f_color);
 	if (data->map)
 		free_tab(data->map);
 	if (data->tex)

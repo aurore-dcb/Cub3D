@@ -2,29 +2,29 @@
 
 void	init_side(t_map *data)
 {
-	if (data->ray.rayDirX < 0)
+	if (data->ray.raydirx < 0)
 	{
-		data->ray.stepX = -1;
-		data->ray.sideDistX = (data->posX - data->ray.mapX)
-			* data->ray.deltaDistX;
+		data->ray.stepx = -1;
+		data->ray.sidedistx = (data->posx - data->ray.mapx)
+			* data->ray.deltadistx;
 	}
 	else
 	{
-		data->ray.stepX = 1;
-		data->ray.sideDistX = (data->ray.mapX + 1.0 - data->posX)
-			* data->ray.deltaDistX;
+		data->ray.stepx = 1;
+		data->ray.sidedistx = (data->ray.mapx + 1.0 - data->posx)
+			* data->ray.deltadistx;
 	}
-	if (data->ray.rayDirY < 0)
+	if (data->ray.raydiry < 0)
 	{
-		data->ray.stepY = 1;
-		data->ray.sideDistY = (data->ray.mapY + 1.0 - data->posY)
-			* data->ray.deltaDistY;
+		data->ray.stepy = 1;
+		data->ray.sidedisty = (data->ray.mapy + 1.0 - data->posy)
+			* data->ray.deltadisty;
 	}
 	else
 	{
-		data->ray.stepY = -1;
-		data->ray.sideDistY = (data->posY - data->ray.mapY)
-			* data->ray.deltaDistY;
+		data->ray.stepy = -1;
+		data->ray.sidedisty = (data->posy - data->ray.mapy)
+			* data->ray.deltadisty;
 	}
 }
 
@@ -32,19 +32,19 @@ void	dda_algo(t_map *data)
 {
 	while (data->ray.hit == 0)
 	{
-		if (data->ray.sideDistX < data->ray.sideDistY)
+		if (data->ray.sidedistx < data->ray.sidedisty)
 		{
-			data->ray.sideDistX += data->ray.deltaDistX;
-			data->ray.mapX += data->ray.stepX;
+			data->ray.sidedistx += data->ray.deltadistx;
+			data->ray.mapx += data->ray.stepx;
 			data->ray.side = 0;
 		}
 		else
 		{
-			data->ray.sideDistY += data->ray.deltaDistY;
-			data->ray.mapY += data->ray.stepY;
+			data->ray.sidedisty += data->ray.deltadisty;
+			data->ray.mapy += data->ray.stepy;
 			data->ray.side = 1;
 		}
-		if (data->map[data->ray.mapY][data->ray.mapX] == '1')
+		if (data->map[data->ray.mapy][data->ray.mapx] == '1')
 			data->ray.hit = 1;
 	}
 }
@@ -52,17 +52,17 @@ void	dda_algo(t_map *data)
 void	wall_size(t_map *data)
 {
 	if (data->ray.side == 0)
-		data->ray.perpWallDist = data->ray.sideDistX - data->ray.deltaDistX;
+		data->ray.perpwalldist = data->ray.sidedistx - data->ray.deltadistx;
 	else
-		data->ray.perpWallDist = data->ray.sideDistY - data->ray.deltaDistY;
-	data->ray.line_height = (int)(data->height / data->ray.perpWallDist);
+		data->ray.perpwalldist = data->ray.sidedisty - data->ray.deltadisty;
+	data->ray.line_height = (int)(data->height / data->ray.perpwalldist);
 	data->ray.pitch = 100;
-	data->ray.drawStart = -data->ray.line_height / 2 + data->height / 2 + \
+	data->ray.drawstart = -data->ray.line_height / 2 + data->height / 2 + \
 		+data->ray.pitch;
-	if (data->ray.drawStart < 0)
-		data->ray.drawStart = 0;
-	data->ray.drawEnd = data->ray.line_height / 2 + data->height / 2
+	if (data->ray.drawstart < 0)
+		data->ray.drawstart = 0;
+	data->ray.drawend = data->ray.line_height / 2 + data->height / 2
 		+ data->ray.pitch;
-	if (data->ray.drawEnd >= data->height)
-		data->ray.drawEnd = data->height - 1;
+	if (data->ray.drawend >= data->height)
+		data->ray.drawend = data->height - 1;
 }

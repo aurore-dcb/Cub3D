@@ -32,28 +32,28 @@ typedef struct s_image
 
 typedef struct s_ray
 {
-	double			cameraX;
-	double			rayDirX;
-	double			rayDirY;
-	int				mapX;
-	int				mapY;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	int				stepX;
-	int				stepY;
+	double			camerax;
+	double			raydirx;
+	double			raydiry;
+	int				mapx;
+	int				mapy;
+	double			sidedistx;
+	double			sidedisty;
+	double			deltadistx;
+	double			deltadisty;
+	int				stepx;
+	int				stepy;
 	int				hit;
 	int				side;
-	double			perpWallDist;
+	double			perpwalldist;
 	int				line_height;
 	int				pitch;
-	int				drawStart;
-	int				drawEnd;
+	int				drawstart;
+	int				drawend;
 	int				wall_orient;
-	double			wallX;
+	double			wallx;
 	double			step;
-	double			texPos;
+	double			texpos;
 }					t_ray;
 
 typedef struct s_map
@@ -70,43 +70,42 @@ typedef struct s_map
 	int				x_player;
 	int				y_player;
 	t_ray			ray;
-	double			posX;
-	double			posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	double			planex;
+	double			planey;
 	t_image			img;
 	t_image			main;
 	int				tex_width;
 	int				tex_height;
-	char			*path_N;
-	char			*path_S;
-	char			*path_E;
-	char			*path_W;
-	char			*F_color;
-	char			*C_color;
+	char			*path_n;
+	char			*path_s;
+	char			*path_e;
+	char			*path_w;
+	char			*f_color;
+	char			*c_color;
 	int				**tex;
 	int				len_tex;
 	unsigned int	**buffer;
-    int 			w;
-	int 			s;
-	int 			d;
-	int 			a;
-	int 			right;
-	int 			left;
-	double 			speed;
+	int				w;
+	int				s;
+	int				d;
+	int				a;
+	int				right;
+	int				left;
+	double			speed;
 }					t_map;
 
 // main
 void				init_map(t_map *data);
 int					load_img(t_map *data, t_image *img, char *path, int i);
 int					load_tex(t_map *data);
-void				loop(t_map *data);
+int					loop(t_map *data);
 // frees
 void				free_tab(char **tab);
 void				free_tab_int(int **buf, t_map *data, int n);
-// void				free_tab_int(int **buf, t_map *data);
 void				free_buffer(unsigned int **buf, t_map *data);
 void				free_char_spe(char **tableau, int len);
 void				free_all(t_map *data);
@@ -116,14 +115,11 @@ void				s_key(t_map *data);
 void				a_key(t_map *data);
 void				d_key(t_map *data);
 // key_press
-int   				mouse_move(int x, int y, t_map *data);
-int					key_hook(t_map *data);
-int	                key_press(int keycode, t_map *data);
+void				left_key(t_map *data);
+void				right_key(t_map *data);
+int					key_press(int keycode, t_map *data);
 int					key_release(int keycode, t_map *data);
-// mouse_key
-void				mouse_y(t_map *data, int last, int y);
-void				mouse_x(t_map *data, int last, int x);
-int					mouse_move(int x, int y, t_map *data);
+int					key_hook(t_map *data);
 // check_config_utils
 int					color_format(char *tab);
 int					check_color(t_map *data, char **tab);
@@ -181,12 +177,4 @@ void				wall_orientation(t_map *data);
 void				pixel_color(t_map *data, int tex_x, int tex_y, int x);
 void				textures(t_map *data, int x);
 void				wall_casting(t_map *data);
-// minimap
-void				draw_rectangle(t_map *data, t_2D square, int size,
-						int color);
-void				draw_circle(t_map *data, t_2D p, int rad, int color);
-void				do_draw_fixed(t_map *d, t_2D start, t_2D end,
-						int pixel_size);
-void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);
-int					mini_map(t_map *data);
 #endif
