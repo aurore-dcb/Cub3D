@@ -37,6 +37,18 @@ void	display(t_map *data)
 	}
 	wall_casting(data);
 	floor_casting(data);
+	if (data->sprite.sprite)
+        free(data->sprite.sprite);
+    if (data->sprite.Zbuffer)
+        free(data->sprite.Zbuffer);
+    if (data->sprite.sprite_order)
+        free(data->sprite.sprite_order);
+    if (data->sprite.sprite_dist)
+	{
+        free(data->sprite.sprite_dist);
+	}
+	init_sprite(data);
+	data->nb_sprites = nb_sprite(data);
 	sprite_casting(data);
 	draw(data);
 	y = 0;

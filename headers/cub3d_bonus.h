@@ -59,43 +59,43 @@ typedef struct s_ray
 
 typedef struct s_sprite
 {
-    double           x;
-    double           y;
-    int              texture;
-}                    t_sprite;
+	double			x;
+	double			y;
+	int				texture;
+}					t_sprite;
 
 typedef struct s_pair
 {
-    double           first;
-    int              second;
-}                    t_pair;
+	double			first;
+	int				second;
+}					t_pair;
 
 typedef struct s_coll
 {
-    t_sprite        *sprite;
-    double            *Zbuffer;
-    int                *sprite_order;
-    double            *sprite_dist;
+	t_sprite		*sprite;
+	double			*Zbuffer;
+	int				*sprite_order;
+	double			*sprite_dist;
 
-    double            spritex;
-    double            spritey;
-    double            invDet;
-    double            transformx;
-    double            transformy;
-    int                sprite_screenx;
+	double			spritex;
+	double			spritey;
+	double			invDet;
+	double			transformx;
+	double			transformy;
+	int				sprite_screenx;
 
-    int                spriteHeight;
-    int                drawStartY;
-    int                drawEndY;
-    int                spriteWidth;
-    int                drawStartX;
-    int                drawEndX;
+	int				spriteHeight;
+	int				drawStartY;
+	int				drawEndY;
+	int				spriteWidth;
+	int				drawStartX;
+	int				drawEndX;
 
-    int                texX;
-    int                d;
-    int                texY;
-    unsigned int    color;
-}                    t_coll;
+	int				texX;
+	int				d;
+	int				texY;
+	unsigned int	color;
+}					t_coll;
 
 typedef struct s_map
 {
@@ -119,7 +119,7 @@ typedef struct s_map
 	double			planeY;
 	t_image			img;
 	t_image			main;
-	t_coll          sprite;
+	t_coll			sprite;
 	int				tex_width;
 	int				tex_height;
 	char			*path_N;
@@ -134,17 +134,17 @@ typedef struct s_map
 	int				len_tex;
 	unsigned int	**buffer;
 	int				dis_map;
-    int 			w;
-	int 			s;
-	int 			d;
-	int 			a;
-	int 			right;
-	int 			left;
+	int				w;
+	int				s;
+	int				d;
+	int				a;
+	int				right;
+	int				left;
 	int				shift;
-	double 			speed;
+	double			speed;
 	int				doors;
 	int				mx;
-	int 			b_left;
+	int				b_left;
 	int				nb_sprites;
 	int				nb_doors;
 }					t_map;
@@ -169,13 +169,13 @@ void				a_key(t_map *data);
 void				d_key(t_map *data);
 // key_press
 int					key_hook(t_map *data);
-int	                key_press(int keycode, t_map *data);
+int					key_press(int keycode, t_map *data);
 int					key_release(int keycode, t_map *data);
 // mouse_key
 void				mouse_y(t_map *data);
 void				mouse_x(t_map *data);
 int					mouse_move(int x, int y, t_map *data);
-int 				mouse_click(int button, int x, int y, t_map *data);
+int					mouse_click(int button, int x, int y, t_map *data);
 // check_config_utils
 int					color_format(char *tab);
 int					check_color(t_map *data, char **tab);
@@ -208,7 +208,7 @@ int					test_empty(t_map *data);
 // parsing_utils
 int					is_sp(char c);
 int					is_digit_map(char c);
-int    				is_carac_map(char c, t_map *data);
+int					is_carac_map(char c, t_map *data);
 int					test_valid_carac(char c, t_map *data);
 // parsing
 int					begin_line(char *line);
@@ -246,7 +246,9 @@ void				do_draw_fixed(t_map *d, t_2D start, t_2D end,
 void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);
 int					mini_map(t_map *data);
 
-void    		sprite_casting(t_map *data);
-int 			init_sprite(t_map *data);
+void				sprite_casting(t_map *data);
+int					init_sprite(t_map *data);
+void				take_coin(t_map *data);
+int					nb_sprite(t_map *data);
 
 #endif

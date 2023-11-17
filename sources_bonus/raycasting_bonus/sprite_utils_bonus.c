@@ -2,55 +2,44 @@
 
 void fill_sprite(t_map *data)
 {
-    double x;
-    double y;
+    int x;
+    int y;
     int i;
 
     y = 0;
     i = 0;
-    while (data->map[(int)y])
+    while (data->map[y])
     {
         x = 0;
-        while (data->map[(int)y][(int)x])
+        while (data->map[y][x])
         {
-            if (data->map[(int)y][(int)x] == 'C')
+            if (data->map[y][x] == 'C')
             {
-                data->sprite.sprite[i].x = x + 0.5;
-                data->sprite.sprite[i].y = y + 0.5;
+                data->sprite.sprite[i].x = (double)(x) + 0.5;
+                data->sprite.sprite[i].y = (double)(y) + 0.5;
                 data->sprite.sprite[i++].texture = 5;
             }
-            x++;
+            x += 1;
         }
-        y++;
+        y += 1;
     }
 }
 
 int init_sprite(t_map *data)
 {
-    printf("nb sprite : %d\n", data->nb_sprites);
-    data->sprite.sprite = malloc(sizeof(t_sprite) * data->nb_sprites);
+    data->sprite.sprite = malloc(sizeof(t_sprite) * nb_sprite(data));
     if (!data->sprite.sprite)
         return (printf("Error\nMalloc sprites\n"), 0);
-    //remplir le tableau
     fill_sprite(data);
-    // --- afficher les donnees des sprites ---
-    int i = 0;
-    while (i < data->nb_sprites)
-    {
-        printf("x : %f\n", data->sprite.sprite[i].x);
-        printf("y : %f\n", data->sprite.sprite[i].y);
-        printf("tex : %d\n", data->sprite.sprite[i].texture);
-        i++;
-    }
-    // ----------------------------------------
     data->sprite.Zbuffer = malloc(sizeof(double) * data->width);
     if (!data->sprite.Zbuffer)
         return (printf("Error\nMalloc sprites\n"), 0);
-    data->sprite.sprite_order = malloc(sizeof(int) * data->nb_sprites);
+    data->sprite.sprite_order = malloc(sizeof(int) * nb_sprite(data));
     if (!data->sprite.sprite_order)
         return (printf("Error\nMalloc sprites\n"), 0);
-    data->sprite.sprite_dist = malloc(sizeof(double) * data->nb_sprites);
+    data->sprite.sprite_dist = malloc(sizeof(double) * nb_sprite(data));
     if (!data->sprite.sprite_dist)
         return (printf("Error\nMalloc sprites\n"), 0);
+    data->nb_sprites = nb_sprite(data);
     return (1);
 }

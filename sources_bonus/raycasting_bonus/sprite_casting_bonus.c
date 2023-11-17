@@ -1,8 +1,30 @@
 #include "cub3d_bonus.h"
 
-#define uDiv 1
-#define vDiv 1
-#define vMove 64
+#define uDiv 2
+#define vDiv 2
+#define vMove 500
+
+int nb_sprite(t_map *data)
+{
+	int x;
+	int y;
+	int nb;
+
+	y = 0;
+	nb = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == 'C')
+				nb++;
+			x++;
+		}
+		y++;
+	}
+	return (nb);
+}
 
 void	sort_order(t_pair *orders, int nb)
 {
@@ -29,7 +51,6 @@ void	sort_order(t_pair *orders, int nb)
 	}
 }
 
-// fonction pour trier les sprites
 void	sort_sprites(int *order, double *dist, int nb)
 {
 	int		i;
@@ -54,6 +75,24 @@ void	sort_sprites(int *order, double *dist, int nb)
 	free(sprites);
 }
 
+void take_coin(t_map *data)
+{
+	int i;
+	t_coll *s;
+
+	i = 0;
+	s = &data->sprite;
+	while (i < data->nb_sprites)
+	{
+		if (data->posX >= s->sprite[i].x - 0.5 && data->posX <= s->sprite[i].x + 0.5
+			&& data->posY >= s->sprite[i].y - 0.5 && data->posY <= s->sprite[i].y + 0.5)
+		{
+			data->map[(int)fabs(data->posY)][(int)fabs(data->posX)] = '0';
+		}
+		i++;
+	}
+}
+
 void	sprite_casting(t_map *data)
 {
 	int i;
@@ -61,6 +100,7 @@ void	sprite_casting(t_map *data)
 
 	s = &data->sprite;
 	i = -1;
+	take_coin(data);
 	while (++i < data->nb_sprites)
 	{
 		s->sprite_order[i] = i;
@@ -72,50 +112,24 @@ void	sprite_casting(t_map *data)
 	i = -1;
 	while (++i < data->nb_sprites)
 	{
-		s->spritex = (s->sprite[s->sprite_order[i]].x - data->posX);
+		s->spritex = s->sprite[s->sprite_order[i]].x - data->posX;
 		s->spritey = s->sprite[s->sprite_order[i]].y - data->posY;
 		s->invDet = 1.0 / (data->planeX * data->dirY - data->dirX
 				* data->planeY);
-		// if (i == 2)
-		// {
-		// 	printf("s->spritex : %f   - s->spritey : %f\n", s->spritex, s->spritey);
-		// 	printf("s->invDet : %f\n", s->invDet);
-		// }
 		s->transformx = s->invDet * (data->dirY * s->spritex
 				+ data->dirX * s->spritey);
 		s->transformy = s->invDet * (-data->planeY * s->spritex
 				- data->planeX * s->spritey);
-		// s->transformy = s->invDet * (-data->planeX * s->spritey
-		// 		- (data->planeY * s->spritex));
-		// if (i == 1)
-		// {
-		// 	printf("i -> %d :\n", i);
-			// printf("	data->planeY : %f\n", data->planeY);
-			// printf("	data->planeX : %f\n", data->planeX);
-		// 	printf("	s->transformx : %f   -   s->transformy : %f\n\n", s->transformx, s->transformy);
-		// }
 		s->sprite_screenx = (int)((data->width / 2) * (1 + s->transformx
 					/ s->transformy));
 		int vMoveScreen = (int)(vMove / s->transformy);
-		if (i == 2)
-		{
-			printf("i -> %d :\n", i);
-			printf("	data->planeY : %f\n", data->planeY);
-			printf("	data->planeX : %f\n", data->planeX);
-			printf("	s->transformx : %f   -   s->transformy : %f\n", s->transformx, s->transformy);
-			printf("	sprite_screenx : %d\n\n", s->sprite_screenx);
-		}
-		// if (i == 2)
-		// 	printf("move screem : %d\n", vMoveScreen);
 		s->spriteHeight = abs((int)(data->height / s->transformy)) / vDiv;
 		s->drawStartY = -s->spriteHeight / 2 + data->height / 2 + vMoveScreen;
 		if (s->drawStartY < 0)
 			s->drawStartY = 0;
-		// s->drawEndY = s->spriteHeight / 2 + data->height / 2 + vMoveScreen;
 		s->drawEndY = s->spriteHeight / 2 + data->height / 2 + vMoveScreen;
 		if (s->drawEndY >= data->height)
 			s->drawEndY = data->height - 1;
-		// calculer la largeur du sprite
 		s->spriteWidth = abs((int)(data->height / s->transformy)) / uDiv;
 		s->drawStartX = -s->spriteWidth / 2 + s->sprite_screenx;
 		if (s->drawStartX < 0)
