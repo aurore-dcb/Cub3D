@@ -21,6 +21,7 @@ void	init_map(t_map *data)
 	data->dis_map = -1;
 	data->b_left = -1;
 	ft_memset(&data->ray, 0, sizeof(t_ray));
+	ft_memset(&data->sprite, 0, sizeof(t_coll));
 }
 
 int	load_img(t_map *data, t_image *img, char *path, int i)
@@ -67,6 +68,13 @@ int	load_tex(t_map *data)
 		return (0);
 	if (!load_img(data, &data->img, data->path_D, 4))
 		return (0);
+	if (data->path_CO && nb_sprite(data))
+	{
+		if (!load_img(data, &data->img, data->path_CO, 5))
+            return (0);
+        if (!init_sprite(data))
+            return (0);
+    }
 	return (1);
 }
 

@@ -2,7 +2,7 @@
 
 void	end_draw_fixed(t_map *d, t_2D p, t_2D square, int pixel_size)
 {
-	if (d->map[p.y][p.x] == '0' || is_carac_map(d->map[p.y][p.x])
+	if (d->map[p.y][p.x] == '0' || is_carac_map(d->map[p.y][p.x], d)
 			|| (d->map[p.y][p.x] == 'D' && d->doors == -1))
 		draw_rectangle(d, square, pixel_size, 0xFFFFFF);
 	else if (d->map[p.y][p.x] == 'D' && d->doors == 1)

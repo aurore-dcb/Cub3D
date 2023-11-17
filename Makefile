@@ -42,6 +42,8 @@ SRCS_BONUS =	${addprefix sources_bonus/, \
 					wall_casting_bonus.c \
 					calc_wall_casting_bonus.c \
 					floor_casting_bonus.c \
+					sprite_casting_bonus.c \
+					sprite_utils_bonus.c \
 				} \
 			main_bonus.c \
 			frees_bonus.c \

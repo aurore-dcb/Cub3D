@@ -57,6 +57,46 @@ typedef struct s_ray
 	double			texPos;
 }					t_ray;
 
+typedef struct s_sprite
+{
+    double           x;
+    double           y;
+    int              texture;
+}                    t_sprite;
+
+typedef struct s_pair
+{
+    double           first;
+    int              second;
+}                    t_pair;
+
+typedef struct s_coll
+{
+    t_sprite        *sprite;
+    double            *Zbuffer;
+    int                *sprite_order;
+    double            *sprite_dist;
+
+    double            spritex;
+    double            spritey;
+    double            invDet;
+    double            transformx;
+    double            transformy;
+    int                sprite_screenx;
+
+    int                spriteHeight;
+    int                drawStartY;
+    int                drawEndY;
+    int                spriteWidth;
+    int                drawStartX;
+    int                drawEndX;
+
+    int                texX;
+    int                d;
+    int                texY;
+    unsigned int    color;
+}                    t_coll;
+
 typedef struct s_map
 {
 	char			**map;
@@ -79,6 +119,7 @@ typedef struct s_map
 	double			planeY;
 	t_image			img;
 	t_image			main;
+	t_coll          sprite;
 	int				tex_width;
 	int				tex_height;
 	char			*path_N;
@@ -86,6 +127,7 @@ typedef struct s_map
 	char			*path_E;
 	char			*path_W;
 	char			*path_D;
+	char			*path_CO;
 	char			*F_color;
 	char			*C_color;
 	int				**tex;
@@ -166,8 +208,8 @@ int					test_empty(t_map *data);
 int					is_door(char c);
 int					is_sp(char c);
 int					is_digit_map(char c);
-int					is_carac_map(char c);
-int					test_valid_carac(char c);
+int    				is_carac_map(char c, t_map *data);
+int					test_valid_carac(char c, t_map *data);
 // parsing
 int					begin_line(char *line);
 int					read_file(t_map *data, char *line, int fd);
@@ -203,4 +245,9 @@ void				do_draw_fixed(t_map *d, t_2D start, t_2D end,
 						int pixel_size);
 void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);
 int					mini_map(t_map *data);
+
+void    		sprite_casting(t_map *data);
+int 			nb_sprite(t_map *data);
+int 			init_sprite(t_map *data);
+
 #endif

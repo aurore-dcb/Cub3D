@@ -88,5 +88,7 @@ void	wall_casting(t_map *data)
 		dda_algo(data);
 		wall_size(data);
 		textures(data, x);
+		if (nb_sprite(data) > 0)
+            data->sprite.Zbuffer[x] = data->ray.perpWallDist;
 	}
 }

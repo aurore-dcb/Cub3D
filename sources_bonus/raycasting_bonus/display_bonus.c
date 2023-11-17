@@ -37,6 +37,7 @@ void	display(t_map *data)
 	}
 	wall_casting(data);
 	floor_casting(data);
+	sprite_casting(data);
 	draw(data);
 	y = 0;
 	while (y < data->height)

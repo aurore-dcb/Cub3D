@@ -1,5 +1,19 @@
 #include "cub3d_bonus.h"
 
+void free_sprite(t_map *data)
+{
+    if (data->sprite.sprite)
+        free(data->sprite.sprite);
+    if (data->sprite.Zbuffer)
+        free(data->sprite.Zbuffer);
+    if (data->sprite.sprite_order)
+        free(data->sprite.sprite_order);
+    if (data->sprite.sprite_dist)
+        free(data->sprite.sprite_dist);
+    if (data->path_CO)
+        free(data->path_CO);
+}
+
 void	free_all2(t_map *data)
 {
 	if (data->path_N)
@@ -34,4 +48,5 @@ void	free_all(t_map *data)
 		free_tab(data->map);
 	if (data->tex)
 		free_tab_int(data->tex, data, data->len_tex);
+	free_sprite(data);
 }

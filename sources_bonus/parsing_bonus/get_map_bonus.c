@@ -25,7 +25,7 @@ void	do_fill_map(t_map *data, char *lign, int i)
 	while (j < len)
 	{
 		data->map[i][j] = lign[j];
-		if (is_carac_map(data->map[i][j]))
+		if (is_carac_map(data->map[i][j], data) && data->map[i][j] != 'C')
 		{
 			data->x_player = i;
 			data->y_player = j;

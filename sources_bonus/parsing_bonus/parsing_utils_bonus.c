@@ -21,16 +21,18 @@ int	is_digit_map(char c)
 	return (0);
 }
 
-int	is_carac_map(char c)
+int    is_carac_map(char c, t_map *data)
 {
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	return (0);
+    if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+        return (1);
+    if (data->path_CO != NULL && c == 'C')
+        return (1);
+    return (0);
 }
 
-int	test_valid_carac(char c)
+int	test_valid_carac(char c, t_map *data)
 {
-	if (!is_carac_map(c) && !is_digit_map(c) && !is_sp(c))
+	if (!is_carac_map(c, data) && !is_digit_map(c) && !is_sp(c))
 		return (0);
 	return (1);
 }

@@ -58,6 +58,8 @@ int	check_texture_paths(t_map *data, char **tab)
 		data->path_W = ft_strcpy(data->path_W, tab[1]);
 	else if (strcmp(tab[0], "DO") == 0 && !data->path_D)
 		data->path_D = ft_strcpy(data->path_D, tab[1]);
+	else if (strcmp(tab[0], "CO") == 0 && !data->path_CO)
+        data->path_CO = ft_strcpy(data->path_CO, tab[1]);
 	else
 		return (close(fd), printf("Error\nTexture\n"), 0);
 	data->nb_tex += 1;
@@ -75,7 +77,7 @@ int	if_check_texture(t_map *data, int i, char **tab)
 	}
 	else if (strcmp(tab[0], "NO") == 0 || strcmp(tab[0], "SO") == 0
 		|| strcmp(tab[0], "EA") == 0 || strcmp(tab[0], "WE") == 0
-		|| strcmp(tab[0], "DO") == 0)
+		|| strcmp(tab[0], "DO") == 0 || strcmp(tab[0], "CO") == 0)
 	{
 		if (check_texture_paths(data, tab))
 			return (free_tab(tab), 1);
