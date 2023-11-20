@@ -8,6 +8,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <time.h>
 
 # define PI 3.14159265358979323846
 # define ALPHA 0.8
@@ -147,6 +148,7 @@ typedef struct s_map
 	int				b_left;
 	int				nb_sprites;
 	int				nb_doors;
+	clock_t			start_time;
 }					t_map;
 
 // main

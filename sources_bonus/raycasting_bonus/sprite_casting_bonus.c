@@ -93,6 +93,31 @@ void take_coin(t_map *data)
 	}
 }
 
+int	change_bright(int originalColor, int reductionValue)
+{
+    int alpha;
+    int red;
+    int green;
+    int blue;
+	int darkerColor;
+
+	alpha = (originalColor >> 24) & 0xFF;
+    red = (originalColor >> 16) & 0xFF;
+    green = (originalColor >> 8) & 0xFF;
+    blue = originalColor & 0xFF;
+    red -= reductionValue;
+    green -= reductionValue;
+    blue -= reductionValue;
+	if (red < 0)
+		red = 0;
+	if (green < 0)
+		green = 0;
+	if (blue < 0)
+		blue = 0;
+    darkerColor = (alpha << 24) | (red << 16) | (green << 8) | blue;
+    return (darkerColor);
+}
+
 void	sprite_casting(t_map *data)
 {
 	int i;
@@ -112,8 +137,15 @@ void	sprite_casting(t_map *data)
 	i = -1;
 	while (++i < data->nb_sprites)
 	{
+		clock_t current_time;
+		double elapsed_time;
+		current_time = clock();
+		elapsed_time = (double)(current_time - data->start_time) / CLOCKS_PER_SEC;
+		if (i % 2 == 0)
+			elapsed_time -= 0.1;
 		s->spritex = s->sprite[s->sprite_order[i]].x - data->posX;
 		s->spritey = s->sprite[s->sprite_order[i]].y - data->posY;
+
 		s->invDet = 1.0 / (data->planeX * data->dirY - data->dirX
 				* data->planeY);
 		s->transformx = s->invDet * (data->dirY * s->spritex
@@ -152,6 +184,8 @@ void	sprite_casting(t_map *data)
 						s->color = data->tex[5][data->tex_width * s->texY + s->texX];
 					else
 						s->color = data->tex[4][data->tex_width * s->texY + s->texX];
+					if (fmod(elapsed_time, 0.3) >= 0.1)
+						s->color = change_bright(s->color, 20);
 					if ((s->color & 0x00FFFFFF) != 0)
 						data->buffer[y][stripe] = s->color;
 					y++;
