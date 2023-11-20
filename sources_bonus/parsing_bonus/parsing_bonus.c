@@ -19,7 +19,7 @@ int	begin_line(char *line)
 int	read_file(t_map *data, char *line, int fd)
 {
 	if (!line)
-		return (0);
+		return (printf("Error\n"), 0);
 	while (line)
 	{
 		if (!get_map_size(data, line))

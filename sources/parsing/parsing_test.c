@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_test.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 11:00:45 by rmeriau           #+#    #+#             */
+/*   Updated: 2023/11/20 11:57:32 by rmeriau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	test_rows(t_map *data)
@@ -65,7 +77,7 @@ int	test_cols_end(t_map *data)
 			while (data->map[i][j])
 				j++;
 			j--;
-			while (is_sp(data->map[i][j]))
+			while (j > 0 && is_sp(data->map[i][j]))
 				j--;
 			if (data->map[i][j] && data->map[i][j] != '1')
 				return (0);

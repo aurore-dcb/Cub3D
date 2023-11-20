@@ -65,7 +65,7 @@ int	test_cols_end(t_map *data)
 			while (data->map[i][j])
 				j++;
 			j--;
-			while (is_sp(data->map[i][j]))
+			while (j > 0 && is_sp(data->map[i][j]))
 				j--;
 			if (data->map[i][j] && data->map[i][j] != '1')
 				return (0);
