@@ -217,6 +217,7 @@ int					test_valid_carac(char c, t_map *data);
 int					begin_line(char *line);
 int					read_file(t_map *data, char *line, int fd);
 int					ft_extantion(char *map);
+void				get_nb_line(t_map *data);
 int					ft_parsing(int argc, char **argv, char **env, t_map *data);
 // display_utils
 void				init_direction(t_map *data);

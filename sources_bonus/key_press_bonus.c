@@ -57,7 +57,7 @@ void	key_hook_part2(t_map *data)
 			mouse_x(data);
 		if (data->mx > (data->width / 2))
 			mouse_y(data);
-		mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
+		// mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
 	}
 	else
 	{
