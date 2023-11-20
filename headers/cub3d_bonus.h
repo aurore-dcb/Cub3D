@@ -13,6 +13,9 @@
 # define PI 3.14159265358979323846
 # define ALPHA 0.8
 # define ALPHA_MOUSE 3
+# define uDiv 2
+# define vDiv 2
+# define vMove 500
 
 typedef struct s_2D
 {
@@ -77,25 +80,26 @@ typedef struct s_coll
 	double			*Zbuffer;
 	int				*sprite_order;
 	double			*sprite_dist;
-
 	double			spritex;
 	double			spritey;
 	double			invDet;
 	double			transformx;
 	double			transformy;
 	int				sprite_screenx;
-
 	int				spriteHeight;
 	int				drawStartY;
 	int				drawEndY;
 	int				spriteWidth;
 	int				drawStartX;
 	int				drawEndX;
-
 	int				texX;
 	int				d;
 	int				texY;
 	unsigned int	color;
+	clock_t			current_time;
+	double			elapsed_time;
+	int				stripe;
+	int 			vMoveScreen;
 }					t_coll;
 
 typedef struct s_map
@@ -250,12 +254,18 @@ void				do_draw_fixed(t_map *d, t_2D start, t_2D end,
 						int pixel_size);
 void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);
 int					mini_map(t_map *data);
-
-void				sprite_casting(t_map *data);
+// sprite utils
+void				fill_sprite(t_map *data);
 int					init_sprite(t_map *data);
-void				take_coin(t_map *data);
 int					nb_sprite(t_map *data);
-
+void				sort_order(t_pair *orders, int nb);
+void				sort_sprites(int *order, double *dist, int nb);
+// sprite casting
+void				take_coin(t_map *data);
+int					change_bright(int color, int red_value);
+void				color_texture(t_map *data, t_coll *s);
+void				texture_height(t_map *data, t_coll *s, int i);
+void				sprite_casting(t_map *data);
 // load
 int					load_img(t_map *data, t_image *img, char *path, int i);
 int					load_tex_part2(t_map *data);

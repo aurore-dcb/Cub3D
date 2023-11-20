@@ -46,3 +46,74 @@ int init_sprite(t_map *data)
     data->nb_sprites = nb_sprite(data);
     return (1);
 }
+
+int nb_sprite(t_map *data)
+{
+	int x;
+	int y;
+	int nb;
+
+	y = 0;
+	nb = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == 'C')
+				nb++;
+			x++;
+		}
+		y++;
+	}
+	return (nb);
+}
+
+void	sort_order(t_pair *orders, int nb)
+{
+	int		i;
+	int		j;
+	t_pair	tmp;
+
+	i = -1;
+	j = -1;
+	while (++i < nb)
+	{
+		while (++j < nb - 1)
+		{
+			if (orders[j].first > orders[j + 1].first)
+			{
+				tmp.first = orders[j].first;
+				tmp.second = orders[j].second;
+				orders[j].first = orders[j + 1].first;
+				orders[j].second = orders[j + 1].second;
+				orders[j + 1].first = tmp.first;
+				orders[j + 1].second = tmp.second;
+			}
+		}
+	}
+}
+
+void	sort_sprites(int *order, double *dist, int nb)
+{
+	int		i;
+	t_pair	*sprites;
+
+	i = -1;
+	sprites = malloc(sizeof(t_pair) * nb);
+	if (!sprites)
+		return ;
+	while (++i < nb)
+	{
+		sprites[i].first = dist[i];
+		sprites[i].second = order[i];
+	}
+	sort_order(sprites, nb);
+	i = -1;
+	while (++i < nb)
+	{
+		dist[i] = sprites[nb - i - 1].first;
+		order[i] = sprites[nb - i - 1].second;
+	}
+	free(sprites);
+}
