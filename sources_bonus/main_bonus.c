@@ -63,6 +63,7 @@ int	main(int argc, char **argv, char **env)
 		return (free_all(&data), 1);
 	if (!get_map(&data, argv[1]))
 		return (free_all(&data), 1);
+	get_nb_line(&data);
 	if (!check_map(&data))
 		return (free_all(&data), 1);
 	direction_begin(&data);

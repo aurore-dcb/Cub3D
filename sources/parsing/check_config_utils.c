@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_config_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 11:00:25 by rmeriau           #+#    #+#             */
+/*   Updated: 2023/11/20 11:47:02 by rmeriau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	color_format(char *tab)
@@ -68,7 +80,7 @@ int	check_texture(char *line, t_map *data)
 	char	**tab;
 
 	if (!line)
-		return (0);
+		return (printf("Error\n"), 0);
 	tab = ft_split(line);
 	i = 0;
 	while (tab && tab[i])

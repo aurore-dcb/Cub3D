@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_config.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 11:00:30 by rmeriau           #+#    #+#             */
+/*   Updated: 2023/11/20 14:18:01 by rmeriau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	*do_check_config(t_map *data, char *line, int fd)
@@ -22,6 +34,8 @@ char	*do_check_config(t_map *data, char *line, int fd)
 		free(line);
 		line = get_next_line(fd, 0);
 	}
+	if (!line)
+		printf("Error\n");
 	return (line);
 }
 
@@ -68,6 +82,6 @@ int	check_map(t_map *data)
 	if (!test_invalid_char(data))
 		return (printf("Error\nInvalid char\n"), 0);
 	if (!test_player(data))
-		return (printf("Error\nWrong number of player\n"), 0);
+		return (0);
 	return (1);
 }

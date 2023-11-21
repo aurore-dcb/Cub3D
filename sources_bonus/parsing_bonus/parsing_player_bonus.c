@@ -3,20 +3,20 @@
 int	test_player(t_map *data)
 {
 	if (data->nb_player != 1)
-		return (0);
+		return (printf("Error\nWrong number of player\n"), 0);
 	if (!data->map[data->x_player + 1][data->y_player]
 		|| !data->map[data->x_player - 1][data->y_player]
 		|| !data->map[data->x_player][data->y_player + 1]
 		|| !data->map[data->x_player][data->y_player - 1])
-		return (0);
+		return (printf("Error\nNeeded wall\n"), 0);
 	if (is_sp(data->map[data->x_player + 1][data->y_player]))
-		return (0);
+		return (printf("Error\nNeeded wall\n"), 0);
 	else if (is_sp(data->map[data->x_player - 1][data->y_player]))
-		return (0);
+		return (printf("Error\nNeeded wall\n"), 0);
 	else if (is_sp(data->map[data->x_player][data->y_player + 1]))
-		return (0);
+		return (printf("Error\nNeeded wall\n"), 0);
 	else if (is_sp(data->map[data->x_player][data->y_player - 1]))
-		return (0);
+		return (printf("Error\nNeeded wall\n"), 0);
 	return (1);
 }
 

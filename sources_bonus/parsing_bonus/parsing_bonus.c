@@ -19,7 +19,7 @@ int	begin_line(char *line)
 int	read_file(t_map *data, char *line, int fd)
 {
 	if (!line)
-		return (0);
+		return (printf("Error\n"), 0);
 	while (line)
 	{
 		if (!get_map_size(data, line))
@@ -45,6 +45,25 @@ int	ft_extantion(char *map)
 	if (ft_strcmp(map, ".cub") != 0)
 		return (0);
 	return (1);
+}
+
+void	get_nb_line(t_map *data)
+{
+	int	i;
+	int	j;
+
+	i = data->nb_line - 1;
+	j = 0;
+	while (i > 0)
+	{
+		j = 0;
+		while (is_sp(data->map[i][j]))
+			j++;
+		if (data->map[i][j] && !is_sp(data->map[i][j]))
+			break ;
+		i--;
+	}
+	data->nb_line = i + 1;
 }
 
 int	ft_parsing(int argc, char **argv, char **env, t_map *data)

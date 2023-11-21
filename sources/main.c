@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/20 11:01:26 by rmeriau           #+#    #+#             */
+/*   Updated: 2023/11/20 14:39:44 by rmeriau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	init_map(t_map *data)
@@ -100,6 +112,7 @@ int	main(int argc, char **argv, char **env)
 		return (free_all(&data), 1);
 	if (!get_map(&data, argv[1]))
 		return (free_all(&data), 1);
+	get_nb_line(&data);
 	if (!check_map(&data))
 		return (free_all(&data), 1);
 	direction_begin(&data);
