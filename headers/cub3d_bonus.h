@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 13:27:55 by aducobu           #+#    #+#             */
+/*   Updated: 2023/11/21 13:55:44 by aducobu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
@@ -7,15 +19,15 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <time.h>
+# include <unistd.h>
 
 # define PI 3.14159265358979323846
 # define ALPHA 0.8
 # define ALPHA_MOUSE 3
-# define uDiv 2
-# define vDiv 2
-# define vMove 500
+# define UDIV 2
+# define VDIV 2
+# define VMOVE 500
 
 typedef struct s_2D
 {
@@ -37,28 +49,28 @@ typedef struct s_image
 
 typedef struct s_ray
 {
-	double			cameraX;
-	double			rayDirX;
-	double			rayDirY;
-	int				mapX;
-	int				mapY;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	int				stepX;
-	int				stepY;
+	double			camera_x;
+	double			raydirx;
+	double			raydiry;
+	int				map_x;
+	int				map_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	int				step_x;
+	int				step_y;
 	int				hit;
 	int				side;
-	double			perpWallDist;
+	double			perp_wall_dist;
 	int				line_height;
 	int				pitch;
-	int				drawStart;
-	int				drawEnd;
+	int				draw_start;
+	int				draw_end;
 	int				wall_orient;
-	double			wallX;
+	double			wall_x;
 	double			step;
-	double			texPos;
+	double			tex_pos;
 }					t_ray;
 
 typedef struct s_sprite
@@ -77,29 +89,29 @@ typedef struct s_pair
 typedef struct s_coll
 {
 	t_sprite		*sprite;
-	double			*Zbuffer;
+	double			*z_buffer;
 	int				*sprite_order;
 	double			*sprite_dist;
 	double			spritex;
 	double			spritey;
-	double			invDet;
+	double			inv_det;
 	double			transformx;
 	double			transformy;
 	int				sprite_screenx;
-	int				spriteHeight;
-	int				drawStartY;
-	int				drawEndY;
-	int				spriteWidth;
-	int				drawStartX;
-	int				drawEndX;
-	int				texX;
+	int				sprite_height;
+	int				draw_starty;
+	int				draw_endy;
+	int				sprite_width;
+	int				draw_startx;
+	int				draw_endx;
+	int				tex_x;
 	int				d;
-	int				texY;
+	int				tex_y;
 	unsigned int	color;
 	clock_t			current_time;
 	double			elapsed_time;
 	int				stripe;
-	int 			vMoveScreen;
+	int				vmove_screen;
 }					t_coll;
 
 typedef struct s_map
@@ -116,25 +128,25 @@ typedef struct s_map
 	int				x_player;
 	int				y_player;
 	t_ray			ray;
-	double			posX;
-	double			posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	double			planex;
+	double			planey;
 	t_image			img;
 	t_image			main;
 	t_coll			sprite;
 	int				tex_width;
 	int				tex_height;
-	char			*path_N;
-	char			*path_S;
-	char			*path_E;
-	char			*path_W;
-	char			*path_D;
-	char			*path_CO;
-	char			*F_color;
-	char			*C_color;
+	char			*path_n;
+	char			*path_s;
+	char			*path_e;
+	char			*path_w;
+	char			*path_d;
+	char			*path_co;
+	char			*f_color;
+	char			*c_color;
 	int				**tex;
 	int				len_tex;
 	unsigned int	**buffer;
@@ -263,7 +275,7 @@ void				sort_order(t_pair *orders, int nb);
 void				sort_sprites(int *order, double *dist, int nb);
 // sprite casting
 void				take_coin(t_map *data);
-int					change_bright(int color, int red_value);
+void				change_bright(int color, int red_value, t_map *data, int y);
 void				color_texture(t_map *data, t_coll *s);
 void				texture_height(t_map *data, t_coll *s, int i);
 void				sprite_casting(t_map *data);

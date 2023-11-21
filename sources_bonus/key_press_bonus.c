@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_press_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 13:23:27 by aducobu           #+#    #+#             */
+/*   Updated: 2023/11/21 13:51:13 by aducobu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 int	key_press(int keycode, t_map *data)
@@ -33,7 +45,7 @@ int	key_release(int keycode, t_map *data)
 		data->a = 0;
 	else if (keycode == 101)
 	{
-		if (data->map[(int)data->posY][(int)data->posX] != 'D')
+		if (data->map[(int)data->posy][(int)data->posx] != 'D')
 		{
 			data->doors *= -1;
 		}
@@ -57,7 +69,6 @@ void	key_hook_part2(t_map *data)
 			mouse_x(data);
 		if (data->mx > (data->width / 2))
 			mouse_y(data);
-		// mlx_mouse_hide(data->mlx_ptr, data->win_ptr);
 	}
 	else
 	{

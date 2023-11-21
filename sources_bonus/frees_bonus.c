@@ -1,35 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   frees_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 13:23:04 by aducobu           #+#    #+#             */
+/*   Updated: 2023/11/21 13:55:44 by aducobu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	free_sprite(t_map *data)
 {
 	if (data->sprite.sprite)
 		free(data->sprite.sprite);
-	if (data->sprite.Zbuffer)
-		free(data->sprite.Zbuffer);
+	if (data->sprite.z_buffer)
+		free(data->sprite.z_buffer);
 	if (data->sprite.sprite_order)
 		free(data->sprite.sprite_order);
 	if (data->sprite.sprite_dist)
 		free(data->sprite.sprite_dist);
-	if (data->path_CO)
-		free(data->path_CO);
+	if (data->path_co)
+		free(data->path_co);
 }
 
 void	free_all2(t_map *data)
 {
-	if (data->path_N)
-		free(data->path_N);
-	if (data->path_S)
-		free(data->path_S);
-	if (data->path_E)
-		free(data->path_E);
-	if (data->path_W)
-		free(data->path_W);
-	if (data->path_D)
-		free(data->path_D);
-	if (data->C_color)
-		free(data->C_color);
-	if (data->F_color)
-		free(data->F_color);
+	if (data->path_n)
+		free(data->path_n);
+	if (data->path_s)
+		free(data->path_s);
+	if (data->path_e)
+		free(data->path_e);
+	if (data->path_w)
+		free(data->path_w);
+	if (data->path_d)
+		free(data->path_d);
+	if (data->c_color)
+		free(data->c_color);
+	if (data->f_color)
+		free(data->f_color);
 }
 
 void	free_all(t_map *data)

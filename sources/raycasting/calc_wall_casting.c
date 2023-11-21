@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_wall_casting.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:00:56 by rmeriau           #+#    #+#             */
-/*   Updated: 2023/11/20 11:00:57 by rmeriau          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:17:08 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_side(t_map *data)
 {
+	data->ray.hit = 0;
 	if (data->ray.raydirx < 0)
 	{
 		data->ray.stepx = -1;

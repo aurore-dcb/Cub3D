@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_config_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 13:21:48 by aducobu           #+#    #+#             */
+/*   Updated: 2023/11/21 13:55:44 by aducobu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 char	*do_check_config(t_map *data, char *line, int fd)
@@ -41,10 +53,10 @@ int	check_config(char **argv, t_map *data)
 	line = do_check_config(data, line, fd);
 	if (!line)
 		return (close(fd), 0);
-	if (!data->C_color || !data->F_color)
+	if (!data->c_color || !data->f_color)
 		return (printf("Error\nMissing color\n"), get_next_line(fd, 1),
 			free(line), close(fd), 0);
-	else if (!data->path_E || !data->path_N || !data->path_S || !data->path_W)
+	else if (!data->path_e || !data->path_n || !data->path_s || !data->path_w)
 	{
 		get_next_line(fd, 1);
 		return (printf("Error\nMissing texture\n"), free(line), close(fd), 0);

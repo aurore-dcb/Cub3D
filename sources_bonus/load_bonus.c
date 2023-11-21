@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 13:23:32 by aducobu           #+#    #+#             */
+/*   Updated: 2023/11/21 13:54:31 by aducobu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 int	load_img(t_map *data, t_image *img, char *path, int i)
@@ -31,21 +43,21 @@ int	load_img(t_map *data, t_image *img, char *path, int i)
 
 int	load_tex_part2(t_map *data)
 {
-	if (data->path_D && data->nb_doors)
+	if (data->path_d && data->nb_doors)
 	{
-		if (!load_img(data, &data->img, data->path_D, 4))
+		if (!load_img(data, &data->img, data->path_d, 4))
 			return (0);
 	}
-	if (data->path_CO && data->nb_sprites)
+	if (data->path_co && data->nb_sprites)
 	{
 		if (data->nb_doors)
 		{
-			if (!load_img(data, &data->img, data->path_CO, 5))
+			if (!load_img(data, &data->img, data->path_co, 5))
 				return (0);
 		}
 		else
 		{
-			if (!load_img(data, &data->img, data->path_CO, 4))
+			if (!load_img(data, &data->img, data->path_co, 4))
 				return (0);
 		}
 		if (!init_sprite(data))
@@ -59,13 +71,13 @@ int	load_tex(t_map *data)
 	data->tex = malloc(sizeof(int *) * (data->nb_tex));
 	if (!data->tex)
 		return (printf("Error\nMalloc\n"), 0);
-	if (!load_img(data, &data->img, data->path_N, 0))
+	if (!load_img(data, &data->img, data->path_n, 0))
 		return (0);
-	if (!load_img(data, &data->img, data->path_S, 1))
+	if (!load_img(data, &data->img, data->path_s, 1))
 		return (0);
-	if (!load_img(data, &data->img, data->path_W, 2))
+	if (!load_img(data, &data->img, data->path_w, 2))
 		return (0);
-	if (!load_img(data, &data->img, data->path_E, 3))
+	if (!load_img(data, &data->img, data->path_e, 3))
 		return (0);
 	if (!load_tex_part2(data))
 		return (0);

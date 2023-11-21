@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_casting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:01:09 by rmeriau           #+#    #+#             */
-/*   Updated: 2023/11/20 11:01:10 by rmeriau          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:17:37 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	pixel_color(t_map *data, int tex_x, int tex_y, int x)
 	int				y;
 	unsigned int	color;
 
-	y = data->ray.drawstart + 1;
+	y = data->ray.drawstart;
 	while (y <= data->ray.drawend)
 	{
 		tex_y = (int)data->ray.texpos & (data->tex_height - 1);

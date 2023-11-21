@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   floor_casting_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 13:22:47 by aducobu           #+#    #+#             */
+/*   Updated: 2023/11/21 13:55:44 by aducobu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 unsigned int	get_color(char *s)
@@ -26,8 +38,8 @@ void	floor_casting(t_map *data)
 	unsigned int	ceiling_color;
 	unsigned int	floor_color;
 
-	ceiling_color = get_color(data->C_color);
-	floor_color = get_color(data->F_color);
+	ceiling_color = get_color(data->c_color);
+	floor_color = get_color(data->f_color);
 	x = 0;
 	while (x < data->width)
 	{

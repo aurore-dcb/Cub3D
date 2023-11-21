@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_map_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 13:23:42 by aducobu           #+#    #+#             */
+/*   Updated: 2023/11/21 13:51:13 by aducobu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	end_draw_fixed(t_map *d, t_2D p, t_2D square, int pixel_size)
@@ -48,10 +60,10 @@ void	draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size)
 	t_2D	start;
 	t_2D	end;
 
-	start.x = (int)data->posX - view.x;
-	start.y = (int)data->posY - view.y;
-	end.x = data->posX + view.x;
-	end.y = data->posY + view.y;
+	start.x = (int)data->posx - view.x;
+	start.y = (int)data->posy - view.y;
+	end.x = data->posx + view.x;
+	end.y = data->posy + view.y;
 	do_draw_fixed(data, start, end, pixel_size);
 }
 
