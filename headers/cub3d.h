@@ -137,14 +137,14 @@ void				do_fill_map(t_map *data, char *lign, int i);
 int					fill_map(t_map *data, char *lign, int fd);
 int					get_map(t_map *data, char *file);
 // parsing_player
+int					test_rows(t_map *data);
 int					test_player(t_map *data);
 int					test_invalid_char(t_map *data);
-int					do_beg_parse_map(t_map *data, int i, int *empty_line);
 int					do_end_parse_map(t_map *data, int i, int empty_line);
 int					beg_parse_map(t_map *data);
 // parsing_test
-int					test_rows(t_map *data);
 int					test_cols_beg(t_map *data);
+int					do_test_cols_end(t_map *data, int i, int j);
 int					test_cols_end(t_map *data);
 int					do_test_empty(t_map *data, int i);
 int					test_empty(t_map *data);

@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_player.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rmeriau <rmeriau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:00:41 by rmeriau           #+#    #+#             */
-/*   Updated: 2023/11/21 10:53:49 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/21 11:32:59 by rmeriau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	test_rows(t_map *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->map[0])
+	{
+		while (data->map[0][i])
+		{
+			if (data->map[0][i] != '1' && !is_sp(data->map[0][i]))
+				return (0);
+			i++;
+		}
+	}
+	i = 0;
+	if (data->map[data->nb_line - 1])
+	{
+		while (data->map[data->nb_line - 1][i])
+		{
+			if (data->map[data->nb_line - 1][i] != '1'
+				&& !is_sp(data->map[data->nb_line - 1][i]))
+				return (0);
+			i++;
+		}
+	}
+	return (1);
+}
 
 int	test_player(t_map *data)
 {
@@ -56,26 +84,6 @@ int	test_invalid_char(t_map *data)
 	return (1);
 }
 
-int	do_beg_parse_map(t_map *data, int i, int *empty_line)
-{
-	int	j;
-
-	j = 0;
-	if (!data->map[i][0])
-	{
-		*empty_line = 1;
-		return (0);
-	}
-	while (is_sp(data->map[i][j]))
-		j++;
-	if (j == ft_strlen(data->map[i]))
-	{
-		*empty_line = 1;
-		return (0);
-	}
-	return (1);
-}
-
 int	do_end_parse_map(t_map *data, int i, int empty_line)
 {
 	int	j;
@@ -105,8 +113,11 @@ int	beg_parse_map(t_map *data)
 	empty_line = 0;
 	while (i < data->nb_line)
 	{
-		if (!do_beg_parse_map(data, i, &empty_line))
+		if (data->map[i][0] == '\n')
+		{
+			empty_line = 1;
 			break ;
+		}
 		i++;
 	}
 	i++;
