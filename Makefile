@@ -6,7 +6,7 @@
 #    By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 13:28:04 by aducobu           #+#    #+#              #
-#    Updated: 2023/11/21 13:28:05 by aducobu          ###   ########.fr        #
+#    Updated: 2023/11/21 14:03:49 by aducobu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,6 +117,7 @@ fclean:		clean
 
 norm:
 			norminette sources
+			norminette sources_bonus
 			norminette libft
 			norminette headers
 			

@@ -6,7 +6,7 @@
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:35:50 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/02 15:30:31 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:02:28 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static char	in_charset(char c)
 {
 	return (c == 32 || (c >= 9 && c <= 13));
 }
-
 
 static int	nb_mots(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: aducobu <aducobu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:37:52 by aducobu           #+#    #+#             */
-/*   Updated: 2023/11/02 16:57:52 by aducobu          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:03:19 by aducobu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_strlcpy(char *dst, const char *src, int dstsize)
 	return (ft_strlen(src));
 }
 
-char *ft_strcpy(char *dst, const char *src)
+char	*ft_strcpy(char *dst, const char *src)
 {
 	int	i;
 
@@ -41,5 +41,5 @@ char *ft_strcpy(char *dst, const char *src)
 		i++;
 	}
 	dst[i] = '\0';
-	return(dst);
+	return (dst);
 }
