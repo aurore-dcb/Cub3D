@@ -2,6 +2,7 @@
 
 void	init_map(t_map *data)
 {
+	data->start_time = clock();
 	ft_memset(data, 0, sizeof(t_map));
 	data->x_player = -1;
 	data->y_player = -1;

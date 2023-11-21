@@ -1,80 +1,5 @@
 #include "cub3d_bonus.h"
 
-#define uDiv 2
-#define vDiv 2
-#define vMove 500
-
-int nb_sprite(t_map *data)
-{
-	int x;
-	int y;
-	int nb;
-
-	y = 0;
-	nb = 0;
-	while (data->map[y])
-	{
-		x = 0;
-		while (data->map[y][x])
-		{
-			if (data->map[y][x] == 'C')
-				nb++;
-			x++;
-		}
-		y++;
-	}
-	return (nb);
-}
-
-void	sort_order(t_pair *orders, int nb)
-{
-	int		i;
-	int		j;
-	t_pair	tmp;
-
-	i = -1;
-	j = -1;
-	while (++i < nb)
-	{
-		while (++j < nb - 1)
-		{
-			if (orders[j].first > orders[j + 1].first)
-			{
-				tmp.first = orders[j].first;
-				tmp.second = orders[j].second;
-				orders[j].first = orders[j + 1].first;
-				orders[j].second = orders[j + 1].second;
-				orders[j + 1].first = tmp.first;
-				orders[j + 1].second = tmp.second;
-			}
-		}
-	}
-}
-
-void	sort_sprites(int *order, double *dist, int nb)
-{
-	int		i;
-	t_pair	*sprites;
-
-	i = -1;
-	sprites = malloc(sizeof(t_pair) * nb);
-	if (!sprites)
-		return ;
-	while (++i < nb)
-	{
-		sprites[i].first = dist[i];
-		sprites[i].second = order[i];
-	}
-	sort_order(sprites, nb);
-	i = -1;
-	while (++i < nb)
-	{
-		dist[i] = sprites[nb - i - 1].first;
-		order[i] = sprites[nb - i - 1].second;
-	}
-	free(sprites);
-}
-
 void take_coin(t_map *data)
 {
 	int i;
@@ -93,10 +18,93 @@ void take_coin(t_map *data)
 	}
 }
 
+int	change_bright(int color, int red_value)
+{
+    int alpha;
+    int red;
+    int green;
+    int blue;
+	int darkerColor;
+
+	alpha = (color >> 24) & 0xFF;
+    red = (color >> 16) & 0xFF;
+    green = (color >> 8) & 0xFF;
+    blue = color & 0xFF;
+    red -= red_value;
+    green -= red_value;
+    blue -= red_value;
+	if (red < 0)
+		red = 0;
+	if (green < 0)
+		green = 0;
+	if (blue < 0)
+		blue = 0;
+    darkerColor = (alpha << 24) | (red << 16) | (green << 8) | blue;
+    return (darkerColor);
+}
+
+void color_texture(t_map *data, t_coll *s)
+{
+	int y;
+
+	s->stripe = s->drawStartX - 1;
+	while (++s->stripe < s->drawEndX)
+	{
+		s->texX = (int)(256 * (s->stripe - (-s->spriteWidth / 2 + s->sprite_screenx)) * data->tex_width / s->spriteWidth) / 256;
+		if (s->transformy > 0 && s->transformy < s->Zbuffer[s->stripe] && s->stripe > 0 && s->stripe < data->width)
+		{
+			y = s->drawStartY;
+			while (y < s->drawEndY)
+			{
+				s->d = (y - s->vMoveScreen) * 256 - data->height * 128 + s->spriteHeight * 128;
+				s->texY = ((s->d * data->tex_height) / s->spriteHeight) / 256;
+				if (data->nb_doors)
+					s->color = data->tex[5][data->tex_width * s->texY + s->texX];
+				else
+					s->color = data->tex[4][data->tex_width * s->texY + s->texX];
+				if (fmod(s->elapsed_time, 0.3) >= 0.1)
+					s->color = change_bright(s->color, 20);
+				if ((s->color & 0x00FFFFFF) != 0)
+					data->buffer[y][s->stripe] = s->color;
+				y++;
+			}
+		}
+	}
+}
+
+void texture_height(t_map *data, t_coll *s, int i)
+{
+	s->spritex = s->sprite[s->sprite_order[i]].x - data->posX;
+	s->spritey = s->sprite[s->sprite_order[i]].y - data->posY;
+	s->invDet = 1.0 / (data->planeX * data->dirY - data->dirX
+			* data->planeY);
+	s->transformx = s->invDet * (data->dirY * s->spritex
+			+ data->dirX * s->spritey);
+	s->transformy = s->invDet * (-data->planeY * s->spritex
+			- data->planeX * s->spritey);
+	s->sprite_screenx = (int)((data->width / 2) * (1 + s->transformx
+				/ s->transformy));
+	s->vMoveScreen = (int)(vMove / s->transformy);
+	s->spriteHeight = abs((int)(data->height / s->transformy)) / vDiv;
+	s->drawStartY = -s->spriteHeight / 2 + data->height / 2 + s->vMoveScreen;
+	if (s->drawStartY < 0)
+		s->drawStartY = 0;
+	s->drawEndY = s->spriteHeight / 2 + data->height / 2 + s->vMoveScreen;
+	if (s->drawEndY >= data->height)
+		s->drawEndY = data->height - 1;
+	s->spriteWidth = abs((int)(data->height / s->transformy)) / uDiv;
+	s->drawStartX = -s->spriteWidth / 2 + s->sprite_screenx;
+	if (s->drawStartX < 0)
+		s->drawStartX = 0;
+	s->drawEndX = s->spriteWidth / 2 + s->sprite_screenx;
+	if (s->drawEndX > data->width)
+		s->drawEndX = data->width;
+}
+
 void	sprite_casting(t_map *data)
 {
-	int i;
-	t_coll *s;
+	int		i;
+	t_coll	*s;
 
 	s = &data->sprite;
 	i = -1;
@@ -112,52 +120,11 @@ void	sprite_casting(t_map *data)
 	i = -1;
 	while (++i < data->nb_sprites)
 	{
-		s->spritex = s->sprite[s->sprite_order[i]].x - data->posX;
-		s->spritey = s->sprite[s->sprite_order[i]].y - data->posY;
-		s->invDet = 1.0 / (data->planeX * data->dirY - data->dirX
-				* data->planeY);
-		s->transformx = s->invDet * (data->dirY * s->spritex
-				+ data->dirX * s->spritey);
-		s->transformy = s->invDet * (-data->planeY * s->spritex
-				- data->planeX * s->spritey);
-		s->sprite_screenx = (int)((data->width / 2) * (1 + s->transformx
-					/ s->transformy));
-		int vMoveScreen = (int)(vMove / s->transformy);
-		s->spriteHeight = abs((int)(data->height / s->transformy)) / vDiv;
-		s->drawStartY = -s->spriteHeight / 2 + data->height / 2 + vMoveScreen;
-		if (s->drawStartY < 0)
-			s->drawStartY = 0;
-		s->drawEndY = s->spriteHeight / 2 + data->height / 2 + vMoveScreen;
-		if (s->drawEndY >= data->height)
-			s->drawEndY = data->height - 1;
-		s->spriteWidth = abs((int)(data->height / s->transformy)) / uDiv;
-		s->drawStartX = -s->spriteWidth / 2 + s->sprite_screenx;
-		if (s->drawStartX < 0)
-			s->drawStartX = 0;
-		s->drawEndX = s->spriteWidth / 2 + s->sprite_screenx;
-		if (s->drawEndX > data->width)
-			s->drawEndX = data->width;
-		int stripe = s->drawStartX;
-		while (stripe < s->drawEndX)
-		{
-			s->texX = (int)(256 * (stripe - (-s->spriteWidth / 2 + s->sprite_screenx)) * data->tex_width / s->spriteWidth) / 256;
-			if (s->transformy > 0 && s->transformy < s->Zbuffer[stripe] && stripe > 0 && stripe < data->width)
-			{
-				int y = s->drawStartY;
-				while (y < s->drawEndY)
-				{
-					s->d = (y - vMoveScreen) * 256 - data->height * 128 + s->spriteHeight * 128;
-					s->texY = ((s->d * data->tex_height) / s->spriteHeight) / 256;
-					if (data->nb_doors)
-						s->color = data->tex[5][data->tex_width * s->texY + s->texX];
-					else
-						s->color = data->tex[4][data->tex_width * s->texY + s->texX];
-					if ((s->color & 0x00FFFFFF) != 0)
-						data->buffer[y][stripe] = s->color;
-					y++;
-				}
-			}
-			stripe++;
-		}
+		s->current_time = clock();
+		s->elapsed_time = (double)(s->current_time - data->start_time) / CLOCKS_PER_SEC;
+		if (i % 2 == 0)
+			s->elapsed_time -= 0.1;
+		texture_height(data, s, i);
+		color_texture(data, s);
 	}
 }

@@ -8,10 +8,14 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <time.h>
 
 # define PI 3.14159265358979323846
 # define ALPHA 0.8
 # define ALPHA_MOUSE 3
+# define uDiv 2
+# define vDiv 2
+# define vMove 500
 
 typedef struct s_2D
 {
@@ -76,25 +80,26 @@ typedef struct s_coll
 	double			*Zbuffer;
 	int				*sprite_order;
 	double			*sprite_dist;
-
 	double			spritex;
 	double			spritey;
 	double			invDet;
 	double			transformx;
 	double			transformy;
 	int				sprite_screenx;
-
 	int				spriteHeight;
 	int				drawStartY;
 	int				drawEndY;
 	int				spriteWidth;
 	int				drawStartX;
 	int				drawEndX;
-
 	int				texX;
 	int				d;
 	int				texY;
 	unsigned int	color;
+	clock_t			current_time;
+	double			elapsed_time;
+	int				stripe;
+	int 			vMoveScreen;
 }					t_coll;
 
 typedef struct s_map
@@ -147,13 +152,14 @@ typedef struct s_map
 	int				b_left;
 	int				nb_sprites;
 	int				nb_doors;
+	clock_t			start_time;
 }					t_map;
 
 // main
 void				init_map(t_map *data);
 int					load_img(t_map *data, t_image *img, char *path, int i);
 int					load_tex(t_map *data);
-int				loop(t_map *data);
+int					loop(t_map *data);
 // frees_utils
 void				free_tab(char **tab);
 void				free_tab_int(int **buf, t_map *data, int n);
@@ -171,8 +177,8 @@ void				d_key(t_map *data);
 int					key_hook(t_map *data);
 int					key_press(int keycode, t_map *data);
 int					key_release(int keycode, t_map *data);
-void	left_key(t_map *data);
-void	right_key(t_map *data);
+void				left_key(t_map *data);
+void				right_key(t_map *data);
 // mouse_key
 void				mouse_y(t_map *data);
 void				mouse_x(t_map *data);
@@ -211,7 +217,7 @@ int					test_empty(t_map *data);
 int					is_sp(char c);
 int					is_digit_map(char c);
 int					is_carac_minimap(char c);
-int    				is_carac_map(char c, t_map *data);
+int					is_carac_map(char c, t_map *data);
 int					test_valid_carac(char c, t_map *data);
 // parsing
 int					begin_line(char *line);
@@ -249,15 +255,21 @@ void				do_draw_fixed(t_map *d, t_2D start, t_2D end,
 						int pixel_size);
 void				draw_fixed_mini_map(t_map *data, t_2D view, int pixel_size);
 int					mini_map(t_map *data);
-
-void    		sprite_casting(t_map *data);
-int 			init_sprite(t_map *data);
-void				take_coin(t_map *data);
+// sprite utils
+void				fill_sprite(t_map *data);
+int					init_sprite(t_map *data);
 int					nb_sprite(t_map *data);
-
+void				sort_order(t_pair *orders, int nb);
+void				sort_sprites(int *order, double *dist, int nb);
+// sprite casting
+void				take_coin(t_map *data);
+int					change_bright(int color, int red_value);
+void				color_texture(t_map *data, t_coll *s);
+void				texture_height(t_map *data, t_coll *s, int i);
+void				sprite_casting(t_map *data);
 // load
-int	load_img(t_map *data, t_image *img, char *path, int i);
-int	load_tex_part2(t_map *data);
-int	load_tex(t_map *data);
+int					load_img(t_map *data, t_image *img, char *path, int i);
+int					load_tex_part2(t_map *data);
+int					load_tex(t_map *data);
 
 #endif

@@ -25,8 +25,8 @@ void	pixel_color(t_map *data, int tex_x, int tex_y, int x)
 	int				y;
 	unsigned int	color;
 
-	y = data->ray.drawStart;
-	while (y < data->ray.drawEnd)
+	y = data->ray.drawStart + 1;
+	while (y <= data->ray.drawEnd)
 	{
 		tex_y = (int)data->ray.texPos & (data->tex_height - 1);
 		data->ray.texPos += data->ray.step;
